@@ -5,9 +5,9 @@ namespace FileSignatures
 {
     public class FileTypeInspector : IFileTypeInspector
     {
-        public FileType Inspect(Stream stream)
+        public FileType DetermineFileType(Stream stream)
         {
-            throw new NotImplementedException();
+            return null;
         }
     }
 }

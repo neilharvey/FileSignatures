@@ -1,13 +1,25 @@
-﻿using Xunit;
+﻿using System.IO;
+using Xunit;
 
 namespace FileSignatures.Tests
 {
     public class FileTypeInspectorTests
     {
         [Fact]
-        public void XUnitVerification()
+        public void UnrecognisedFileTypeReturnsNull()
         {
-            Assert.True(true);
+            var inspector = new FileTypeInspector();
+            using (var stream = OpenSample("unknown"))
+            {
+                Assert.Null(inspector.DetermineFileType(stream));
+            }
+        }
+
+        private static FileStream OpenSample(string fileName)
+        {
+            var sample = new FileInfo($"Samples\\{fileName}");
+            var stream = sample.OpenRead();
+            return stream;
         }
     }
 }

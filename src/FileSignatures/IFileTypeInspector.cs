@@ -4,6 +4,6 @@ namespace FileSignatures
 {
     public interface IFileTypeInspector
     {
-        FileType Inspect(Stream stream);
+        FileType DetermineFileType(Stream stream);
     }
 }

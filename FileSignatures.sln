@@ -14,7 +14,7 @@ Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "FileSignatures", "src\FileS
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{D9653CFC-5C1F-4751-BE1E-B85EAAF73203}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "FileSignatures.Tests", "test\FileSignatures.Test\FileSignatures.Tests\FileSignatures.Tests.xproj", "{5FE9AF07-5928-482E-9917-285956E7731C}"
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "FileSignatures.Tests", "test\FileSignatures.Tests\FileSignatures.Tests.xproj", "{5FE9AF07-5928-482E-9917-285956E7731C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
