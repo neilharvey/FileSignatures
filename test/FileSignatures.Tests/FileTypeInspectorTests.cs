@@ -32,7 +32,7 @@ namespace FileSignatures.Tests
 
         private static FileStream OpenSample(string fileName)
         {
-            var sample = new FileInfo($"Samples\\{fileName}");
+            var sample = new FileInfo(Path.Combine("Samples", fileName));
             var stream = sample.OpenRead();
             return stream;
         }
