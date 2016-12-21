@@ -5,13 +5,28 @@ namespace FileSignatures.Tests
 {
     public class FileTypeInspectorTests
     {
+        FileTypeInspector inspector;
+
+        public FileTypeInspectorTests()
+        {
+             inspector = new FileTypeInspector();
+        }
+
         [Fact]
         public void UnrecognisedFileTypeReturnsNull()
         {
-            var inspector = new FileTypeInspector();
             using (var stream = OpenSample("unknown"))
             {
                 Assert.Null(inspector.DetermineFileType(stream));
+            }
+        }
+
+        [Fact]
+        public void JpgIsRecognised()
+        {
+            using (var stream = OpenSample("jpg.jpg"))
+            {
+                Assert.Equal(FileType.Jpeg, inspector.DetermineFileType(stream));
             }
         }
 
