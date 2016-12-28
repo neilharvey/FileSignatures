@@ -5,7 +5,6 @@ namespace FileSignatures.Tests
 {
     public class FileTypeInspectorTests
     {
-
         [Fact]
         public void UnrecognisedReturnsNull()
         {
@@ -15,16 +14,16 @@ namespace FileSignatures.Tests
         }
 
         [Theory]
-        [InlineData("jpg")]
-        [InlineData("bmp")]
-        [InlineData("gif")]
-        [InlineData("png")]
-        public void SamplesAreRecognised(string sample)
+        [InlineData("jpg", "image/jpeg")]
+        [InlineData("bmp", "image/bmp")]
+        [InlineData("gif", "image/gif")]
+        [InlineData("png", "image/png")]
+        public void SamplesAreRecognised(string sample, string expectedMimeType)
         {
             var result = InspectSample(sample);
 
             Assert.NotNull(result);
-            Assert.Equal(sample, result.Extension);
+            Assert.Equal(expectedMimeType, result.MimeType);
         }
 
         private static FileType InspectSample(string fileName)
