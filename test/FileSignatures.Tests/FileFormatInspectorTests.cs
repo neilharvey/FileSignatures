@@ -3,7 +3,7 @@ using Xunit;
 
 namespace FileSignatures.Tests
 {
-    public class FileTypeInspectorTests
+    public class FileFormatInspectorTests
     {
         [Fact]
         public void UnrecognisedReturnsNull()
