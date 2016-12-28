@@ -53,10 +53,14 @@ namespace FileSignatures
         private static ISet<FileType> DefaultFileTypes()
         {
             var types = new HashSet<FileType>();
+            types.Add(FileType.Doc);
+            types.Add(FileType.Docx);
             types.Add(FileType.Jpeg);
             types.Add(FileType.Bmp);
             types.Add(FileType.Gif);
             types.Add(FileType.Png);
+            types.Add(FileType.Pdf);
+            types.Add(FileType.Rtf);
             return types;
         }
     }

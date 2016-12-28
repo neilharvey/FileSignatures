@@ -14,15 +14,20 @@ namespace FileSignatures.Tests
         }
 
         [Theory]
-        [InlineData("jpg", "image/jpeg")]
         [InlineData("bmp", "image/bmp")]
+        [InlineData("doc", "application/msword")]
+        [InlineData("docx", "application/vnd.openxmlformats-officedocument.wordprocessingml.document")]
         [InlineData("gif", "image/gif")]
+        [InlineData("jpg", "image/jpeg")]
+        [InlineData("pdf", "application/pdf")]
+        [InlineData("rtf","application/rtf")]
         [InlineData("png", "image/png")]
         public void SamplesAreRecognised(string sample, string expectedMimeType)
         {
             var result = InspectSample(sample);
 
             Assert.NotNull(result);
+            Assert.Equal(sample, result.Extension);
             Assert.Equal(expectedMimeType, result.MimeType);
         }
 
