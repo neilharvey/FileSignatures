@@ -1,4 +1,8 @@
-﻿namespace FileSignatures
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
+
+namespace FileSignatures
 {
     public class FileType
     {
@@ -18,6 +22,17 @@
 
         public static readonly FileType Rtf = new FileType(new byte[] { 0x7B, 0x5C, 0x72, 0x74, 0x66, 0x31 }, "rtf", "application/rtf");
 
+        private static IEnumerable<FileType> all;
+
+        static FileType()
+        {
+            all = typeof(FileType)
+                .GetTypeInfo()
+                .GetFields(BindingFlags.Public | BindingFlags.Static)
+                .Select(f => f.GetValue(null))
+                .OfType<FileType>();
+        }
+
         public FileType(byte[] signature, string extension, string mimeType)
         {
             Signature = signature;
@@ -30,5 +45,10 @@
         public string Extension { get; }
 
         public string MimeType { get; }
+
+        public static IEnumerable<FileType> GetAll()
+        {
+            return all;
+        }
     }
 }

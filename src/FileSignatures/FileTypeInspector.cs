@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 
 namespace FileSignatures
 {
     public class FileTypeInspector : IFileTypeInspector
     {
-        public FileTypeInspector() : this(DefaultFileTypes())
+        public FileTypeInspector() : this(new HashSet<FileType>(FileType.GetAll()))
         {
         }
 
@@ -48,20 +46,6 @@ namespace FileSignatures
             }
 
             return null;
-        }
-
-        private static ISet<FileType> DefaultFileTypes()
-        {
-            var types = new HashSet<FileType>();
-            types.Add(FileType.Doc);
-            types.Add(FileType.Docx);
-            types.Add(FileType.Jpeg);
-            types.Add(FileType.Bmp);
-            types.Add(FileType.Gif);
-            types.Add(FileType.Png);
-            types.Add(FileType.Pdf);
-            types.Add(FileType.Rtf);
-            return types;
         }
     }
 }
