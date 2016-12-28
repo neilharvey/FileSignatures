@@ -3,25 +3,25 @@ using System.IO;
 
 namespace FileSignatures
 {
-    public class FileTypeInspector : IFileTypeInspector
+    public class FileFormatInspector : IFileFormatInspector
     {
-        public FileTypeInspector() : this(new HashSet<FileType>(FileType.GetAll()))
+        public FileFormatInspector() : this(new HashSet<FileFormat>(FileFormat.GetAll()))
         {
         }
 
-        public FileTypeInspector(ISet<FileType> recognisedTypes)
+        public FileFormatInspector(ISet<FileFormat> recognisedTypes)
         {
             RecognisedTypes = recognisedTypes;
         }
 
-        public ISet<FileType> RecognisedTypes { get; }
+        public ISet<FileFormat> RecognisedTypes { get; }
 
-        public FileType DetermineFileType(Stream stream)
+        public FileFormat DetermineFileFormat(Stream stream)
         {
-            byte[] buffer = new byte[FileType.Jpeg.Signature.Length];
+            byte[] buffer = new byte[FileFormat.Jpeg.Signature.Length];
             stream.Read(buffer, 0, buffer.Length);
 
-            var candidates = new List<FileType>(RecognisedTypes);
+            var candidates = new List<FileFormat>(RecognisedTypes);
 
             for (int i = 0; i < buffer.Length; i++)
             {

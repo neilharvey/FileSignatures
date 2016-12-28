@@ -9,13 +9,13 @@ namespace FileSignatures.Tests
         [Fact]
         public void StaticFileTypesCanBeEnumerated()
         {
-            var expected = typeof(FileType)
+            var expected = typeof(FileFormat)
                 .GetTypeInfo()
                 .GetFields(BindingFlags.Public | BindingFlags.Static)
                 .Select(f => f.GetValue(null))
-                .OfType<FileType>();
+                .OfType<FileFormat>();
 
-            var result = FileType.GetAll();
+            var result = FileFormat.GetAll();
 
             Assert.Equal(expected, result);
         }

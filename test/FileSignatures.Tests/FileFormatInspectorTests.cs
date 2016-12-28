@@ -28,18 +28,18 @@ namespace FileSignatures.Tests
 
             Assert.NotNull(result);
             Assert.Equal(sample, result.Extension);
-            Assert.Equal(expectedMimeType, result.MimeType);
+            Assert.Equal(expectedMimeType, result.MediaType);
         }
 
-        private static FileType InspectSample(string fileName)
+        private static FileFormat InspectSample(string fileName)
         {
-            var inspector = new FileTypeInspector();
+            var inspector = new FileFormatInspector();
             var sample = new FileInfo(Path.Combine("Samples", fileName));
-            FileType result;
+            FileFormat result;
 
             using (var stream = sample.OpenRead())
             {
-                result = inspector.DetermineFileType(stream);
+                result = inspector.DetermineFileFormat(stream);
             }
 
             return result;
