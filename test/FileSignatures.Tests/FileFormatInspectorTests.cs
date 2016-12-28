@@ -1,4 +1,6 @@
-﻿using System.IO;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
 using Xunit;
 
 namespace FileSignatures.Tests
@@ -31,6 +33,19 @@ namespace FileSignatures.Tests
             Assert.Equal(expectedMimeType, result.MediaType);
         }
 
+        [Fact]
+        public void StreamIsReadUntilRequiredBufferIsReceived()
+        {
+            var expected = new FileFormat(new byte[] { 0x00, 0x01 }, "x", "example/x");
+            var incorrect = new FileFormat(new byte[] { 0x00, 0x02 }, "y", "example/y");
+            var stream = new FragmentedStream(new byte[] { 0x00, 0x01, 0x03});
+            var inspector = new FileFormatInspector(new HashSet<FileFormat>() { expected, incorrect });
+
+            var result = inspector.DetermineFileFormat(stream);
+
+            Assert.Equal(expected, result);
+        }
+
         private static FileFormat InspectSample(string fileName)
         {
             var inspector = new FileFormatInspector();
@@ -43,6 +58,18 @@ namespace FileSignatures.Tests
             }
 
             return result;
+        }
+
+        private class FragmentedStream : MemoryStream
+        {
+            public FragmentedStream(byte[] buffer) : base(buffer)
+            {
+            }
+
+            public override int Read(byte[] buffer, int offset, int count)
+            {
+                return base.Read(buffer, offset, 1);
+            }
         }
     }
 }
