@@ -12,7 +12,7 @@ namespace FileSignatures.Tests
         [InlineData(new byte[] { })]
         public void SignatureCannotBeNullOrEmpty(byte[] badSignature)
         {
-            Assert.Throws<ArgumentNullException>(() => new FileFormat(badSignature, "bad", "example/bad"));
+            Assert.Throws<ArgumentNullException>(() => new FileFormat(badSignature, "example/bad", "bad"));
         }
 
         [Theory]
@@ -20,7 +20,7 @@ namespace FileSignatures.Tests
         [InlineData("")]
         public void MediaTypeCannotBeNullOrEmpty(string badMediaType)
         {
-            Assert.Throws<ArgumentNullException>(() => new FileFormat(new byte[] { 0x01}, "bad", badMediaType));
+            Assert.Throws<ArgumentNullException>(() => new FileFormat(new byte[] { 0x01 }, badMediaType, "bad"));
         }
 
         [Fact]
@@ -40,8 +40,8 @@ namespace FileSignatures.Tests
         [Fact]
         public void EqualityIsBasedOnSignature()
         {
-            var first = new FileFormat(new byte[] { 0x01 }, "1", "example/one");
-            var second = new FileFormat(new byte[] { 0x01 }, "2", "example/two");
+            var first = new FileFormat(new byte[] { 0x01 }, "example/one", "1");
+            var second = new FileFormat(new byte[] { 0x01 }, "example/two", "2");
 
             Assert.Equal(first, second);
         }
@@ -49,8 +49,8 @@ namespace FileSignatures.Tests
         [Fact]
         public void GetHashCodeIsBasedOnSignature()
         {
-            var first = new FileFormat(new byte[] { 0x01 }, "1", "example/one");
-            var second = new FileFormat(new byte[] { 0x01 }, "2", "example/two");
+            var first = new FileFormat(new byte[] { 0x01 }, "example/one", "1");
+            var second = new FileFormat(new byte[] { 0x01 }, "example/two", "2");
 
             Assert.Equal(first.GetHashCode(), second.GetHashCode());
         }
@@ -58,7 +58,7 @@ namespace FileSignatures.Tests
         [Fact]
         public void MatchesHeaderContainingSignature()
         {
-            var format = new FileFormat(new byte[] { 0x6F, 0x3C }, "", "example/sim");
+            var format = new FileFormat(new byte[] { 0x6F, 0x3C }, "example/sim", "");
             var header = new byte[] { 0x6F, 0x3c, 0xFF, 0xFA };
 
             Assert.True(format.IsMatch(header));
@@ -69,7 +69,7 @@ namespace FileSignatures.Tests
         [InlineData(new byte[] { 0x3C, 0x6F })]
         public void DoesNotMatchDifferentHeader(byte[] header)
         {
-            var format = new FileFormat(new byte[] { 0x6F, 0x3C }, "", "example/sim");
+            var format = new FileFormat(new byte[] { 0x6F, 0x3C }, "example/sim", "");
 
             Assert.False(format.IsMatch(header));
         }

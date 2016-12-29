@@ -38,8 +38,8 @@ namespace FileSignatures.Tests
         [Fact]
         public void StreamIsReadUntilRequiredBufferIsReceived()
         {
-            var expected = new FileFormat(new byte[] { 0x00, 0x01 }, "x", "example/x");
-            var incorrect = new FileFormat(new byte[] { 0x00, 0x02 }, "y", "example/y");
+            var expected = new FileFormat(new byte[] { 0x00, 0x01 }, "example/x", "x");
+            var incorrect = new FileFormat(new byte[] { 0x00, 0x02 }, "example/y", "y");
             var stream = new FragmentedStream(new byte[] { 0x00, 0x01, 0x03});
             var inspector = new FileFormatInspector(new HashSet<FileFormat>() { expected, incorrect });
 

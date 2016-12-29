@@ -8,11 +8,11 @@ namespace FileSignatures
 {
     public partial class FileFormat
     {
-        public FileFormat(byte[] signature, string extension, string mediaType) : this(signature, signature == null ? 0 : signature.Length, extension, mediaType)
+        public FileFormat(byte[] signature, string mediaType, string extension) : this(signature, signature == null ? 0 : signature.Length, mediaType, extension)
         {
         }
 
-        public FileFormat(byte[] signature, int headerLength, string extension, string mediaType)
+        public FileFormat(byte[] signature, int headerLength, string mediaType, string extension)
         {
             if (signature == null || signature.Length == 0)
             {
