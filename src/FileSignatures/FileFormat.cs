@@ -6,12 +6,28 @@ using System.Reflection;
 
 namespace FileSignatures
 {
+    /// <summary>
+    /// Specifies the format of a file.
+    /// </summary>
     public partial class FileFormat
     {
+        /// <summary>
+        /// Initializes a new instance of the FileFormat class which has the specified signature and media type.
+        /// </summary>
+        /// <param name="signature">The header signature of the format.</param>
+        /// <param name="mediaType">The media type of the format.</param>
+        /// <param name="extension">The appropriate extension for the format.</param>
         public FileFormat(byte[] signature, string mediaType, string extension) : this(signature, signature == null ? 0 : signature.Length, mediaType, extension)
         {
         }
 
+        /// <summary>
+        /// Initializes a new instance of the FileFormat class which has the specified signature and media type.
+        /// </summary>
+        /// <param name="signature">The header signature of the format.</param>
+        /// <param name="headerLength">The number of bytes required to determine the format.</param>
+        /// <param name="mediaType">The media type of the format.</param>
+        /// <param name="extension">The appropriate file extension for the format.</param>
         public FileFormat(byte[] signature, int headerLength, string mediaType, string extension)
         {
             if (signature == null || signature.Length == 0)
@@ -30,14 +46,30 @@ namespace FileSignatures
             MediaType = mediaType;
         }
 
+        /// <summary>
+        /// Gets a byte signature which can be used to identify the file format.
+        /// </summary>
         public ReadOnlyCollection<byte> Signature { get; }
 
+        /// <summary>
+        /// Gets the number of bytes required to determine the format.
+        /// </summary>
         public int HeaderLength { get; }
 
+        /// <summary>
+        /// Gets the appropriate file extension for the format.
+        /// </summary>
         public string Extension { get; }
 
+        /// <summary>
+        /// Gets the media type identifier for the format.
+        /// </summary>
         public string MediaType { get; }
 
+        /// <summary>
+        /// Returns a value indicating whether the format matches a file header.
+        /// </summary>
+        /// <param name="header">The header to check.</param>
         public virtual bool IsMatch(byte[] header)
         {
             if (header == null || header.Length < HeaderLength)
@@ -56,6 +88,9 @@ namespace FileSignatures
             return true;
         }
 
+        /// <summary>
+        /// Returns all known file formats.
+        /// </summary>
         public static IEnumerable<FileFormat> GetAll()
         {
             return typeof(FileFormat)
@@ -65,6 +100,10 @@ namespace FileSignatures
                 .OfType<FileFormat>();
         }
 
+        /// <summary>
+        /// Determines whether the object is equal to this FileFormat.
+        /// </summary>
+        /// <param name="obj">The object to compare.</param>
         public override bool Equals(object obj)
         {
             var fileFormat = obj as FileFormat;
@@ -79,6 +118,9 @@ namespace FileSignatures
             }
         }
 
+        /// <summary>
+        /// Serves as the default hash function.
+        /// </summary>
         public override int GetHashCode()
         {
             unchecked

@@ -5,25 +5,45 @@ using System.Linq;
 
 namespace FileSignatures
 {
+    /// <summary>
+    /// Provides a mechanism to determine the format of a file.
+    /// </summary>
     public class FileFormatInspector : IFileFormatInspector
     {
+        private IEnumerable<FileFormat> knownFormats;
+
+        /// <summary>
+        /// Initialises a new FileFormatInspector instance which can determine the default file formats.
+        /// </summary>
         public FileFormatInspector() : this(FileFormat.GetAll())
         {
         }
 
-        public FileFormatInspector(IEnumerable<FileFormat> recognisedTypes)
+        /// <summary>
+        /// Initialises a new FileFormatInspector instance which can determine the specified file formats.
+        /// </summary>
+        /// <param name="formats">The formats which are recognised.</param>
+        public FileFormatInspector(IEnumerable<FileFormat> formats)
         {
-            RecognisedTypes = recognisedTypes;
+            if (formats == null)
+            {
+                throw new ArgumentNullException(nameof(formats));
+            }
+
+            knownFormats = formats;
         }
 
-        public IEnumerable<FileFormat> RecognisedTypes { get; }
-
+        /// <summary>
+        /// Determines the format of a file.
+        /// </summary>
+        /// <param name="stream">A stream containing the file content.</param>
+        /// <returns>An instance of a matching file format, or null if the format could not be determined.</returns>
         public FileFormat DetermineFileFormat(Stream stream)
         {
             var bufferLength = stream.Length;
             var bytesRead = 0;
             var header = new byte[bufferLength];
-            var candidates = RecognisedTypes
+            var candidates = knownFormats
                 .OrderBy(t => t.HeaderLength)
                 .ToList();
 
@@ -46,7 +66,7 @@ namespace FileSignatures
             return null;
         }
 
-        private int ReadHeaderBytes(Stream stream, byte[] buffer, int initialPosition, int readToPosition)
+        private static int ReadHeaderBytes(Stream stream, byte[] buffer, int initialPosition, int readToPosition)
         {
             var bytesRead = 0;
             var remaining = Math.Min(readToPosition, buffer.Length) - initialPosition;

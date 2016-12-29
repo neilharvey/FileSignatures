@@ -3,10 +3,19 @@ using System.Collections.ObjectModel;
 
 namespace FileSignatures
 {
+    /// <summary>
+    /// Specifies the format of an OLE Compound File.
+    /// </summary>
     public class OleCompoundFileFormat : FileFormat
     {
-        private const int subHeaderOffset = 512;
+        private const int SubHeaderOffset = 512;
 
+        /// <summary>
+        /// Initialises a new instance of the OleCompoundFileFormat.
+        /// </summary>
+        /// <param name="subHeader">The subheader which determines the file content.</param>
+        /// <param name="mediaType">The media type of the format.</param>
+        /// <param name="extension">The appropriate extension for the format.</param>
         public OleCompoundFileFormat(byte[] subHeader, string mediaType, string extension) : base(
             new byte[] { 0xD0, 0xCF, 0x11, 0xE0, 0xA1, 0xB1, 0x1A, 0xE1 },
             subHeader == null ? 0 : 512 + subHeader.Length,
@@ -21,8 +30,15 @@ namespace FileSignatures
             SubHeader = new ReadOnlyCollection<byte>(subHeader);
         }
 
+        /// <summary>
+        /// Gets the subheader which can be used to identify the file content.
+        /// </summary>
         public ReadOnlyCollection<byte> SubHeader { get; }
 
+        /// <summary>
+        /// Returns a value indicating whether the format matches a file header.
+        /// </summary>
+        /// <param name="header">The header to check.</param>
         public override bool IsMatch(byte[] header)
         {
             if (!base.IsMatch(header))
@@ -32,7 +48,7 @@ namespace FileSignatures
 
             for (int i = 0; i < SubHeader.Count; i++)
             {
-                if (header[i + subHeaderOffset] != SubHeader[i])
+                if (header[i + SubHeaderOffset] != SubHeader[i])
                 {
                     return false;
                 }
