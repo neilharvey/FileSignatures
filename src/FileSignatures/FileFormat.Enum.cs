@@ -6,7 +6,7 @@
 
         public static readonly FileFormat Doc = new OleCompoundFileFormat(new byte[] { 0xEC, 0xA5, 0xC1, 0x00 }, "application/msword", "doc");
 
-        public static readonly FileFormat Docx = new FileFormat(new byte[] { 0x50, 0x4B, 0x03, 0x04 }, "application/vnd.openxmlformats-officedocument.wordprocessingml.document", "docx");
+        public static readonly FileFormat Docx = new OfficeOpenXmlFormat("word/document.xml", "application/vnd.openxmlformats-officedocument.wordprocessingml.document", "docx");
 
         public static readonly FileFormat Gif = new FileFormat(new byte[] { 0x47, 0x49, 0x46, 0x38 }, "image/gif", "gif");
 
@@ -21,5 +21,9 @@
         public static readonly FileFormat Rtf = new FileFormat(new byte[] { 0x7B, 0x5C, 0x72, 0x74, 0x66, 0x31 }, "application/rtf", "rtf");
 
         public static readonly FileFormat Xls = new OleCompoundFileFormat(new byte[] { 0x09, 0x08, 0x10, 0x00 }, "application/vnd.ms-excel", "xls");
+
+        public static readonly FileFormat Xps = new OfficeOpenXmlFormat("FixedDocSeq.fdseq", "application/vnd.ms-xpsdocument", "xps");
+
+        public static readonly FileFormat Xlsx = new OfficeOpenXmlFormat("xl/workbook.xml", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "xlsx");
     }
 }

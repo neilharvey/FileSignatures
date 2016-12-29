@@ -52,7 +52,8 @@ namespace FileSignatures
         public ReadOnlyCollection<byte> Signature { get; }
 
         /// <summary>
-        /// Gets the number of bytes required to determine the format.
+        /// Gets the number of bytes required to determine the format.  
+        /// A value of <see cref="int.MaxValue"/> indicates that the entire file is required to determine the format.
         /// </summary>
         public int HeaderLength { get; }
 
@@ -72,7 +73,7 @@ namespace FileSignatures
         /// <param name="header">The header to check.</param>
         public virtual bool IsMatch(byte[] header)
         {
-            if (header == null || header.Length < HeaderLength)
+            if (header == null || (header.Length < HeaderLength && HeaderLength < int.MaxValue))
             {
                 return false;
             }
