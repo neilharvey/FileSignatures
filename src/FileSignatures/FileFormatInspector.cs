@@ -6,42 +6,36 @@ namespace FileSignatures
 {
     public class FileFormatInspector : IFileFormatInspector
     {
-        public FileFormatInspector() : this(new HashSet<FileFormat>(FileFormat.GetAll()))
+        public FileFormatInspector() : this(FileFormat.GetAll())
         {
         }
 
-        public FileFormatInspector(ISet<FileFormat> recognisedTypes)
+        public FileFormatInspector(IEnumerable<FileFormat> recognisedTypes)
         {
             RecognisedTypes = recognisedTypes;
         }
 
-        public ISet<FileFormat> RecognisedTypes { get; }
+        public IEnumerable<FileFormat> RecognisedTypes { get; }
 
         public FileFormat DetermineFileFormat(Stream stream)
         {
             var header = ReadHeaderBytes(stream);
-            var candidates = new List<FileFormat>(RecognisedTypes);
+            var candidates = RecognisedTypes
+                .OrderBy(t => t.HeaderLength)
+                .ToList();
 
-            for (int i = 0; i < header.Length; i++)
+            for (int j = 0; j < candidates.Count; j++)
             {
-                for (int j = 0; j < candidates.Count; j++)
+                if (!candidates[j].IsMatch(header))
                 {
-                    if (candidates[j].Signature.Length - 1 < i || header[i] != candidates[j].Signature[i])
-                    {
-                        candidates.RemoveAt(j);
-                        j--;
-                    }
+                    candidates.RemoveAt(j);
+                    j--;
                 }
+            }
 
-                if (candidates.Count == 1)
-                {
-                    return candidates[0];
-                }
-
-                if (candidates.Count == 0)
-                {
-                    break;
-                }
+            if (candidates.Count == 1)
+            {
+                return candidates[0];
             }
 
             return null;
@@ -49,7 +43,7 @@ namespace FileSignatures
 
         private static byte[] ReadHeaderBytes(Stream stream)
         {
-            var bufferLength = FileFormat.GetAll().Max(t => t.Signature.Length);
+            var bufferLength = FileFormat.GetAll().Max(t => t.HeaderLength);
             var buffer = new byte[bufferLength];
 
             var offset = 0;

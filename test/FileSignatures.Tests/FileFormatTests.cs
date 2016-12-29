@@ -15,6 +15,14 @@ namespace FileSignatures.Tests
             Assert.Throws<ArgumentNullException>(() => new FileFormat(badSignature, "bad", "example/bad"));
         }
 
+        [Theory]
+        [InlineData(null)]
+        [InlineData("")]
+        public void MediaTypeCannotBeNullOrEmpty(string badMediaType)
+        {
+            Assert.Throws<ArgumentNullException>(() => new FileFormat(new byte[] { 0x01}, "bad", badMediaType));
+        }
+
         [Fact]
         public void StaticFileTypesCanBeEnumerated()
         {
@@ -45,6 +53,25 @@ namespace FileSignatures.Tests
             var second = new FileFormat(new byte[] { 0x01 }, "2", "example/two");
 
             Assert.Equal(first.GetHashCode(), second.GetHashCode());
+        }
+
+        [Fact]
+        public void MatchesHeaderContainingSignature()
+        {
+            var format = new FileFormat(new byte[] { 0x6F, 0x3C }, "", "example/sim");
+            var header = new byte[] { 0x6F, 0x3c, 0xFF, 0xFA };
+
+            Assert.True(format.IsMatch(header));
+        }
+
+        [Theory]
+        [InlineData(new byte[] { 0x6F })]
+        [InlineData(new byte[] { 0x3C, 0x6F })]
+        public void DoesNotMatchDifferentHeader(byte[] header)
+        {
+            var format = new FileFormat(new byte[] { 0x6F, 0x3C }, "", "example/sim");
+
+            Assert.False(format.IsMatch(header));
         }
     }
 }

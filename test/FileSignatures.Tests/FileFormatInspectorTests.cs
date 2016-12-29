@@ -24,6 +24,8 @@ namespace FileSignatures.Tests
         [InlineData("pdf", "application/pdf")]
         [InlineData("rtf","application/rtf")]
         [InlineData("png", "image/png")]
+        [InlineData("ppt", "application/vnd.ms-powerpoint")]
+        [InlineData("xls", "application/vnd.ms-excel")]
         public void SamplesAreRecognised(string sample, string expectedMimeType)
         {
             var result = InspectSample(sample);
