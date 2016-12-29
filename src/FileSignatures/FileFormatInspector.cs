@@ -10,17 +10,17 @@ namespace FileSignatures
         {
         }
 
-        public FileFormatInspector(IEnumerable<FileFormat> recognisedTypes)
+        public FileFormatInspector(IEnumerable<FileFormat> recognizedTypes)
         {
-            RecognisedTypes = recognisedTypes;
+            RecognizedTypes = recognizedTypes;
         }
 
-        public IEnumerable<FileFormat> RecognisedTypes { get; }
+        public IEnumerable<FileFormat> RecognizedTypes { get; }
 
         public FileFormat DetermineFileFormat(Stream stream)
         {
             var header = ReadHeaderBytes(stream);
-            var candidates = RecognisedTypes
+            var candidates = RecognizedTypes
                 .OrderBy(t => t.HeaderLength)
                 .ToList();
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reflection;
 
@@ -7,40 +8,29 @@ namespace FileSignatures
 {
     public partial class FileFormat
     {
-        private static IEnumerable<FileFormat> all;
-
-        static FileFormat()
-        {
-            all = typeof(FileFormat)
-                .GetTypeInfo()
-                .GetFields(BindingFlags.Public | BindingFlags.Static)
-                .Select(f => f.GetValue(null))
-                .OfType<FileFormat>();
-        }
-
         public FileFormat(byte[] signature, string extension, string mediaType) : this(signature, signature == null ? 0 : signature.Length, extension, mediaType)
         {
         }
 
         public FileFormat(byte[] signature, int headerLength, string extension, string mediaType)
         {
-            if(signature == null || signature.Length == 0)
+            if (signature == null || signature.Length == 0)
             {
                 throw new ArgumentNullException(nameof(signature));
             }
 
-            if(string.IsNullOrEmpty(mediaType))
+            if (string.IsNullOrEmpty(mediaType))
             {
                 throw new ArgumentNullException(nameof(mediaType));
             }
 
-            Signature = signature;
+            Signature = new ReadOnlyCollection<byte>(signature);
             HeaderLength = headerLength;
             Extension = extension;
             MediaType = mediaType;
         }
 
-        public byte[] Signature { get; }
+        public ReadOnlyCollection<byte> Signature { get; }
 
         public int HeaderLength { get; }
 
@@ -50,14 +40,14 @@ namespace FileSignatures
 
         public virtual bool IsMatch(byte[] header)
         {
-            if(header == null || header.Length < HeaderLength)
+            if (header == null || header.Length < HeaderLength)
             {
                 return false;
             }
 
-            for(int i=0; i< Signature.Length; i++)
+            for (int i = 0; i < Signature.Count; i++)
             {
-                if(header[i] != Signature[i])
+                if (header[i] != Signature[i])
                 {
                     return false;
                 }
@@ -68,14 +58,18 @@ namespace FileSignatures
 
         public static IEnumerable<FileFormat> GetAll()
         {
-            return all;
+            return typeof(FileFormat)
+                .GetTypeInfo()
+                .GetFields(BindingFlags.Public | BindingFlags.Static)
+                .Select(f => f.GetValue(null))
+                .OfType<FileFormat>();
         }
 
         public override bool Equals(object obj)
         {
             var fileFormat = obj as FileFormat;
 
-            if(fileFormat == null)
+            if (fileFormat == null)
             {
                 return false;
             }

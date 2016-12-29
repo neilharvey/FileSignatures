@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 
 namespace FileSignatures
 {
@@ -17,10 +18,10 @@ namespace FileSignatures
                 throw new ArgumentNullException(nameof(subHeader));
             }
 
-            SubHeader = subHeader;
+            SubHeader = new ReadOnlyCollection<byte>(subHeader);
         }
 
-        public byte[] SubHeader { get; }
+        public ReadOnlyCollection<byte> SubHeader { get; }
 
         public override bool IsMatch(byte[] header)
         {
@@ -29,9 +30,9 @@ namespace FileSignatures
                 return false;
             }
 
-            for (int i = 0; i < SubHeader.Length; i++)
+            for (int i = 0; i < SubHeader.Count; i++)
             {
-                if (header[i+subHeaderOffset] != SubHeader[i])
+                if (header[i + subHeaderOffset] != SubHeader[i])
                 {
                     return false;
                 }
