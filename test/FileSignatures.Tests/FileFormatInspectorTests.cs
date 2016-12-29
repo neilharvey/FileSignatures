@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
+﻿using System.IO;
 using Xunit;
 
 namespace FileSignatures.Tests
@@ -22,7 +20,7 @@ namespace FileSignatures.Tests
         [InlineData("gif", "image/gif")]
         [InlineData("jpg", "image/jpeg")]
         [InlineData("pdf", "application/pdf")]
-        [InlineData("rtf","application/rtf")]
+        [InlineData("rtf", "application/rtf")]
         [InlineData("png", "image/png")]
         [InlineData("ppt", "application/vnd.ms-powerpoint")]
         [InlineData("xls", "application/vnd.ms-excel")]
@@ -40,12 +38,32 @@ namespace FileSignatures.Tests
         {
             var expected = new FileFormat(new byte[] { 0x00, 0x01 }, "example/x", "x");
             var incorrect = new FileFormat(new byte[] { 0x00, 0x02 }, "example/y", "y");
-            var stream = new FragmentedStream(new byte[] { 0x00, 0x01, 0x03});
-            var inspector = new FileFormatInspector(new HashSet<FileFormat>() { expected, incorrect });
+            var inspector = new FileFormatInspector(new FileFormat[] { expected, incorrect });
+            FileFormat result;
 
-            var result = inspector.DetermineFileFormat(stream);
+            using (var fragmentedStream = new FragmentedStream(new byte[] { 0x00, 0x01, 0x03 }))
+            {
+                result = inspector.DetermineFileFormat(fragmentedStream);
+            }
 
             Assert.Equal(expected, result);
+        }
+
+        [Fact]
+        public void StreamIsNotFullyReadUnlessRequired()
+        {
+            var shortSignature = new FileFormat(new byte[] { 0x00, 0x01 }, "example/a", "a");
+            var longSignaure = new FileFormat(new byte[] { 0x00, 0x01, 0x02 }, "example/b", "b");
+            var inspector = new FileFormatInspector(new FileFormat[] { shortSignature, longSignaure });
+            var position = 0L;
+
+            using (var stream = new MemoryStream(new byte[] { 0x00, 0x01, 0x02, 0x03, 0x04 }))
+            {
+                inspector.DetermineFileFormat(stream);
+                position = stream.Position;
+            }
+
+            Assert.Equal(1 + shortSignature.HeaderLength, position);
         }
 
         private static FileFormat InspectSample(string fileName)

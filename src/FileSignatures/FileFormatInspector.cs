@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
@@ -10,26 +11,30 @@ namespace FileSignatures
         {
         }
 
-        public FileFormatInspector(IEnumerable<FileFormat> recognizedTypes)
+        public FileFormatInspector(IEnumerable<FileFormat> recognisedTypes)
         {
-            RecognizedTypes = recognizedTypes;
+            RecognisedTypes = recognisedTypes;
         }
 
-        public IEnumerable<FileFormat> RecognizedTypes { get; }
+        public IEnumerable<FileFormat> RecognisedTypes { get; }
 
         public FileFormat DetermineFileFormat(Stream stream)
         {
-            var header = ReadHeaderBytes(stream);
-            var candidates = RecognizedTypes
+            var bufferLength = stream.Length;
+            var bytesRead = 0;
+            var header = new byte[bufferLength];
+            var candidates = RecognisedTypes
                 .OrderBy(t => t.HeaderLength)
                 .ToList();
 
-            for (int j = 0; j < candidates.Count; j++)
+            for (int i = 0; i < candidates.Count; i++)
             {
-                if (!candidates[j].IsMatch(header))
+                bytesRead += ReadHeaderBytes(stream, header, bytesRead, candidates[i].HeaderLength);
+
+                if (!candidates[i].IsMatch(header))
                 {
-                    candidates.RemoveAt(j);
-                    j--;
+                    candidates.RemoveAt(i);
+                    i--;
                 }
             }
 
@@ -41,27 +46,24 @@ namespace FileSignatures
             return null;
         }
 
-        private static byte[] ReadHeaderBytes(Stream stream)
+        private int ReadHeaderBytes(Stream stream, byte[] buffer, int initialPosition, int readToPosition)
         {
-            var bufferLength = FileFormat.GetAll().Max(t => t.HeaderLength);
-            var buffer = new byte[bufferLength];
-
-            var offset = 0;
-            var remaining = bufferLength;
+            var bytesRead = 0;
+            var remaining = Math.Min(readToPosition, buffer.Length) - initialPosition;
 
             while (remaining > 0)
             {
-                var read = stream.Read(buffer, offset, remaining);
+                var read = stream.Read(buffer, initialPosition + bytesRead, remaining);
                 if (read <= 0)
                 {
                     break;
                 }
 
                 remaining -= read;
-                offset += read;
+                bytesRead += read;
             }
 
-            return buffer;
+            return bytesRead;
         }
     }
 }
