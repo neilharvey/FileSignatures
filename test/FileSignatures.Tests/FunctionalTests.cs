@@ -17,6 +17,7 @@ namespace FileSignatures.Tests
         [InlineData("png", "image/png")]
         [InlineData("ppt", "application/vnd.ms-powerpoint")]
         [InlineData("pptx", "application/vnd.openxmlformats-officedocument.presentationml.presentation")]
+        [InlineData("tif", "image/tiff")]
         [InlineData("xls", "application/vnd.ms-excel")]
         [InlineData("xlsx", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")]
         [InlineData("xps", "application/vnd.ms-xpsdocument")]
