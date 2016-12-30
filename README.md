@@ -21,11 +21,11 @@ to work with a particular format, or the base type if you are interested in mult
 ```cs
 var format = inspector.DetermineFileFormat(stream);
 
-if(format is PdfFormat) {
+if(format is Pdf) {
   // Do something with Reader 
 }
 
-if(format is OfficeOpenXmlFormat) {
+if(format is OfficeOpenXml) {
   // Do something with Office
 }
 

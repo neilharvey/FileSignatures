@@ -1,4 +1,5 @@
 ﻿using FileSignatures;
+using FileSignatures.Formats;
 using System;
 using System.IO;
 using System.Linq;

@@ -3,9 +3,9 @@
     /// <summary>
     /// Specifies the format of an XML Paper Specification (XPS) document.
     /// </summary>
-    public class XpsFormat : OfficeOpenXmlFormat
+    public class Xps : OfficeOpenXml
     {
-        public XpsFormat() : base("FixedDocSeq.fdseq", "application/vnd.ms-xpsdocument", "xps")
+        public Xps() : base("FixedDocSeq.fdseq", "application/vnd.ms-xpsdocument", "xps")
         {
         }
     }
