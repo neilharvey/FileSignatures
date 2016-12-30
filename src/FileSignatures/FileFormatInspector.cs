@@ -41,6 +41,23 @@ namespace FileSignatures
         /// <returns>An instance of a matching file format, or null if the format could not be determined.</returns>
         public FileFormat DetermineFileFormat(Stream stream)
         {
+            var matches = FindMatchingFormats(stream);
+
+            if (matches.Count > 1)
+            {
+                RemoveBaseFormats(matches);
+            }
+
+            if (matches.Count == 1)
+            {
+                return matches[0];
+            }
+
+            return null;
+        }
+
+        private List<FileFormat> FindMatchingFormats(Stream stream)
+        {
             var bufferLength = stream.Length;
             var bytesRead = 0;
             var header = new byte[bufferLength];
@@ -59,12 +76,7 @@ namespace FileSignatures
                 }
             }
 
-            if (candidates.Count == 1)
-            {
-                return candidates[0];
-            }
-
-            return null;
+            return candidates;
         }
 
         private static int ReadHeaderBytes(Stream stream, byte[] buffer, int initialPosition, int readToPosition)
@@ -85,6 +97,21 @@ namespace FileSignatures
             }
 
             return bytesRead;
+        }
+
+        private static void RemoveBaseFormats(List<FileFormat> candidates)
+        {
+            for (int i = 0; i < candidates.Count; i++)
+            {
+                for (int j = 0; j < candidates.Count; j++)
+                {
+                    if (i != j && candidates[j].GetType().IsAssignableFrom(candidates[i].GetType()))
+                    {
+                        candidates.RemoveAt(j);
+                        i--; j--;
+                    }
+                }
+            }
         }
     }
 }

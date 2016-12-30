@@ -128,5 +128,13 @@ namespace FileSignatures
                 return hash;
             }
         }
+
+        /// <summary>
+        /// Returns a string that represents this format.
+        /// </summary>
+        public override string ToString()
+        {
+            return MediaType;
+        }
     }
 }

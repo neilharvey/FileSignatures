@@ -3,12 +3,12 @@ using System.Linq;
 using System.IO.Compression;
 using System.IO;
 
-namespace FileSignatures
+namespace FileSignatures.Formats
 {
     /// <summary>
     /// Specifies the format of an Office Open XML file.
     /// </summary>
-    public abstract class OfficeOpenXmlFormat : FileFormat
+    public abstract class OfficeOpenXmlFormat : ZipFormat
     {
         /// <summary>
         /// Initializes a new instance of the OfficeOpenXmlFormat class which matches an archive containing a unique entry.
@@ -16,7 +16,7 @@ namespace FileSignatures
         /// <param name="identifiableEntry">The entry in the archive which is used to identify the format.</param>
         /// <param name="mediaType">The media type of the format.</param>
         /// <param name="extension">The appropriate extension for the format.</param>
-        protected OfficeOpenXmlFormat(string identifiableEntry, string mediaType, string extension) : base(new byte[] { 0x50, 0x4B, 0x03, 0x04 }, int.MaxValue, mediaType, extension)
+        protected OfficeOpenXmlFormat(string identifiableEntry, string mediaType, string extension) : base(int.MaxValue, mediaType, extension)
         {
             if (string.IsNullOrEmpty(identifiableEntry))
             {

@@ -8,32 +8,30 @@ namespace FileSignatures.Tests
         [Fact]
         public void UnrecognisedReturnsNull()
         {
-            var result = InspectSample("unknown");
+            var inspector = new FileFormatInspector(new FileFormat[] { });
+            FileFormat result;
+
+            using(var stream = new MemoryStream(new byte[] { 0x0A }))
+            {
+                result = inspector.DetermineFileFormat(stream);
+            }
 
             Assert.Null(result);
         }
 
-        [Theory]
-        [InlineData("bmp", "image/bmp")]
-        [InlineData("doc", "application/msword")]
-        [InlineData("docx", "application/vnd.openxmlformats-officedocument.wordprocessingml.document")]
-        [InlineData("gif", "image/gif")]
-        [InlineData("jpg", "image/jpeg")]
-        [InlineData("pdf", "application/pdf")]
-        [InlineData("rtf", "application/rtf")]
-        [InlineData("png", "image/png")]
-        [InlineData("ppt", "application/vnd.ms-powerpoint")]
-        [InlineData("pptx", "application/vnd.openxmlformats-officedocument.presentationml.presentation")]
-        [InlineData("xls", "application/vnd.ms-excel")]
-        [InlineData("xlsx", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")]
-        [InlineData("xps", "application/vnd.ms-xpsdocument")]
-        public void SamplesAreRecognised(string sample, string expected)
+        [Fact]
+        public void SingleMatchIsReturned()
         {
-            var result = InspectSample(sample);
+            var expected = new TestFileFormat(new byte[] { 0x42, 0x4D });
+            var inspector = new FileFormatInspector(new FileFormat[] { expected });
+            FileFormat result;
 
-            Assert.NotNull(result);
-            Assert.Equal(sample, result.Extension);
-            Assert.Equal(expected, result.MediaType);
+            using (var stream = new MemoryStream(new byte[] { 0x42, 0x4D, 0x3A, 0x00 }))
+            {
+                result = inspector.DetermineFileFormat(stream);
+            }
+
+            Assert.Equal(expected, result);
         }
 
         [Fact]
@@ -69,18 +67,20 @@ namespace FileSignatures.Tests
             Assert.Equal(1 + shortSignature.HeaderLength, position);
         }
 
-        private static FileFormat InspectSample(string fileName)
+        [Fact]
+        public void MostSpecificFormatIsReturned()
         {
-            var inspector = new FileFormatInspector();
-            var sample = new FileInfo(Path.Combine("Samples", fileName));
-            FileFormat result;
+            var baseFormat = new BaseFormat();
+            var inheritedFormat = new InheritedFormat();
+            var inspector = new FileFormatInspector(new FileFormat[] { inheritedFormat, baseFormat });
+            FileFormat result = null;
 
-            using (var stream = sample.OpenRead())
+            using (var stream = new MemoryStream(new byte[] { 0x00 }))
             {
                 result = inspector.DetermineFileFormat(stream);
             }
 
-            return result;
+            Assert.Equal(inheritedFormat, result);
         }
 
         private class FragmentedStream : MemoryStream
@@ -98,6 +98,29 @@ namespace FileSignatures.Tests
         private class TestFileFormat : FileFormat
         {
             public TestFileFormat(byte[] signature) : base(signature, "example/test", "test")
+            {
+            }
+        }
+
+        private class BaseFormat : FileFormat
+        {
+            public BaseFormat() : this("example/base")
+            {
+            }
+
+            protected BaseFormat(string mediaType) : base(new byte[] { 0x00 }, mediaType, "")
+            {
+            }
+
+            public override bool IsMatch(byte[] header)
+            {
+                return true;
+            }
+        }
+
+        private class InheritedFormat : BaseFormat
+        {
+            public InheritedFormat() : base("example/inherited")
             {
             }
         }
