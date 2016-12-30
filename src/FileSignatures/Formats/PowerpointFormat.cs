@@ -5,7 +5,7 @@
     /// </summary>
     public class PowerPointFormat : OfficeOpenXmlFormat
     {
-        public PowerPointFormat(string identifiableEntry, string mediaType, string extension) : base(identifiableEntry, mediaType, extension)
+        public PowerPointFormat() : base("ppt/presentation.xml", "application/vnd.openxmlformats-officedocument.presentationml.presentation", "pptx")
         {
         }
     }

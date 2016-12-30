@@ -23,16 +23,17 @@ namespace FileSignatures.Tests
         [InlineData("rtf", "application/rtf")]
         [InlineData("png", "image/png")]
         [InlineData("ppt", "application/vnd.ms-powerpoint")]
+        [InlineData("pptx", "application/vnd.openxmlformats-officedocument.presentationml.presentation")]
         [InlineData("xls", "application/vnd.ms-excel")]
         [InlineData("xlsx", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")]
         [InlineData("xps", "application/vnd.ms-xpsdocument")]
-        public void SamplesAreRecognised(string sample, string expectedMimeType)
+        public void SamplesAreRecognised(string sample, string expected)
         {
             var result = InspectSample(sample);
 
             Assert.NotNull(result);
             Assert.Equal(sample, result.Extension);
-            Assert.Equal(expectedMimeType, result.MediaType);
+            Assert.Equal(expected, result.MediaType);
         }
 
         [Fact]
