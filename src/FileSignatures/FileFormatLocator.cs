@@ -28,5 +28,25 @@ namespace FileSignatures
                  .Select(t => Activator.CreateInstance(t))
                  .OfType<FileFormat>();
         }
+
+        /// <summary>
+        /// Returns all the concrete <see cref="FileFormat"/> types found in the specified assembly.
+        /// </summary>
+        /// <param name="assembly">The assembly which contains the file format definitions.</param>
+        /// <param name="includeDefaults">Whether to include the default format definitions with the results from the external assembly.</param>
+        public static IEnumerable<FileFormat> GetFormats(Assembly assembly, bool includeDefaults)
+        {
+            var formatsInAssembly = GetFormats(assembly);
+
+            if(!includeDefaults)
+            {
+                return formatsInAssembly;
+            }
+            else
+            {
+                var formatsThisAssembly = GetFormats();
+                return formatsInAssembly.Union(formatsThisAssembly);
+            }
+        }
     }
 }
