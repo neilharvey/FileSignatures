@@ -9,6 +9,7 @@ namespace FileSignatures.Tests
         [InlineData("bmp", "image/bmp")]
         [InlineData("doc", "application/msword")]
         [InlineData("docx", "application/vnd.openxmlformats-officedocument.wordprocessingml.document")]
+        [InlineData("exe", "application/octet-stream")]
         [InlineData("gif", "image/gif")]
         [InlineData("jpg", "image/jpeg")]
         [InlineData("pdf", "application/pdf")]
