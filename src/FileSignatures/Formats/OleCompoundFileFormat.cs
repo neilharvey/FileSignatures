@@ -6,7 +6,7 @@ namespace FileSignatures
     /// <summary>
     /// Specifies the format of an OLE Compound File.
     /// </summary>
-    public class OleCompoundFileFormat : FileFormat
+    public abstract class OleCompoundFileFormat : FileFormat
     {
         private const int SubHeaderOffset = 512;
 
@@ -16,7 +16,7 @@ namespace FileSignatures
         /// <param name="subHeader">The subheader which determines the file content.</param>
         /// <param name="mediaType">The media type of the format.</param>
         /// <param name="extension">The appropriate extension for the format.</param>
-        public OleCompoundFileFormat(byte[] subHeader, string mediaType, string extension) : base(
+        protected OleCompoundFileFormat(byte[] subHeader, string mediaType, string extension) : base(
             new byte[] { 0xD0, 0xCF, 0x11, 0xE0, 0xA1, 0xB1, 0x1A, 0xE1 },
             subHeader == null ? 0 : 512 + subHeader.Length,
             mediaType,

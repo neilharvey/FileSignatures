@@ -9,7 +9,7 @@ namespace FileSignatures
     /// <summary>
     /// Specifies the format of a file.
     /// </summary>
-    public partial class FileFormat
+    public abstract class FileFormat
     {
         /// <summary>
         /// Initializes a new instance of the FileFormat class which has the specified signature and media type.
@@ -17,7 +17,7 @@ namespace FileSignatures
         /// <param name="signature">The header signature of the format.</param>
         /// <param name="mediaType">The media type of the format.</param>
         /// <param name="extension">The appropriate extension for the format.</param>
-        public FileFormat(byte[] signature, string mediaType, string extension) : this(signature, signature == null ? 0 : signature.Length, mediaType, extension)
+        protected FileFormat(byte[] signature, string mediaType, string extension) : this(signature, signature == null ? 0 : signature.Length, mediaType, extension)
         {
         }
 
@@ -28,7 +28,7 @@ namespace FileSignatures
         /// <param name="headerLength">The number of bytes required to determine the format.</param>
         /// <param name="mediaType">The media type of the format.</param>
         /// <param name="extension">The appropriate file extension for the format.</param>
-        public FileFormat(byte[] signature, int headerLength, string mediaType, string extension)
+        protected FileFormat(byte[] signature, int headerLength, string mediaType, string extension)
         {
             if (signature == null || signature.Length == 0)
             {
@@ -87,18 +87,6 @@ namespace FileSignatures
             }
 
             return true;
-        }
-
-        /// <summary>
-        /// Returns all known file formats.
-        /// </summary>
-        public static IEnumerable<FileFormat> GetAll()
-        {
-            return typeof(FileFormat)
-                .GetTypeInfo()
-                .GetFields(BindingFlags.Public | BindingFlags.Static)
-                .Select(f => f.GetValue(null))
-                .OfType<FileFormat>();
         }
 
         /// <summary>

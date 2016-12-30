@@ -38,8 +38,8 @@ namespace FileSignatures.Tests
         [Fact]
         public void StreamIsReadUntilRequiredBufferIsReceived()
         {
-            var expected = new FileFormat(new byte[] { 0x00, 0x01 }, "example/x", "x");
-            var incorrect = new FileFormat(new byte[] { 0x00, 0x02 }, "example/y", "y");
+            var expected = new TestFileFormat(new byte[] { 0x00, 0x01 });
+            var incorrect = new TestFileFormat(new byte[] { 0x00, 0x02 });
             var inspector = new FileFormatInspector(new FileFormat[] { expected, incorrect });
             FileFormat result;
 
@@ -54,8 +54,8 @@ namespace FileSignatures.Tests
         [Fact]
         public void StreamIsNotFullyReadUnlessRequired()
         {
-            var shortSignature = new FileFormat(new byte[] { 0x00, 0x01 }, "example/a", "a");
-            var longSignaure = new FileFormat(new byte[] { 0x00, 0x01, 0x02 }, "example/b", "b");
+            var shortSignature = new TestFileFormat(new byte[] { 0x00, 0x01 });
+            var longSignaure = new TestFileFormat(new byte[] { 0x00, 0x01, 0x02 });
             var inspector = new FileFormatInspector(new FileFormat[] { shortSignature, longSignaure });
             var position = 0L;
 
@@ -91,6 +91,13 @@ namespace FileSignatures.Tests
             public override int Read(byte[] buffer, int offset, int count)
             {
                 return base.Read(buffer, offset, 1);
+            }
+        }
+
+        private class TestFileFormat : FileFormat
+        {
+            public TestFileFormat(byte[] signature) : base(signature, "example/test", "test")
+            {
             }
         }
     }

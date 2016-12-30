@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 
 namespace FileSignatures
 {
@@ -15,7 +16,7 @@ namespace FileSignatures
         /// <summary>
         /// Initialises a new FileFormatInspector instance which can determine the default file formats.
         /// </summary>
-        public FileFormatInspector() : this(FileFormat.GetAll())
+        public FileFormatInspector() : this(FileFormatLocator.GetFormats())
         {
         }
 

@@ -1,0 +1,66 @@
+﻿using System;
+using System.Linq;
+using System.IO.Compression;
+using System.IO;
+
+namespace FileSignatures
+{
+    /// <summary>
+    /// Specifies the format of an Office Open XML file.
+    /// </summary>
+    public abstract class OfficeOpenXmlFormat : FileFormat
+    {
+        /// <summary>
+        /// Initializes a new instance of the OfficeOpenXmlFormat class which matches an archive containing a unique entry.
+        /// </summary>
+        /// <param name="identifiableEntry">The entry in the archive which is used to identify the format.</param>
+        /// <param name="mediaType">The media type of the format.</param>
+        /// <param name="extension">The appropriate extension for the format.</param>
+        protected OfficeOpenXmlFormat(string identifiableEntry, string mediaType, string extension) : base(new byte[] { 0x50, 0x4B, 0x03, 0x04 }, int.MaxValue, mediaType, extension)
+        {
+            if (string.IsNullOrEmpty(identifiableEntry))
+            {
+                throw new ArgumentNullException(nameof(identifiableEntry));
+            }
+
+            IdentifiableEntry = identifiableEntry;
+        }
+
+        /// <summary>
+        /// Gets the entry in the file which can be used to identify the format.
+        /// </summary>
+        /// <remarks>
+        public string IdentifiableEntry { get; }
+
+        /// <summary>
+        /// Returns a value indicating whether the format matches a file header.
+        /// </summary>
+        /// <param name="header">The header to check.</param>
+        public override bool IsMatch(byte[] header)
+        {
+            if (!base.IsMatch(header))
+            {
+                return false;
+            }
+
+            using (var stream = new MemoryStream(header))
+            {
+                ZipArchive archive = null;
+
+                try
+                {
+                    archive = new ZipArchive(stream, ZipArchiveMode.Read);
+                    return archive.Entries.Any(e => e.FullName.Equals(IdentifiableEntry, StringComparison.OrdinalIgnoreCase));
+                }
+                catch (InvalidDataException)
+                {
+                    return false;
+                }
+                finally
+                {
+                    archive.Dispose();
+                }
+            }
+        }
+    }
+}
