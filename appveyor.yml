@@ -2,8 +2,9 @@ os: Visual Studio 2015
 
 before_build:
   dotnet restore
-  
-  nuget restore
 
 build:
   project: FileSignatures.sln
+
+before_test:
+  dir C:\projects\filesignatures\test\FileSignatures.Tests\bin\Debug\netcoreapp1.0
