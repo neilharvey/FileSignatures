@@ -1,6 +1,6 @@
 os: Visual Studio 2015
 
-init:
+before_build:
   dotnet restore
 
 build:
