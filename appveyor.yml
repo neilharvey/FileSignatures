@@ -1,0 +1,7 @@
+os: Visual Studio 2015
+
+init:
+  dotnet restore
+
+build:
+  project: FileSignatures.sln
