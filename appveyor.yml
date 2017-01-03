@@ -4,7 +4,8 @@ before_build:
   dotnet restore
 
 build:
-  project: FileSignatures.sln
+  #project: FileSignatures.sln
+  dotnet build
 
 test_script:
-  dotnet test
+  dotnet test -appveyor
