@@ -1,0 +1,12 @@
+os: Visual Studio 2015
+
+before_build:
+  dotnet restore
+
+build_script:
+  dotnet build */**/project.json
+
+test_script:
+  cd test\FileSignatures.Tests
+  
+  dotnet test -appveyor 
