@@ -1,4 +1,7 @@
 # FileSignatures
+
+[![build status ](https://ci.appveyor.com/api/projects/status/github/neilharvey/filesignatures?svg=true)](https://ci.appveyor.com/project/neilharvey/filesignatures)
+
 A small library for determining the file type of a binary stream using file header signatures.
 
 ## How do I use it?
@@ -43,8 +46,7 @@ formats.Add(custom);
 var inspector = new FileFormatInspector(formats);
 ```
 
-Creating a list in this way is fairly tedious however, so the FileLocator class can be used
-to load all custom formats located in an assembly.
+However, this way does not lend itself well to maintenance if new custom types are added on an ongoing basis so the FileLocator class can be used to load all custom formats located in an assembly:
 
 ```cs 
 var assembly = typeof(CustomFileFormat).GetTypeInfo().Assembly;
