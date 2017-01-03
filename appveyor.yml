@@ -3,7 +3,7 @@ os: Visual Studio 2015
 before_build:
   dotnet restore
 
-build:
+build_script:
   #project: FileSignatures.sln
   dotnet build
 
