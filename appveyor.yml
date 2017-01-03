@@ -1,12 +1,11 @@
 os: Visual Studio 2015
 
 before_build:
-  dotnet restore
+  - dotnet restore
 
-build_script:
-  dotnet build */**/project.json
+build:
+  project: FileSignatures.sln
 
 test_script:
-  cd test\FileSignatures.Tests
-  
-  dotnet test -appveyor 
+  - cd test\FileSignatures.Tests
+  - dotnet test -appveyor
