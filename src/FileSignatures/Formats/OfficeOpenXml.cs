@@ -45,11 +45,11 @@ namespace FileSignatures.Formats
 
             using (var stream = new MemoryStream(header))
             {
-                System.IO.Compression.ZipArchive archive = null;
+                ZipArchive archive = null;
 
                 try
                 {
-                    archive = new System.IO.Compression.ZipArchive(stream, ZipArchiveMode.Read);
+                    archive = new ZipArchive(stream, ZipArchiveMode.Read);
                     return archive.Entries.Any(e => e.FullName.Equals(IdentifiableEntry, StringComparison.OrdinalIgnoreCase));
                 }
                 catch (InvalidDataException)
