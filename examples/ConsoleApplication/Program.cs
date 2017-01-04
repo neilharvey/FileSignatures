@@ -12,25 +12,25 @@ namespace InspectFormat
         {
             Console.WriteLine();
 
-            if(args.Length != 1 || args[0] == "--help")
+            if (args.Length != 1)
             {
                 Console.WriteLine("Usage: dotnet run <filePath>");
                 return;
             }
 
             var fileInfo = new FileInfo(args[0]);
-            if(!fileInfo.Exists)
+            if (!fileInfo.Exists)
             {
                 Console.WriteLine(args[0] + " does not exist.");
                 return;
             }
 
             var inspector = new FileFormatInspector();
-            using(var stream = fileInfo.OpenRead())
+            using (var stream = fileInfo.OpenRead())
             {
                 var format = inspector.DetermineFileFormat(stream);
 
-                if(format == null)
+                if (format == null)
                 {
                     Console.WriteLine("File format was not recognised.");
                 }
