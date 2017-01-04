@@ -57,3 +57,7 @@ var customFormats = FileLocator.GetFormats(assembly);
 // Formats defined in the assembly and all the defaults
 var allFormats = FileLocator.GetFormats(assembly, true);
 ```
+
+## License
+
+This project is licensed under the [MIT license](LICENSE.TXT).
