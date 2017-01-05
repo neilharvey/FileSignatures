@@ -1,0 +1,39 @@
+﻿@model UploadResultModel
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<h2>File Upload Example</h2>
+
+<p>
+    Select a file to upload to the web application.  Image files will be accepted, and non-image files will be rejected.    
+</p>
+
+<form asp-action="index" method="post" enctype="multipart/form-data">
+
+    <div class="form-group">
+        <label for="file">Select an image to upload:</label>
+        <input name="file" type="file" required />
+    </div>  
+
+    <input type="submit" value="Upload File" class="btn btn-primary"/>
+ 
+</form>
+
+<hr/>
+
+@if (Model.Accepted.HasValue)
+{
+    if (Model.Accepted.Value)
+    {
+        <div class="alert alert-success">
+            The file <strong>@Model.FileName</strong> is an image with format <strong>@Model.MediaType</strong>.
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-danger">
+            The file <b>@Model.FileName</b> is not an image file.
+        </div>
+    }
+}
