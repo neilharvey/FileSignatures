@@ -58,6 +58,6 @@ var customFormats = FileLocator.GetFormats(assembly);
 var allFormats = FileLocator.GetFormats(assembly, true);
 ```
 
-## License
+## What is the licence?
 
 This project is licensed under the [MIT license](LICENSE.TXT).
