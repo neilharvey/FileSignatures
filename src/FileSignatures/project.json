@@ -1,6 +1,14 @@
 {
-  "version": "1.0.0-*",
-
+  "version": "1.0.0-rc",
+  "name" : "FileSignatures",
+  "description": "A small library for determining the content of a binary stream using file header signatures.",
+  "authors" : ["Neil Harvey"],
+  "packOptions" : {
+    "tags" : ["File Format", "Mime Type", "Media Type", "Header", "Signature", "Detection"],
+    "licenceUrl" : "https://github.com/neilharvey/FileSignatures/blob/master/LICENCE.txt",
+    "projectUrl" : "https://github.com/neilharvey/FileSignatures/"
+  },
+  
   "frameworks": {
     "netstandard1.6": {
       "imports": "dnxcore50",
