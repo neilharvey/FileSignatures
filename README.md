@@ -4,6 +4,14 @@
 
 A small library for determining the file type of a binary stream using file header signatures.
 
+## How do I install it?
+
+FileSignatures is available on NuGet, so can be installed via the Package Manager:
+
+```
+Install-Package FileSignatures -pre
+```
+
 ## How do I use it?
 
 Create an instance of the FileFormatInspector class, then pass it a stream to your file:
