@@ -4,9 +4,6 @@ branches:
   only:
     -master
 
-nuget:
-  disable_publish_on_pr: true
-
 before_build:
   - dotnet restore
 
@@ -21,5 +18,5 @@ test_script:
   - dotnet test -appveyor
   
 artifacts:
-  - path: **\*.nupkg
+  - path: '**\*.nupkg'
     name: NuGet Package
