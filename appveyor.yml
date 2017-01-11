@@ -1,9 +1,5 @@
 version: '{build}'
 
-branches:
-  only:
-    -master
-
 before_build:
   - dotnet restore
 
