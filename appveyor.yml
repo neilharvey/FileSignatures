@@ -1,12 +1,25 @@
-os: Visual Studio 2015
+version: '{build}'
+
+branches:
+  only:
+    -master
+
+nuget:
+  disable_publish_on_pr: true
 
 before_build:
   - dotnet restore
 
-build:
-  project: FileSignatures.sln
-  verbosity: minimal
+build_script:
+  - dotnet build
+
+after_build:
+  - dotnet pack
 
 test_script:
   - cd test\FileSignatures.Tests
   - dotnet test -appveyor
+  
+artifacts:
+  - path: **\*.nupkg
+    name: NuGet Package
