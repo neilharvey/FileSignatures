@@ -34,11 +34,11 @@ to work with a particular format, or the base type if you are interested in mult
 var format = inspector.DetermineFileFormat(stream);
 
 if(format is Pdf) {
-  // Do something with Reader 
+  // Just matches Pdf
 }
 
 if(format is OfficeOpenXml) {
-  // Do something with Office
+  // Matches Word, Excel, Powerpoint
 }
 
 ```
