@@ -4,15 +4,14 @@ before_build:
   - dotnet restore
 
 build_script:
-  - dotnet build
+  - dotnet build src\FileSignatures -c Release
 
 after_build:
-  - dotnet pack
+  - dotnet pack src\FileSignatures -c Release -o .\artifacts
 
 test_script:
-  - cd test\FileSignatures.Tests
-  - dotnet test -appveyor
-  
+  - dotnet test test\FileSignatures.Tests -c Release -appveyor
+
 artifacts:
-  - path: '**\*.nupkg'
+  - path: '.\artifacts\**\*.nupkg'
     name: NuGet Package

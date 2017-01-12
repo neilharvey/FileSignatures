@@ -19,7 +19,7 @@
   },
   "buildOptions": {
     "copyToOutput": {
-      "include": [ "xunit.runner.json" ]
+      "include": [ "xunit.runner.json", "samples/*" ]
     }
   }
 }

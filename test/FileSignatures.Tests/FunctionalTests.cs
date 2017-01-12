@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using System.Reflection;
 using Xunit;
 
 namespace FileSignatures.Tests
@@ -34,7 +35,8 @@ namespace FileSignatures.Tests
         private static FileFormat InspectSample(string fileName)
         {
             var inspector = new FileFormatInspector();
-            var sample = new FileInfo(Path.Combine("Samples", fileName));
+            var buildDirectoryPath = Path.GetDirectoryName(typeof(FunctionalTests).GetTypeInfo().Assembly.Location);
+            var sample = new FileInfo(Path.Combine(buildDirectoryPath, "Samples", fileName));
             FileFormat result;
 
             using (var stream = sample.OpenRead())
