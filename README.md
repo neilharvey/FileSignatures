@@ -3,7 +3,7 @@
 [![build status](https://ci.appveyor.com/api/projects/status/github/neilharvey/filesignatures?svg=true)](https://ci.appveyor.com/project/neilharvey/filesignatures)
 [![nuget package](https://badge.fury.io/nu/FileSignatures.svg)](https://www.nuget.org/packages/FileSignatures)
 
-A small library for determining the file type of a binary stream using file header signatures.
+A small library for determining the file type of a binary stream using file header signatures.  This can give more reliable results compared to relying on the file extension or content-type headers received from a client, which are both easily faked.
 
 ## How do I install it?
 
