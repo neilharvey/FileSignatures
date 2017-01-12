@@ -15,3 +15,11 @@ test_script:
 artifacts:
   - path: '.\artifacts\**\*.nupkg'
     name: NuGet Package
+
+deploy:
+  - provider: NuGet
+    name: production
+    api_key:
+      secure: 1TflOw+YI8KNzPV5BdNu+HF/Gqh29kZvQ9jcXscx4AB7Xxp9298rnS1AzJFOYHg6
+    on:
+      appveyor_repo_tag: true
