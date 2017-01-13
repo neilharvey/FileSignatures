@@ -3,7 +3,7 @@
 [![build status](https://ci.appveyor.com/api/projects/status/github/neilharvey/filesignatures?svg=true)](https://ci.appveyor.com/project/neilharvey/filesignatures)
 [![nuget package](https://badge.fury.io/nu/FileSignatures.svg)](https://www.nuget.org/packages/FileSignatures)
 
-A small library for determining the file type of a binary stream using file header signatures.  This can give more reliable results compared to relying on the file extension or content-type headers received from a client, which are both easily faked.
+A small library for detecting the type of a file based on header signature (also known as magic number) rather than file extension.  It is designed with extensibility in mind, so that recognised formats can be added easily.
 
 ## How do I install it?
 
@@ -43,19 +43,34 @@ if(format is OfficeOpenXml) {
 
 ```
 
+## What formats are recognised?
+
+Currently, the following formats are built-in:
+
+| Name               | Media-Type                                                                | Extension
+|---------------------------------------------------------------------------------------------------------
+| Bitmap             | image/bitmap                                                              | .bmp
+| Excel              | application/vnd.openxmlformats-officedocument.spreadsheetml.sheet         | .xlsx
+| Excel 97-2003      | application/vnd.ms-excel                                                  | .xls
+| Windows Executable | application/octet-stream                                                  | .exe
+| GIF                | image/gif                                                                 | .gif
+| JPEG               | image/jpeg                                                                | .jpeg
+| PDF                | application/pdf                                                           | .pdf
+| PNG                | image/png                                                                 | .png
+| PowerPoint         | application/vnd.openxmlformats-officedocument.presentationml.presentation | .pptx
+| Powerpoint 97-2003 | application/vnd.ms-powerpoint                                             | .ppt
+| Rich Text Format   | application/rtf                                                           | .rtf
+| TIFF               | image/tiff                                                                | .tif
+| Word               | application/vnd.openxmlformats-officedocument.wordprocessingml.document   | .docx
+| Word 97-2003       | application/msword                                                        | .doc
+| Xps                | application/vnd.ms-xpsdocument                                            | .xps
+| Zip                | application/zip                                                           | .zip
+
 ## How do I add additional formats?
 
-Create a new class which inherits from FileFormat, then add this to the default formats and
-pass the entire collection to the FileFormatInspector.
+Create a new class (or many classes) which inherit from `FileFormat` to implement a custom format. Next, pass a collection of recognised formats to the constructor of `FileFormatInspector`, being sure to include your custom format.
 
-```cs
-var formats = FileFormatLocator.GetFormats();
-var custom = new CustomFileFormat();
-formats.Add(custom);
-var inspector = new FileFormatInspector(formats);
-```
-
-However, this way does not lend itself well to maintenance if new custom types are added on an ongoing basis so the FileLocator class can be used to load all custom formats located in an assembly:
+The `FileLocator` class can be used to load all custom formats located within an assembly:
 
 ```cs 
 var assembly = typeof(CustomFileFormat).GetTypeInfo().Assembly;
@@ -66,6 +81,8 @@ var customFormats = FileLocator.GetFormats(assembly);
 // Formats defined in the assembly and all the defaults
 var allFormats = FileLocator.GetFormats(assembly, true);
 ```
+
+Using this method, you can continue to create custom formats and they will automatically be included into the recognised formats without any additional configuration.
 
 ## What is the licence?
 
