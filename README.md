@@ -48,7 +48,7 @@ if(format is OfficeOpenXml) {
 Currently, the following formats are built-in:
 
 | Name               | Media-Type                                                                | Extension
-|---------------------------------------------------------------------------------------------------------
+|--------------------|---------------------------------------------------------------------------|--------
 | Bitmap             | image/bitmap                                                              | .bmp
 | Excel              | application/vnd.openxmlformats-officedocument.spreadsheetml.sheet         | .xlsx
 | Excel 97-2003      | application/vnd.ms-excel                                                  | .xls
