@@ -10,7 +10,7 @@ A small library for detecting the type of a file based on header signature (also
 FileSignatures is available on NuGet, so can be installed via the Package Manager:
 
 ```
-Install-Package FileSignatures -pre
+Install-Package FileSignatures
 ```
 
 ## How do I use it?
