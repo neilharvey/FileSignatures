@@ -3,9 +3,9 @@
     /// <summary>
     /// Specified the format of a Still Picture Interchange File Format (SPIFF) file.
     /// </summary>
-    public class JpegSpiff : Jpeg
+    public class Spiff : Jpeg
     {
-        public JpegSpiff() : base(0xE8)
+        public Spiff() : base(new byte[] { 0xFF, 0xE8 })
         {
         }
     }

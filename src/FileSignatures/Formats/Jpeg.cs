@@ -5,12 +5,21 @@
     /// </summary>
     public class Jpeg : Image
     {
-        public Jpeg() : base(new byte[] { 0xFF, 0xD8, 0xFF }, "image/jpeg", "jpg")
-        {
+        private static readonly byte[] soi = new byte[] {0xFF, 0xD8};
+        private const string mediaType = "image/jpeg";
+        private const string extension = "jpg";
+
+        /// <summary>
+        /// Initialises a new Jpeg format.
+        /// <summary>
+        public Jpeg() : base(soi, mediaType, extension) {            
         }
 
-        protected Jpeg(byte identifier) : base(new byte[] { 0xFF, 0xD8, 0xFF, identifier }, "image/jpeg", "jpg")
-        {
+        /// <summary>
+        /// Initialises a new Jpeg format with the specified application marker.
+        /// </summary>
+        /// <param name="marker">The 2-byte application marker used by the JPEG format.</param>
+        protected Jpeg(byte[2] marker) : base(new byte[] { soi[0], soi[1], marker[0], marker[1]}, mediaType, extension) {
         }
     }
 }
