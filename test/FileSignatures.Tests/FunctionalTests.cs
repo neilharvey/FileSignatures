@@ -12,12 +12,14 @@ namespace FileSignatures.Tests
         [InlineData("docx", "application/vnd.openxmlformats-officedocument.wordprocessingml.document")]
         [InlineData("exe", "application/octet-stream")]
         [InlineData("gif", "image/gif")]
-        [InlineData("jpg", "image/jpeg")]
+        [InlineData("jfif", "image/jpeg")]
+        [InlineData("exif", "image/jpeg")]
         [InlineData("pdf", "application/pdf")]
         [InlineData("rtf", "application/rtf")]
         [InlineData("png", "image/png")]
         [InlineData("ppt", "application/vnd.ms-powerpoint")]
         [InlineData("pptx", "application/vnd.openxmlformats-officedocument.presentationml.presentation")]
+        [InlineData("spiff", "image/jpeg")]
         [InlineData("tif", "image/tiff")]
         [InlineData("xls", "application/vnd.ms-excel")]
         [InlineData("xlsx", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")]
@@ -28,7 +30,6 @@ namespace FileSignatures.Tests
             var result = InspectSample(sample);
 
             Assert.NotNull(result);
-            Assert.Equal(sample, result.Extension);
             Assert.Equal(expected, result.MediaType);
         }
 
