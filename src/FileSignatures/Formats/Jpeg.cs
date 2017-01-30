@@ -5,7 +5,7 @@
     /// </summary>
     public class Jpeg : Image
     {
-        public Jpeg() : base(new byte[] { 0xFF, 0xD8, 0xFF, 0xE0 }, "image/jpeg", "jpg")
+        public Jpeg() : base(new byte[] { 0xFF, 0xD8, 0xFF }, "image/jpeg", "jpg")
         {
         }
     }
