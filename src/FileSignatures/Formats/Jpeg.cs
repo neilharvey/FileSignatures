@@ -9,7 +9,7 @@
         {
         }
 
-        protected Jpeg(byte finalByte) : base(new byte[] { 0xFF, 0xD8, 0xFF, finalByte }, "image/jpeg", "jpg")
+        protected Jpeg(byte identifier) : base(new byte[] { 0xFF, 0xD8, 0xFF, identifier }, "image/jpeg", "jpg")
         {
         }
     }
