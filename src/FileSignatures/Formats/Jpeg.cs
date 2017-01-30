@@ -19,7 +19,7 @@
         /// Initialises a new Jpeg format with the specified application marker.
         /// </summary>
         /// <param name="marker">The 2-byte application marker used by the JPEG format.</param>
-        protected Jpeg(byte[2] marker) : base(new byte[] { soi[0], soi[1], marker[0], marker[1]}, mediaType, extension) {
+        protected Jpeg(byte[] marker) : base(new byte[] { soi[0], soi[1], marker[0], marker[1]}, mediaType, extension) {
         }
     }
 }
