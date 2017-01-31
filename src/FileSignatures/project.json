@@ -6,7 +6,8 @@
   "packOptions": {
     "tags": [ "File Format", "Mime Type", "Media Type", "Header", "Signature", "Detection" ],
     "licenseUrl": "https://github.com/neilharvey/FileSignatures/blob/master/LICENCE",
-    "projectUrl": "https://github.com/neilharvey/FileSignatures/"
+    "projectUrl": "https://github.com/neilharvey/FileSignatures/",
+    "releaseNotes": "https://github.com/neilharvey/FileSignatures/releases"
   },
   
   "frameworks": {
