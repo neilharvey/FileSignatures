@@ -1,12 +1,13 @@
 {
-  "version": "1.0.0",
+  "version": "1.1.0-rc",
   "name" : "FileSignatures",
   "description": "A small library for detecting the type of a file based on header signature (also known as magic number) rather than file extension.",
   "authors" : ["Neil Harvey"],
   "packOptions": {
     "tags": [ "File Format", "Mime Type", "Media Type", "Header", "Signature", "Detection" ],
     "licenseUrl": "https://github.com/neilharvey/FileSignatures/blob/master/LICENCE",
-    "projectUrl": "https://github.com/neilharvey/FileSignatures/"
+    "projectUrl": "https://github.com/neilharvey/FileSignatures/",
+    "releaseNotes": "https://github.com/neilharvey/FileSignatures/releases"
   },
   
   "frameworks": {
