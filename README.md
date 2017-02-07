@@ -70,16 +70,16 @@ Currently, the following formats are built-in:
 
 Create a new class (or many classes) which inherit from `FileFormat` to implement a custom format. Next, pass a collection of recognised formats to the constructor of `FileFormatInspector`, being sure to include your custom format.
 
-The `FileLocator` class can be used to load all custom formats located within an assembly:
+The `FileFormatLocator` class can be used to load all custom formats located within an assembly:
 
 ```cs 
 var assembly = typeof(CustomFileFormat).GetTypeInfo().Assembly;
 
 // Just the formats defined in the assembly containing CustomFileFormat
-var customFormats = FileLocator.GetFormats(assembly);
+var customFormats = FileFormatLocator.GetFormats(assembly);
 
 // Formats defined in the assembly and all the defaults
-var allFormats = FileLocator.GetFormats(assembly, true);
+var allFormats = FileFormatLocator.GetFormats(assembly, true);
 ```
 
 Using this method, you can continue to create custom formats and they will automatically be included into the recognised formats without any additional configuration.
