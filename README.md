@@ -41,7 +41,13 @@ if(format is OfficeOpenXml) {
   // Matches Word, Excel, Powerpoint
 }
 
+if(format is Image) {
+  // Matches any image format
+}
+
 ```
+
+See the examples for a sample [web application](https://github.com/neilharvey/FileSignatures/tree/master/examples/WebApplication) and a [console application](https://github.com/neilharvey/FileSignatures/tree/master/examples/ConsoleApplication) which demonstrate how to filter uploads by a particular format and retrieve the signature details for a file.
 
 ## What formats are recognised?
 
