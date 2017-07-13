@@ -10,7 +10,7 @@ after_build:
   - dotnet pack src\FileSignatures -c Release -o .\artifacts
 
 test_script:
-  - dotnet test test\FileSignatures.Tests\FileSignatures.Tests.csproj -c Release -appveyor
+  - dotnet test test\FileSignatures.Tests\FileSignatures.Tests.csproj -c Release
 
 artifacts:
   - path: '.\artifacts\**\*.nupkg'
