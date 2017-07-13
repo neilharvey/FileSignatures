@@ -13,7 +13,7 @@ test_script:
   - dotnet test test\FileSignatures.Tests\FileSignatures.Tests.csproj -c Release
 
 artifacts:
-  - path: '.\artifacts\**\*.nupkg'
+  - path: '.\artifacts\*.nupkg'
     name: NuGet Package
 
 deploy:
