@@ -2,9 +2,9 @@
 
   <PropertyGroup>
     <Description>A small library for detecting the type of a file based on header signature (also known as magic number) rather than file extension.</Description>
-    <VersionPrefix>1.1.0</VersionPrefix>
+    <VersionPrefix>1.2.0-rc</VersionPrefix>
     <Authors>Neil Harvey</Authors>
-    <TargetFrameworks>netstandard1.6;net461</TargetFrameworks>
+    <TargetFrameworks>netstandard1.6;net461;net452</TargetFrameworks>
     <AssemblyName>FileSignatures</AssemblyName>
     <PackageId>FileSignatures</PackageId>
     <PackageTags>File Format;Mime Type;Media Type;Header;Signature;Detection</PackageTags>
@@ -23,7 +23,7 @@
     <PackageReference Include="System.Runtime" Version="4.3.0" />
   </ItemGroup>
 
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net461' ">
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net461' Or '$(TargetFramework)' == 'net452' ">
     <Reference Include="System.IO.Compression" />
     <Reference Include="System" />
     <Reference Include="Microsoft.CSharp" />
