@@ -1,20 +1,17 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.26430.15
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{A34CAB26-B589-4531-884B-E50BF89CCF2D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{4D50F777-A2A1-4FE8-B703-5010D7000DEF}"
-	ProjectSection(SolutionItems) = preProject
-		global.json = global.json
-	EndProjectSection
-EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "FileSignatures", "src\FileSignatures\FileSignatures.xproj", "{52D4F79F-BB2C-46E9-9D27-59FF8DC9BD81}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{D9653CFC-5C1F-4751-BE1E-B85EAAF73203}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "FileSignatures.Tests", "test\FileSignatures.Tests\FileSignatures.Tests.xproj", "{5FE9AF07-5928-482E-9917-285956E7731C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FileSignatures", "src\FileSignatures\FileSignatures.csproj", "{52D4F79F-BB2C-46E9-9D27-59FF8DC9BD81}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FileSignatures.Tests", "test\FileSignatures.Tests\FileSignatures.Tests.csproj", "{5FE9AF07-5928-482E-9917-285956E7731C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
