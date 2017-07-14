@@ -7,13 +7,15 @@ build_script:
   - dotnet build src\FileSignatures -c Release
 
 after_build:
-  - dotnet pack src\FileSignatures -c Release -o .\artifacts
+  - dotnet pack src\FileSignatures -c Release -o ..\..\artifacts
 
 test_script:
-  - dotnet test test\FileSignatures.Tests -c Release -appveyor
+  # Workaround until appveyor/ci#1404 is resolved
+  - cd test\FileSignatures.Tests
+  - dotnet xunit -appveyor
 
 artifacts:
-  - path: '.\artifacts\**\*.nupkg'
+  - path: '.\artifacts\*.nupkg'
     name: NuGet Package
 
 deploy:
