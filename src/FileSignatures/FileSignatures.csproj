@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <Description>A small library for detecting the type of a file based on header signature (also known as magic number) rather than file extension.</Description>
-    <VersionPrefix>1.2.0-rc</VersionPrefix>
+    <VersionPrefix>1.2.0</VersionPrefix>
     <Authors>Neil Harvey</Authors>
     <TargetFrameworks>netstandard1.6;net461;net452</TargetFrameworks>
     <AssemblyName>FileSignatures</AssemblyName>
