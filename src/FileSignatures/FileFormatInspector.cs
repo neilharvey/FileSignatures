@@ -65,15 +65,22 @@ namespace FileSignatures
                 .OrderBy(t => t.HeaderLength)
                 .ToList();
 
-            for (int i = 0; i < candidates.Count; i++)
+            try
             {
-                bytesRead += ReadHeaderBytes(stream, header, bytesRead, candidates[i].HeaderLength);
-
-                if (!candidates[i].IsMatch(header))
+                for (int i = 0; i < candidates.Count; i++)
                 {
-                    candidates.RemoveAt(i);
-                    i--;
+                    bytesRead += ReadHeaderBytes(stream, header, bytesRead, candidates[i].HeaderLength);
+
+                    if (!candidates[i].IsMatch(header))
+                    {
+                        candidates.RemoveAt(i);
+                        i--;
+                    }
                 }
+            }
+            finally
+            {
+                stream.Position = 0;
             }
 
             return candidates;
