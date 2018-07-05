@@ -51,7 +51,7 @@ namespace FileSignatures.Tests
         }
 
         [Fact]
-        public void StreamIsNotFullyReadUnlessRequired()
+        public void StreamIsResetToOriginalPosition()
         {
             var shortSignature = new TestFileFormat(new byte[] { 0x00, 0x01 });
             var longSignaure = new TestFileFormat(new byte[] { 0x00, 0x01, 0x02 });
@@ -64,7 +64,7 @@ namespace FileSignatures.Tests
                 position = stream.Position;
             }
 
-            Assert.Equal(1 + shortSignature.HeaderLength, position);
+            Assert.Equal(0, position);
         }
 
         [Fact]
