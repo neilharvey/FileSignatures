@@ -9,10 +9,10 @@ build_script:
 after_build:
   - dotnet pack src\FileSignatures -c Release -o ..\..\artifacts
 
-#test_script:
-#  # Workaround until appveyor/ci#1404 is resolved
-#  - cd test\FileSignatures.Tests
-#  - dotnet xunit -appveyor
+test_script:
+  # Workaround until appveyor/ci#1404 is resolved
+  - cd test\FileSignatures.Tests
+  - dotnet test
 
 artifacts:
   - path: '.\artifacts\*.nupkg'
