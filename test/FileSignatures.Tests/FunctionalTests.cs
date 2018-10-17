@@ -14,6 +14,7 @@ namespace FileSignatures.Tests
         [InlineData("gif", "image/gif")]
         [InlineData("jfif", "image/jpeg")]
         [InlineData("exif", "image/jpeg")]
+        [InlineData("msg", "application/vnd.ms-outlook")]
         [InlineData("pdf", "application/pdf")]
         [InlineData("rtf", "application/rtf")]
         [InlineData("png", "image/png")]
