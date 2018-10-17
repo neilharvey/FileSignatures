@@ -41,9 +41,19 @@ namespace FileSignatures
         /// <returns>An instance of a matching file format, or null if the format could not be determined.</returns>
         public FileFormat DetermineFileFormat(Stream stream)
         {
+            if(stream == null)
+            {
+                throw new ArgumentNullException(nameof(stream));
+            }
+
             if (!stream.CanSeek)
             {
                 throw new NotSupportedException("The passed stream object is not seekable.");
+            }
+
+            if(stream.Length == 0)
+            {
+                return null;
             }
 
             var matches = FindMatchingFormats(stream);
@@ -69,7 +79,6 @@ namespace FileSignatures
             var candidates = knownFormats
                 .OrderBy(t => t.HeaderLength)
                 .ToList();
-
 
             for (int i = 0; i < candidates.Count; i++)
             {

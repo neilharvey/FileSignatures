@@ -7,6 +7,28 @@ namespace FileSignatures.Tests
     public class FileFormatInspectorTests
     {
         [Fact]
+        public void StreamCannotBeNull()
+        {
+            var inspector = new FileFormatInspector();
+
+            Assert.Throws<ArgumentNullException>(() => inspector.DetermineFileFormat(null));
+        }
+
+        [Fact]
+        public void EmptyStreamReturnsNull()
+        {
+            var inspector = new FileFormatInspector();
+            FileFormat result;
+
+            using (var stream = new MemoryStream())
+            {
+                result = inspector.DetermineFileFormat(stream);
+            }
+
+            Assert.Null(result);
+        }
+
+        [Fact]
         public void StreamMustBeSeekable()
         {
             var nonSeekableStream = new NonSeekableStream();
