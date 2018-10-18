@@ -63,9 +63,9 @@ namespace FileSignatures
                 RemoveBaseFormats(matches);
             }
 
-            if (matches.Count == 1)
+            if (matches.Count > 0)
             {
-                return matches[0];
+                return matches.OrderByDescending(m => m.HeaderLength).First();
             }
 
             return null;
