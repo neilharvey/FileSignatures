@@ -1,4 +1,6 @@
-﻿using System.IO;
+﻿using FileSignatures.Formats;
+using System.IO;
+using System.Linq;
 using System.Reflection;
 using Xunit;
 
@@ -15,11 +17,12 @@ namespace FileSignatures.Tests
         [InlineData("test.jfif", "image/jpeg")]
         [InlineData("test.exif", "image/jpeg")]
         [InlineData("saved.msg", "application/vnd.ms-outlook")]
-        //[InlineData("dragndrop.msg", "application/vnd.ms-outlook")]
+        [InlineData("dragndrop.msg", "application/vnd.ms-outlook")]
         [InlineData("test.pdf", "application/pdf")]
         [InlineData("test.rtf", "application/rtf")]
         [InlineData("test.png", "image/png")]
         [InlineData("test.ppt", "application/vnd.ms-powerpoint")]
+        [InlineData("test2.ppt", "application/vnd.ms-powerpoint")]
         [InlineData("test.pptx", "application/vnd.openxmlformats-officedocument.presentationml.presentation")]
         [InlineData("test.spiff", "image/jpeg")]
         [InlineData("test.tif", "image/tiff")]

@@ -3,9 +3,9 @@
     /// <summary>
     /// Specifies the format of an Excel 97-2003 workbook.
     /// </summary>
-    public class ExcelLegacy : OleCompoundFile
+    public class ExcelLegacy : CompoundBinaryFile
     {
-        public ExcelLegacy() : base(new byte[] { 0x09, 0x08, 0x10, 0x00 }, "application/vnd.ms-excel", "xls")
+        public ExcelLegacy() : base("00020820-0000-0000-c000-000000000046", "application/vnd.ms-excel", "xls")
         {
         }
     }

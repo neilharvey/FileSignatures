@@ -1,17 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace FileSignatures.Formats
+﻿namespace FileSignatures.Formats
 {
-    public class OutlookMessage : OleCompoundFile
+    public class OutlookMessage : CompoundBinaryFile
     {
-        public OutlookMessage() : base(new byte[] {
-            0x52, 0x00, 0x6F, 0x00, 0x6F, 0x00, 0x74, 0x00,
-            0x20, 0x00, 0x45, 0x00, 0x6E, 0x00, 0x74, 0x00,
-            0x72, 0x00, 0x79, 0x00 }, 
-            "application/vnd.ms-outlook", 
-            "ppt")
+        public OutlookMessage() : base("00020d0b-0000-0000-c000-000000000046", "application/vnd.ms-outlook", "msg")
         {
         }
     }
