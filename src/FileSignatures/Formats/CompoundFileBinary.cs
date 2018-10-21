@@ -10,9 +10,15 @@ namespace FileSignatures.Formats
     /// See [MS-CFB] https://msdn.microsoft.com/en-us/library/dd942138.aspx,
     /// in particular 2.2 for a description of the CFB header specification.
     /// </remarks>
-    public class CompoundBinaryFile : FileFormat
+    public abstract class CompoundFileBinary : FileFormat
     {
-        public CompoundBinaryFile(string clsid, string mediaType, string extension) : base(
+        /// <summary>
+        /// Initializes a new instance of the CompoundFileBinary class.
+        /// </summary>
+        /// <param name="clsid">The object CLSID which identifies the creating application.</param>
+        /// <param name="mediaType">The media type of the format.</param>
+        /// <param name="extension">The appropriate extension for the format.</param>
+        public CompoundFileBinary(string clsid, string mediaType, string extension) : base(
             new byte[] { 0xD0, 0xCF, 0x11, 0xE0, 0xA1, 0xB1, 0x1A, 0xE1 },
             int.MaxValue,
             mediaType,
