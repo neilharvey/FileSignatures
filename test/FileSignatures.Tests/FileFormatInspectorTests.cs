@@ -7,6 +7,28 @@ namespace FileSignatures.Tests
     public class FileFormatInspectorTests
     {
         [Fact]
+        public void StreamCannotBeNull()
+        {
+            var inspector = new FileFormatInspector();
+
+            Assert.Throws<ArgumentNullException>(() => inspector.DetermineFileFormat(null));
+        }
+
+        [Fact]
+        public void EmptyStreamReturnsNull()
+        {
+            var inspector = new FileFormatInspector();
+            FileFormat result;
+
+            using (var stream = new MemoryStream())
+            {
+                result = inspector.DetermineFileFormat(stream);
+            }
+
+            Assert.Null(result);
+        }
+
+        [Fact]
         public void StreamMustBeSeekable()
         {
             var nonSeekableStream = new NonSeekableStream();
@@ -119,7 +141,7 @@ namespace FileSignatures.Tests
         }
 
         [Fact]
-        public void MostSpecificFormatIsReturned()
+        public void MultipleMatchesReturnsMostDerivedFormat()
         {
             var baseFormat = new BaseFormat();
             var inheritedFormat = new InheritedFormat();
@@ -132,6 +154,24 @@ namespace FileSignatures.Tests
             }
 
             Assert.Equal(inheritedFormat, result);
+        }
+
+        [Fact]
+        public void MutipleMatchesReturnsFormatWithLongestHeader()
+        {
+            var shortHeader = new TestFileFormat(new byte[] { 0x02, 0x00 });
+            var longHeader = new AnotherTestFileFormat(new byte[] { 0x02, 0x00, 0xFF });
+
+            var inspector = new FileFormatInspector(new FileFormat[] { shortHeader, longHeader });
+            FileFormat result = null;
+
+            using (var stream = new MemoryStream(new byte[] { 0x02, 0x00, 0xFF, 0xFA }))
+            {
+                result = inspector.DetermineFileFormat(stream);
+            }
+
+            Assert.NotNull(result);
+            Assert.Equal(longHeader, result);
         }
 
         private class FragmentedStream : MemoryStream
@@ -172,6 +212,13 @@ namespace FileSignatures.Tests
         private class InheritedFormat : BaseFormat
         {
             public InheritedFormat() : base("example/inherited")
+            {
+            }
+        }
+
+        private class AnotherTestFileFormat : FileFormat
+        {
+            public AnotherTestFileFormat(byte[] signature) : base(signature, "example/another", "test")
             {
             }
         }

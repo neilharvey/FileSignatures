@@ -5,8 +5,6 @@ VisualStudioVersion = 15.0.26430.15
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{A34CAB26-B589-4531-884B-E50BF89CCF2D}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{4D50F777-A2A1-4FE8-B703-5010D7000DEF}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{D9653CFC-5C1F-4751-BE1E-B85EAAF73203}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FileSignatures", "src\FileSignatures\FileSignatures.csproj", "{52D4F79F-BB2C-46E9-9D27-59FF8DC9BD81}"
@@ -34,5 +32,8 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{52D4F79F-BB2C-46E9-9D27-59FF8DC9BD81} = {A34CAB26-B589-4531-884B-E50BF89CCF2D}
 		{5FE9AF07-5928-482E-9917-285956E7731C} = {D9653CFC-5C1F-4751-BE1E-B85EAAF73203}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {03AC7B1D-D40C-4953-8277-2D4EC5AF7E36}
 	EndGlobalSection
 EndGlobal
