@@ -92,4 +92,4 @@ Using this method, you can continue to create custom formats and they will autom
 
 ## What is the licence?
 
-This project is licensed under the [MIT license](LICENSE.TXT).
+This project is licensed under the [MIT license](LICENSE).
