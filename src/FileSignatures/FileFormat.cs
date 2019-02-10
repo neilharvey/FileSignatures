@@ -16,8 +16,9 @@ namespace FileSignatures
         /// <param name="mediaType">The media type of the format.</param>
         /// <param name="extension">The appropriate extension for the format.</param>
         /// <param name="offset">The appropriate offset for the format.</param>
-        protected FileFormat(byte[] signature, string mediaType, string extension, int offset = 0) : this(signature, signature == null ? 0 + offset : signature.Length + offset, mediaType, extension, offset)
+        protected FileFormat(byte[] signature, string mediaType, string extension, int offset = 0) : this(signature, signature == null ? 0 + offset : signature.Length + offset, mediaType, extension)
         {
+            Offset = offset;
         }
 
         /// <summary>
@@ -27,8 +28,7 @@ namespace FileSignatures
         /// <param name="headerLength">The number of bytes required to determine the format.</param>
         /// <param name="mediaType">The media type of the format.</param>
         /// <param name="extension">The appropriate file extension for the format.</param>
-        /// <param name="offset">The appropriate offset for the format.</param>
-        protected FileFormat(byte[] signature, int headerLength, string mediaType, string extension, int offset = 0)
+        protected FileFormat(byte[] signature, int headerLength, string mediaType, string extension)
         {
             if (signature == null || signature.Length == 0)
             {
@@ -44,7 +44,6 @@ namespace FileSignatures
             HeaderLength = headerLength;
             Extension = extension;
             MediaType = mediaType;
-            Offset = offset;
         }
 
         /// <summary>
