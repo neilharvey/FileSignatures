@@ -3,7 +3,7 @@
     /// <summary>
     /// Specifies the format of a OpenDocumentText file.
     /// </summary>
-    public class OpenDocumentText : OffsetFileFormat
+    public class OpenDocumentText : FileFormat
     {
         public OpenDocumentText() : base(new byte[] {
             0x6D, 0x69, 0x6D, 0x65, 0x74, 0x79, 0x70, 0x65, 0x61, 0x70, 0x70, 0x6C, 0x69, 0x63, 0x61, 0x74,

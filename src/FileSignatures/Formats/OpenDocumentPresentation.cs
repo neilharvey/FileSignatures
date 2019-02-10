@@ -3,7 +3,7 @@
     /// <summary>
     /// Specifies the format of a OffsetFileFormat file.
     /// </summary>
-    public class OpenDocumentPresentation : OffsetFileFormat
+    public class OpenDocumentPresentation : FileFormat
     {
         public OpenDocumentPresentation() : base(new byte[] {
             0x6D, 0x69, 0x6D, 0x65, 0x74, 0x79, 0x70, 0x65, 0x61, 0x70, 0x70, 0x6C, 0x69, 0x63, 0x61, 0x74, 0x69, 0x6F, 0x6E,
