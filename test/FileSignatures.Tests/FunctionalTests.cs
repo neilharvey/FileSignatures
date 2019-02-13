@@ -27,9 +27,14 @@ namespace FileSignatures.Tests
         [InlineData("test.spiff", "image/jpeg")]
         [InlineData("test.tif", "image/tiff")]
         [InlineData("test.xls", "application/vnd.ms-excel")]
+        [InlineData("test2.xls", "application/vnd.ms-excel")]
         [InlineData("test.xlsx", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")]
         [InlineData("test.xps", "application/vnd.ms-xpsdocument")]
         [InlineData("test.zip", "application/zip")]
+        [InlineData("test.dcm", "application/dicom")]
+        [InlineData("test.odt", "application/vnd.oasis.opendocument.text")]
+        [InlineData("test.ods", "application/vnd.oasis.opendocument.spreadsheet")]
+        [InlineData("test.odp", "application/vnd.oasis.opendocument.presentation")]
         public void SamplesAreRecognised(string sample, string expected)
         {
             var result = InspectSample(sample);
