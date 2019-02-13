@@ -13,12 +13,22 @@ namespace FileSignatures
         /// Initializes a new instance of the FileFormat class which has the specified signature and media type.
         /// </summary>
         /// <param name="signature">The header signature of the format.</param>
+        /// <param name="headerLength">The number of bytes required to determine the format.</param>
         /// <param name="mediaType">The media type of the format.</param>
-        /// <param name="extension">The appropriate extension for the format.</param>
-        /// <param name="offset">The appropriate offset for the format.</param>
-        protected FileFormat(byte[] signature, string mediaType, string extension, int offset = 0) : this(signature, signature == null ? 0 + offset : signature.Length + offset, mediaType, extension)
+        /// <param name="extension">The appropriate file extension for the format.</param>
+        protected FileFormat(byte[] signature, string mediaType, string extension) : this(signature, signature == null ? 0 : signature.Length, mediaType, extension, 0)
         {
-            Offset = offset;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the FileFormat class which has the specified signature and media type.
+        /// </summary>
+        /// <param name="signature">The header signature of the format.</param>
+        /// <param name="mediaType">The media type of the format.</param>
+        /// <param name="extension">The appropriate file extension for the format.</param>
+        /// <param name="offset">The offset at which the signature is located.</param>
+        protected FileFormat(byte[] signature, string mediaType, string extension, int offset) : this(signature, signature == null ? offset : signature.Length + offset, mediaType, extension, offset)
+        {
         }
 
         /// <summary>
@@ -29,6 +39,19 @@ namespace FileSignatures
         /// <param name="mediaType">The media type of the format.</param>
         /// <param name="extension">The appropriate file extension for the format.</param>
         protected FileFormat(byte[] signature, int headerLength, string mediaType, string extension)
+            : this(signature, headerLength, mediaType, extension, 0)
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the FileFormat class which has the specified signature and media type.
+        /// </summary>
+        /// <param name="signature">The header signature of the format.</param>
+        /// <param name="headerLength">The number of bytes required to determine the format.</param>
+        /// <param name="mediaType">The media type of the format.</param>
+        /// <param name="extension">The appropriate file extension for the format.</param>
+        /// <param name="offset">The offset at which the signature is located.</param>
+        protected FileFormat(byte[] signature, int headerLength, string mediaType, string extension, int offset)
         {
             if (signature == null || signature.Length == 0)
             {
@@ -42,6 +65,7 @@ namespace FileSignatures
 
             Signature = new ReadOnlyCollection<byte>(signature);
             HeaderLength = headerLength;
+            Offset = offset;
             Extension = extension;
             MediaType = mediaType;
         }
@@ -68,9 +92,8 @@ namespace FileSignatures
         public string MediaType { get; }
 
         /// <summary>
-        /// Gets the offset in the file which can be used to identify the format.
+        /// Gets the offset in the file at which the signature is located.
         /// </summary>
-        /// <remarks>
         public int Offset { get; }
 
         /// <summary>

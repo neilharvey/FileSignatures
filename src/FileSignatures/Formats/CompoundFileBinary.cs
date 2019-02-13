@@ -11,7 +11,7 @@ namespace FileSignatures.Formats
     /// in particular 2.2 for a description of the CFB header specification.
     /// </remarks>
     public abstract class CompoundFileBinary : FileFormat
-    {
+    { 
         /// <summary>
         /// Initializes a new instance of the CompoundFileBinary class.
         /// </summary>
