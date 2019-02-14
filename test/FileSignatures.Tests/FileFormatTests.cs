@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Linq;
-using System.Reflection;
 using Xunit;
 
 namespace FileSignatures.Tests
@@ -48,6 +46,23 @@ namespace FileSignatures.Tests
             var header = new byte[] { 0x6F, 0x3c, 0xFF, 0xFA };
 
             Assert.True(format.IsMatch(header));
+        }
+
+        [Fact]
+        public void MatchesSignatureAtOffsetPosition()
+        {
+            var format = new OffsetFileFormat(new byte[] { 0x03, 0x04 }, "example/test", "", 2);
+            var header = new byte[] { 0x01, 0x02, 0x03, 0x04 };
+
+            Assert.True(format.IsMatch(header));
+        }
+
+        private class OffsetFileFormat : FileFormat
+        {
+            public OffsetFileFormat(byte[] signature, string mediatType, string extension, int offset)
+                : base(signature, mediatType, extension, offset)
+            {
+            }
         }
 
         [Theory]
