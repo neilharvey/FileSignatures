@@ -5,7 +5,7 @@
     /// </summary>
     public class ExcelLegacy : CompoundFileBinary
     {
-        public ExcelLegacy() : base("00020820-0000-0000-c000-000000000046", "application/vnd.ms-excel", "xls")
+        public ExcelLegacy() : base("Workbook", "application/vnd.ms-excel", "xls")
         {
         }
     }
