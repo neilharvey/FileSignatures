@@ -57,18 +57,10 @@ namespace FileSignatures.Formats
                 using (var fileData = new MemoryStream(header))
                 {
                     CompoundFile cf = new CompoundFile(fileData);
-                    CFStream foundStream = cf.RootStorage.GetStream(Storage);
-                    byte[] temp = foundStream.GetData();
-                    cf.Close();
-                    if (temp.Length != 0) return true;
+                    return cf.RootStorage.TryGetStream(Storage) != null ? true : false;
                 }
-                return false;
             }
             catch (EndOfStreamException)
-            {
-                return false;
-            }
-            catch (CFItemNotFound)
             {
                 return false;
             }
