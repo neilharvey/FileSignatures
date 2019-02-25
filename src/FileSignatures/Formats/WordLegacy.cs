@@ -5,7 +5,7 @@
     /// </summary>
     public class WordLegacy : CompoundFileBinary
     {
-        public WordLegacy() : base("00020906-0000-0000-c000-000000000046", "application/msword", "doc")
+        public WordLegacy() : base("WordDocument", "application/msword", "doc")
         {
         }
     }
