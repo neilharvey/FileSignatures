@@ -39,7 +39,7 @@ namespace FileSignatures.Formats
         /// <summary>
         /// Gets the entry in the structured storage which is used to identify the format.
         /// </summary>
-        public String Storage { get; }
+        public string Storage { get; }
 
         /// <summary>
         /// Returns a value indicating whether the format matches a file header.
@@ -56,7 +56,7 @@ namespace FileSignatures.Formats
             {
                 using (var fileData = new MemoryStream(header))
                 {
-                    CompoundFile cf = new CompoundFile(fileData);
+                    var cf = new CompoundFile(fileData);
                     return cf.RootStorage.TryGetStream(Storage) != null ? true : false;
                 }
             }
