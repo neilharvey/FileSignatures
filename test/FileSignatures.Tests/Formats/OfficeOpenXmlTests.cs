@@ -11,13 +11,11 @@ namespace FileSignatures.Tests.Formats
         {
             var inspector = new FileFormatInspector();
 
-            using (var stream = new MemoryStream(new byte[] { 0x50, 0x4B, 0x03, 0x04 }))
-            {
-                var format = inspector.DetermineFileFormat(stream);
+            using var stream = new MemoryStream(new byte[] { 0x50, 0x4B, 0x03, 0x04 });
+            var format = inspector.DetermineFileFormat(stream);
 
-                Assert.NotNull(format);
-                Assert.IsType<Zip>(format);
-            }
+            Assert.NotNull(format);
+            Assert.IsType<Zip>(format);
         }
     }
 }

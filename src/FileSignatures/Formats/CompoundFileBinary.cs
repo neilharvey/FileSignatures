@@ -1,9 +1,6 @@
 ﻿using OpenMcdf;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
 
 namespace FileSignatures.Formats
 {
@@ -15,7 +12,7 @@ namespace FileSignatures.Formats
     /// in particular 2.2 for a description of the CFB header specification.
     /// </remarks>
     public abstract class CompoundFileBinary : FileFormat
-    { 
+    {
         /// <summary>
         /// Initializes a new instance of the CompoundFileBinary class.
         /// </summary>
@@ -54,11 +51,9 @@ namespace FileSignatures.Formats
 
             try
             {
-                using (var fileData = new MemoryStream(header))
-                {
-                    var cf = new CompoundFile(fileData);
-                    return cf.RootStorage.TryGetStream(Storage) != null ? true : false;
-                }
+                using var fileData = new MemoryStream(header);
+                using var cf = new CompoundFile(fileData);
+                return cf.RootStorage.TryGetStream(Storage) != null ? true : false;
             }
             catch (EndOfStreamException)
             {

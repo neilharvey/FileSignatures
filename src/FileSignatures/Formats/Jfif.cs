@@ -5,7 +5,7 @@
     /// </summary>
     public class JpegJfif : Jpeg
     {
-        public JpegJfif() : base(new byte[] { 0xFF, 0xE0})
+        public JpegJfif() : base(new byte[] { 0xFF, 0xE0 })
         {
         }
     }

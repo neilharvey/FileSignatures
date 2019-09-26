@@ -124,15 +124,13 @@ namespace FileSignatures
         /// <param name="obj">The object to compare.</param>
         public override bool Equals(object obj)
         {
-            var fileFormat = obj as FileFormat;
-
-            if (fileFormat == null)
+            if (obj is FileFormat fileFormat)
             {
-                return false;
+                return fileFormat.Signature.SequenceEqual(Signature);
             }
             else
             {
-                return fileFormat.Signature.SequenceEqual(Signature);
+                return false;
             }
         }
 
@@ -148,8 +146,8 @@ namespace FileSignatures
                     return 0;
                 }
 
-                var hash = 17;
-                foreach (var element in Signature)
+                int hash = 17;
+                foreach (byte element in Signature)
                 {
                     hash = hash * 31 + element.GetHashCode();
                 }

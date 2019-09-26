@@ -1,7 +1,7 @@
 ﻿using System;
-using System.Linq;
-using System.IO.Compression;
 using System.IO;
+using System.IO.Compression;
+using System.Linq;
 
 namespace FileSignatures.Formats
 {
@@ -43,25 +43,23 @@ namespace FileSignatures.Formats
                 return false;
             }
 
-            using (var stream = new MemoryStream(header))
-            {
-                ZipArchive archive = null;
+            using var stream = new MemoryStream(header);
+            ZipArchive? archive = null;
 
-                try
+            try
+            {
+                archive = new ZipArchive(stream, ZipArchiveMode.Read);
+                return archive.Entries.Any(e => e.FullName.Equals(IdentifiableEntry, StringComparison.OrdinalIgnoreCase));
+            }
+            catch (InvalidDataException)
+            {
+                return false;
+            }
+            finally
+            {
+                if (archive != null)
                 {
-                    archive = new ZipArchive(stream, ZipArchiveMode.Read);
-                    return archive.Entries.Any(e => e.FullName.Equals(IdentifiableEntry, StringComparison.OrdinalIgnoreCase));
-                }
-                catch (InvalidDataException)
-                {
-                    return false;
-                }
-                finally
-                {
-                    if(archive != null)
-                    {
-                        archive.Dispose();
-                    }
+                    archive.Dispose();
                 }
             }
         }

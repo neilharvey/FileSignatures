@@ -12,6 +12,6 @@ namespace FileSignatures
         /// </summary>
         /// <param name="stream">A stream containing the file content.</param>
         /// <returns>An instance of a matching file format, or null if the format could not be determined.</returns>
-        FileFormat DetermineFileFormat(Stream stream);
+        FileFormat? DetermineFileFormat(Stream stream);
     }
 }

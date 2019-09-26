@@ -3,19 +3,22 @@
   <PropertyGroup>
     <Description>A small library for detecting the type of a file based on header signature (also known as magic number) rather than file extension.</Description>
     <Authors>Neil Harvey</Authors>
-    <TargetFrameworks>netstandard1.6;netstandard2.0;net461;net452</TargetFrameworks>
+    <TargetFrameworks>net452;net461;netstandard2.0;netstandard2.1</TargetFrameworks>
     <AssemblyName>FileSignatures</AssemblyName>
     <PackageId>FileSignatures</PackageId>
     <PackageTags>File Format;Mime Type;Media Type;Header;Signature;Detection</PackageTags>
     <PackageReleaseNotes>https://github.com/neilharvey/FileSignatures/releases</PackageReleaseNotes>
     <PackageProjectUrl>https://github.com/neilharvey/FileSignatures/</PackageProjectUrl>
-    <PackageLicenseUrl>https://github.com/neilharvey/FileSignatures/blob/master/LICENCE</PackageLicenseUrl>
+    <PackageLicenseUrl></PackageLicenseUrl>
     <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
     <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
     <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
-    <Version>3.0.1</Version>
+    <Version>4.0.0</Version>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <AssemblyVersion>3.0.1.0</AssemblyVersion>
+    <AssemblyVersion>4.0.0</AssemblyVersion>
+    <LangVersion>8.0</LangVersion>
+    <Nullable>enable</Nullable>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>    
   </PropertyGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard1.6' Or '$(TargetFramework)' == 'netstandard2.0' ">
