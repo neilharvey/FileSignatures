@@ -58,7 +58,10 @@ namespace FileSignatures.Formats
                 }
                 finally
                 {
-                    archive.Dispose();
+                    if(archive != null)
+                    {
+                        archive.Dispose();
+                    }
                 }
             }
         }
