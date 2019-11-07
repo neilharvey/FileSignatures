@@ -1,6 +1,8 @@
 ﻿using BenchmarkDotNet.Attributes;
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace FileSignatures.Tests.Benchmarks
 {
@@ -8,36 +10,32 @@ namespace FileSignatures.Tests.Benchmarks
     public class FileFormatInspectorBenchmarks
     {
         private readonly FileFormatInspector inspector;
-        private readonly FileInfo ooxFile; // 8kb
-        private readonly FileInfo cfbFile; // 25kb
-        private readonly FileInfo pdfFile; // 138kb
 
         public FileFormatInspectorBenchmarks()
         {
             inspector = new FileFormatInspector();
-            ooxFile = GetFileInfo("test.xlsx");
-            pdfFile = GetFileInfo("test.pdf");
-            cfbFile = GetFileInfo("test.xls");
         }
 
-        private static FileInfo GetFileInfo(string fileName)
+        [ParamsSource(nameof(SampleFiles))]
+        public string File { get; set; }
+      
+        public static IEnumerable<string> SampleFiles()
         {
             var buildDirectoryPath = Path.GetDirectoryName(typeof(FunctionalTests).Assembly.Location);
-            return new FileInfo(Path.Combine(buildDirectoryPath, "Samples", fileName));
+            var samplesPath = Path.Combine(buildDirectoryPath, "Samples");
+            var samplesDirectory = new DirectoryInfo(samplesPath);
+
+            return samplesDirectory
+                .GetFiles()
+                .Where(x => x.Length > 10240)
+                .Select(x => x.FullName)
+                .ToList();
         }
 
         [Benchmark]
-        public FileFormat Pdf() => DetermineFileFormat(pdfFile);
-
-        [Benchmark]
-        public FileFormat Cfb() => DetermineFileFormat(cfbFile);
-
-        [Benchmark]
-        public FileFormat Oox() => DetermineFileFormat(ooxFile);
-
-        public FileFormat DetermineFileFormat(FileInfo file)
+        public FileFormat DetermineFileFormat()
         {
-            using(var stream = file.OpenRead())
+            using (var stream = System.IO.File.OpenRead(File))
             {
                 return inspector.DetermineFileFormat(stream);
             }
