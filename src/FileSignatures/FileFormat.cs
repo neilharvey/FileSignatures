@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 
 namespace FileSignatures
@@ -100,16 +101,19 @@ namespace FileSignatures
         /// Returns a value indicating whether the format matches a file header.
         /// </summary>
         /// <param name="header">The header to check.</param>
-        public virtual bool IsMatch(byte[] header)
+        public virtual bool IsMatch(Stream stream)
         {
-            if (header == null || (header.Length < HeaderLength && HeaderLength < int.MaxValue) || Offset > header.Length)
+            if (stream == null || (stream.Length < HeaderLength && HeaderLength < int.MaxValue) || Offset > stream.Length)
             {
                 return false;
             }
 
+            stream.Position = Offset;
+
             for (int i = 0; i < Signature.Count; i++)
             {
-                if (header[i + Offset] != Signature[i])
+                var b = stream.ReadByte();
+                if (b != Signature[i])
                 {
                     return false;
                 }

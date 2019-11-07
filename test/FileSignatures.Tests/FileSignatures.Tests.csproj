@@ -10,6 +10,7 @@
     <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
     <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
     <StartupObject>FileSignatures.Tests.Benchmarks.Program</StartupObject>
+    <LangVersion>8</LangVersion>
   </PropertyGroup>
 
   <ItemGroup>

@@ -36,32 +36,29 @@ namespace FileSignatures.Formats
         /// Returns a value indicating whether the format matches a file header.
         /// </summary>
         /// <param name="header">The header to check.</param>
-        public override bool IsMatch(byte[] header)
+        public override bool IsMatch(Stream stream)
         {
-            if (!base.IsMatch(header))
+            if (!base.IsMatch(stream))
             {
                 return false;
             }
 
-            using (var stream = new MemoryStream(header))
-            {
-                ZipArchive archive = null;
+            ZipArchive archive = null;
 
-                try
+            try
+            {
+                archive = new ZipArchive(stream, ZipArchiveMode.Read, true);
+                return archive.Entries.Any(e => e.FullName.Equals(IdentifiableEntry, StringComparison.OrdinalIgnoreCase));
+            }
+            catch (InvalidDataException)
+            {
+                return false;
+            }
+            finally
+            {
+                if (archive != null)
                 {
-                    archive = new ZipArchive(stream, ZipArchiveMode.Read);
-                    return archive.Entries.Any(e => e.FullName.Equals(IdentifiableEntry, StringComparison.OrdinalIgnoreCase));
-                }
-                catch (InvalidDataException)
-                {
-                    return false;
-                }
-                finally
-                {
-                    if(archive != null)
-                    {
-                        archive.Dispose();
-                    }
+                    archive.Dispose();
                 }
             }
         }

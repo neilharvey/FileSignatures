@@ -45,18 +45,17 @@ namespace FileSignatures.Formats
         /// Returns a value indicating whether the format matches a file header.
         /// </summary>
         /// <param name="header">The header to check.</param>
-        public override bool IsMatch(byte[] header)
+        public override bool IsMatch(Stream stream)
         {
-            if (!base.IsMatch(header))
+            if (!base.IsMatch(stream))
             {
                 return false;
             }
 
             try
             {
-                using (var fileData = new MemoryStream(header))
+                using (var cf = new CompoundFile(stream, CFSUpdateMode.ReadOnly, CFSConfiguration.LeaveOpen))
                 {
-                    var cf = new CompoundFile(fileData);
                     return cf.RootStorage.TryGetStream(Storage) != null ? true : false;
                 }
             }
