@@ -86,6 +86,24 @@ namespace FileSignatures
                 }
             }
 
+            if(candidates.Count > 1)
+            {
+                var readers = candidates.OfType<IFileFormatReader>().ToList();
+
+                if(readers.Any())
+                {
+                    var file = readers[0].Read(stream);
+                    foreach(var reader in readers)
+                    {
+                        if (!reader.IsMatch(file))
+                        {
+                            // Bug here due to equality / gethashcode comparison
+                            candidates.Remove(reader as FileFormat);
+                        }
+                    }
+                }
+            }
+
             stream.Position = 0;
             return candidates;
         }

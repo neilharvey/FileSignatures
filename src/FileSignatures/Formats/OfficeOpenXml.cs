@@ -8,7 +8,7 @@ namespace FileSignatures.Formats
     /// <summary>
     /// Specifies the format of an Office Open XML file.
     /// </summary>
-    public abstract class OfficeOpenXml : Zip
+    public abstract class OfficeOpenXml : Zip, IFileFormatReader
     {
         /// <summary>
         /// Initializes a new instance of the OfficeOpenXmlFormat class which matches an archive containing a unique entry.
@@ -32,34 +32,27 @@ namespace FileSignatures.Formats
         /// <remarks>
         public string IdentifiableEntry { get; }
 
-        /// <summary>
-        /// Returns a value indicating whether the format matches a file header.
-        /// </summary>
-        /// <param name="header">The header to check.</param>
-        public override bool IsMatch(Stream stream)
+        public bool IsMatch(IDisposable file)
         {
-            if (!base.IsMatch(stream))
+            if(file is ZipArchive archive)
+            {
+                return archive.Entries.Any(e => e.FullName.Equals(IdentifiableEntry, StringComparison.OrdinalIgnoreCase));
+            }
+            else
             {
                 return false;
             }
+        }
 
-            ZipArchive archive = null;
-
+        public IDisposable Read(Stream stream)
+        {
             try
             {
-                archive = new ZipArchive(stream, ZipArchiveMode.Read, true);
-                return archive.Entries.Any(e => e.FullName.Equals(IdentifiableEntry, StringComparison.OrdinalIgnoreCase));
+                return new ZipArchive(stream, ZipArchiveMode.Read, true);
             }
             catch (InvalidDataException)
             {
-                return false;
-            }
-            finally
-            {
-                if (archive != null)
-                {
-                    archive.Dispose();
-                }
+                return null;
             }
         }
     }
