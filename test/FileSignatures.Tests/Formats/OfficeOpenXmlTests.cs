@@ -1,4 +1,5 @@
 ﻿using FileSignatures.Formats;
+using System;
 using System.IO;
 using Xunit;
 
@@ -7,7 +8,7 @@ namespace FileSignatures.Tests.Formats
     public class OfficeOpenXmlTests
     {
         [Fact]
-        public void InvalidZipArchive_DoesNotThrow()
+        public void InvalidZipArchiveDoesNotThrow()
         {
             var inspector = new FileFormatInspector();
 

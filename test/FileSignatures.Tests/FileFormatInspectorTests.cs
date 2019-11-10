@@ -203,7 +203,7 @@ namespace FileSignatures.Tests
             {
             }
 
-            public override bool IsMatch(byte[] header)
+            public override bool IsMatch(Stream stream)
             {
                 return true;
             }
