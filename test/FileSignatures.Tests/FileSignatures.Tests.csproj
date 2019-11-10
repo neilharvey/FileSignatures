@@ -9,6 +9,9 @@
     <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
     <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
     <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
+    <LangVersion>8.0</LangVersion>
+    <Nullable>enable</Nullable>
+    <StartupObject>FileSignatures.Tests.Benchmarks.Program</StartupObject>
   </PropertyGroup>
 
   <ItemGroup>
@@ -18,14 +21,15 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\FileSignatures\FileSignatures.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <PackageReference Include="BenchmarkDotNet" Version="0.12.0" />
     <PackageReference Include="System.Reflection" Version="4.3.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.7.0" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.3.1" />
     <PackageReference Include="xunit" Version="2.3.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\FileSignatures\FileSignatures.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -5,7 +5,7 @@
     /// </summary>
     public class Tiff : Image
     {
-        public Tiff() : base(new byte[] { 0x49, 0x49, 0x2A, 00}, "image/tiff", "tif")
+        public Tiff() : base(new byte[] { 0x49, 0x49, 0x2A, 00 }, "image/tiff", "tif")
         {
         }
     }

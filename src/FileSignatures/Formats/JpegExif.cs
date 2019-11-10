@@ -5,7 +5,7 @@
     /// </summary>
     public class JpegExif : Jpeg
     {
-        public JpegExif() : base(new byte[] { 0xFF, 0xE1})
+        public JpegExif() : base(new byte[] { 0xFF, 0xE1 })
         {
         }
     }
