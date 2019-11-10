@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 
 namespace FileSignatures
@@ -99,17 +100,20 @@ namespace FileSignatures
         /// <summary>
         /// Returns a value indicating whether the format matches a file header.
         /// </summary>
-        /// <param name="header">The header to check.</param>
-        public virtual bool IsMatch(byte[] header)
+        /// <param name="header">The stream to check.</param>
+        public virtual bool IsMatch(Stream stream)
         {
-            if (header == null || (header.Length < HeaderLength && HeaderLength < int.MaxValue) || Offset > header.Length)
+            if (stream == null || (stream.Length < HeaderLength && HeaderLength < int.MaxValue) || Offset > stream.Length)
             {
                 return false;
             }
 
+            stream.Position = Offset;
+
             for (int i = 0; i < Signature.Count; i++)
             {
-                if (header[i + Offset] != Signature[i])
+                var b = stream.ReadByte();
+                if (b != Signature[i])
                 {
                     return false;
                 }
@@ -124,16 +128,31 @@ namespace FileSignatures
         /// <param name="obj">The object to compare.</param>
         public override bool Equals(object obj)
         {
-            var fileFormat = obj as FileFormat;
+            return Equals(obj as FileFormat);
+        }
 
-            if (fileFormat == null)
+        /// <summary>
+        /// Determines whether the format is equal to this FileFormat.
+        /// </summary>
+        /// <param name="fileFormat">The format to compare.</param>
+        public bool Equals(FileFormat fileFormat)
+        {
+            if(fileFormat == null)
             {
                 return false;
             }
-            else
+
+            if(ReferenceEquals(this, fileFormat))
             {
-                return fileFormat.Signature.SequenceEqual(Signature);
+                return true;
             }
+
+            if(GetType() != fileFormat.GetType())
+            {
+                return false;
+            }
+
+            return fileFormat.Signature.SequenceEqual(Signature);
         }
 
         /// <summary>

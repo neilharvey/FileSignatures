@@ -1,9 +1,6 @@
 ﻿using OpenMcdf;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
 
 namespace FileSignatures.Formats
 {
@@ -14,7 +11,7 @@ namespace FileSignatures.Formats
     /// See [MS-CFB] https://msdn.microsoft.com/en-us/library/dd942138.aspx,
     /// in particular 2.2 for a description of the CFB header specification.
     /// </remarks>
-    public abstract class CompoundFileBinary : FileFormat
+    public abstract class CompoundFileBinary : FileFormat, IFileFormatReader
     { 
         /// <summary>
         /// Initializes a new instance of the CompoundFileBinary class.
@@ -41,28 +38,27 @@ namespace FileSignatures.Formats
         /// </summary>
         public string Storage { get; }
 
-        /// <summary>
-        /// Returns a value indicating whether the format matches a file header.
-        /// </summary>
-        /// <param name="header">The header to check.</param>
-        public override bool IsMatch(byte[] header)
+        public bool IsMatch(IDisposable file)
         {
-            if (!base.IsMatch(header))
+            if(file is CompoundFile cf)
+            {
+                return cf.RootStorage.TryGetStream(Storage) != null;
+            }
+            else
             {
                 return false;
             }
+        }
 
+        public IDisposable Read(Stream stream)
+        {
             try
             {
-                using (var fileData = new MemoryStream(header))
-                {
-                    var cf = new CompoundFile(fileData);
-                    return cf.RootStorage.TryGetStream(Storage) != null ? true : false;
-                }
+                return new CompoundFile(stream, CFSUpdateMode.ReadOnly, CFSConfiguration.LeaveOpen);
             }
-            catch (EndOfStreamException)
+            catch(EndOfStreamException)
             {
-                return false;
+                return null;
             }
         }
     }
