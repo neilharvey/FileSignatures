@@ -17,7 +17,7 @@ namespace FileSignatures.Tests.Benchmarks
         }
 
         [ParamsSource(nameof(SampleFiles))]
-        public string File { get; set; }
+        public string? File { get; set; }
       
         public static IEnumerable<string> SampleFiles()
         {
@@ -33,7 +33,7 @@ namespace FileSignatures.Tests.Benchmarks
         }
 
         [Benchmark]
-        public FileFormat DetermineFileFormat()
+        public FileFormat? DetermineFileFormat()
         {
             // We must open the stream as part of the benchmark because otherwise
             // Windows anti-malware will get rather upset with us.

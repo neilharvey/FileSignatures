@@ -32,7 +32,7 @@ namespace FileSignatures.Formats
         /// <remarks>
         public string IdentifiableEntry { get; }
 
-        public bool IsMatch(IDisposable file)
+        public bool IsMatch(IDisposable? file)
         {
             if(file is ZipArchive archive)
             {
@@ -44,7 +44,7 @@ namespace FileSignatures.Formats
             }
         }
 
-        public IDisposable Read(Stream stream)
+        public IDisposable? Read(Stream stream)
         {
             try
             {

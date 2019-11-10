@@ -33,7 +33,7 @@ namespace FileSignatures
         /// </summary>
         /// <param name="stream">A stream containing the file content.</param>
         /// <returns>An instance of a matching file format, or null if the format could not be determined.</returns>
-        public FileFormat? DetermineFileFormat(Stream stream)
+        public FileFormat? DetermineFileFormat(Stream? stream)
         {
             if (stream == null)
             {
@@ -67,7 +67,7 @@ namespace FileSignatures
 
         private List<FileFormat> FindMatchingFormats(Stream stream)
         {
-            var candidates = knownFormats
+            var candidates = _formats
                 .OrderBy(t => t.HeaderLength)
                 .ToList();
 
@@ -91,8 +91,7 @@ namespace FileSignatures
                     {
                         if (!reader.IsMatch(file))
                         {
-                            // Bug here due to equality / gethashcode comparison
-                            candidates.Remove(reader as FileFormat);
+                            candidates.Remove((FileFormat)reader);
                         }
                     }
                 }

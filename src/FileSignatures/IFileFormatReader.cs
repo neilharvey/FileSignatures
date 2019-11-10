@@ -15,12 +15,12 @@ namespace FileSignatures
         /// Reads a stream and converts it to another format.
         /// </summary>
         /// <param name="stream">The stream to convert.</param>
-        IDisposable Read(Stream stream);
+        IDisposable? Read(Stream stream);
 
         /// <summary>
         /// Returns a value indicating whether the format is a match for the converted stream.
         /// </summary>
         /// <param name="file">The converted stream to check.</param>
-        bool IsMatch(IDisposable file);
+        bool IsMatch(IDisposable? file);
     }
 }

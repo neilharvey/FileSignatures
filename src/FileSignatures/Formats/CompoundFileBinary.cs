@@ -38,7 +38,7 @@ namespace FileSignatures.Formats
         /// </summary>
         public string Storage { get; }
 
-        public bool IsMatch(IDisposable file)
+        public bool IsMatch(IDisposable? file)
         {
             if(file is CompoundFile cf)
             {
@@ -50,7 +50,7 @@ namespace FileSignatures.Formats
             }
         }
 
-        public IDisposable Read(Stream stream)
+        public IDisposable? Read(Stream stream)
         {
             try
             {

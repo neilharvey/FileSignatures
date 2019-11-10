@@ -135,7 +135,7 @@ namespace FileSignatures
         /// Determines whether the format is equal to this FileFormat.
         /// </summary>
         /// <param name="fileFormat">The format to compare.</param>
-        public bool Equals(FileFormat fileFormat)
+        public bool Equals(FileFormat? fileFormat)
         {
             if(fileFormat == null)
             {
