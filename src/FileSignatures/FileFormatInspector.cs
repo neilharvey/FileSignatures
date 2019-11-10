@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 
 namespace FileSignatures
 {
@@ -11,7 +10,7 @@ namespace FileSignatures
     /// </summary>
     public class FileFormatInspector : IFileFormatInspector
     {
-        private IEnumerable<FileFormat> knownFormats;
+        private readonly IEnumerable<FileFormat> _formats;
 
         /// <summary>
         /// Initialises a new FileFormatInspector instance which can determine the default file formats.
@@ -26,12 +25,7 @@ namespace FileSignatures
         /// <param name="formats">The formats which are recognised.</param>
         public FileFormatInspector(IEnumerable<FileFormat> formats)
         {
-            if (formats == null)
-            {
-                throw new ArgumentNullException(nameof(formats));
-            }
-
-            knownFormats = formats;
+            _formats = formats ?? throw new ArgumentNullException(nameof(formats));
         }
 
         /// <summary>
@@ -39,9 +33,9 @@ namespace FileSignatures
         /// </summary>
         /// <param name="stream">A stream containing the file content.</param>
         /// <returns>An instance of a matching file format, or null if the format could not be determined.</returns>
-        public FileFormat DetermineFileFormat(Stream stream)
+        public FileFormat? DetermineFileFormat(Stream stream)
         {
-            if(stream == null)
+            if (stream == null)
             {
                 throw new ArgumentNullException(nameof(stream));
             }
@@ -51,7 +45,7 @@ namespace FileSignatures
                 throw new NotSupportedException("The passed stream object is not seekable.");
             }
 
-            if(stream.Length == 0)
+            if (stream.Length == 0)
             {
                 return null;
             }
@@ -110,9 +104,9 @@ namespace FileSignatures
 
         private static void RemoveBaseFormats(List<FileFormat> candidates)
         {
-            for (int i = 0; i < candidates.Count; i++)
+            for (var i = 0; i < candidates.Count; i++)
             {
-                for (int j = 0; j < candidates.Count; j++)
+                for (var j = 0; j < candidates.Count; j++)
                 {
                     if (i != j && candidates[j].GetType().IsAssignableFrom(candidates[i].GetType()))
                     {

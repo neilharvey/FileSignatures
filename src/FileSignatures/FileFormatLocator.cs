@@ -38,7 +38,7 @@ namespace FileSignatures
         {
             var formatsInAssembly = GetFormats(assembly);
 
-            if(!includeDefaults)
+            if (!includeDefaults)
             {
                 return formatsInAssembly;
             }

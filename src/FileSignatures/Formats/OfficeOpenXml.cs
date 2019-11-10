@@ -1,7 +1,7 @@
 ﻿using System;
-using System.Linq;
-using System.IO.Compression;
 using System.IO;
+using System.IO.Compression;
+using System.Linq;
 
 namespace FileSignatures.Formats
 {

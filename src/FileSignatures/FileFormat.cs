@@ -167,8 +167,8 @@ namespace FileSignatures
                     return 0;
                 }
 
-                var hash = 17;
-                foreach (var element in Signature)
+                int hash = 17;
+                foreach (byte element in Signature)
                 {
                     hash = hash * 31 + element.GetHashCode();
                 }
