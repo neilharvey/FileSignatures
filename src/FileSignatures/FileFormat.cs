@@ -100,7 +100,7 @@ namespace FileSignatures
         /// <summary>
         /// Returns a value indicating whether the format matches a file header.
         /// </summary>
-        /// <param name="header">The header to check.</param>
+        /// <param name="header">The stream to check.</param>
         public virtual bool IsMatch(Stream stream)
         {
             if (stream == null || (stream.Length < HeaderLength && HeaderLength < int.MaxValue) || Offset > stream.Length)
@@ -128,16 +128,31 @@ namespace FileSignatures
         /// <param name="obj">The object to compare.</param>
         public override bool Equals(object obj)
         {
-            var fileFormat = obj as FileFormat;
+            return Equals(obj as FileFormat);
+        }
 
-            if (fileFormat == null)
+        /// <summary>
+        /// Determines whether the format is equal to this FileFormat.
+        /// </summary>
+        /// <param name="fileFormat">The format to compare.</param>
+        public bool Equals(FileFormat fileFormat)
+        {
+            if(fileFormat == null)
             {
                 return false;
             }
-            else
+
+            if(ReferenceEquals(this, fileFormat))
             {
-                return fileFormat.Signature.SequenceEqual(Signature);
+                return true;
             }
+
+            if(GetType() != fileFormat.GetType())
+            {
+                return false;
+            }
+
+            return fileFormat.Signature.SequenceEqual(Signature);
         }
 
         /// <summary>

@@ -27,7 +27,7 @@ namespace FileSignatures.Tests.Benchmarks
 
             return samplesDirectory
                 .GetFiles()
-                .Where(x => x.Length > 10240)
+                //.Where(x => x.Length > 10240)
                 .Select(x => x.FullName)
                 .ToList();
         }
@@ -35,10 +35,10 @@ namespace FileSignatures.Tests.Benchmarks
         [Benchmark]
         public FileFormat DetermineFileFormat()
         {
-            using (var stream = System.IO.File.OpenRead(File))
-            {
-                return inspector.DetermineFileFormat(stream);
-            }
+            // We must open the stream as part of the benchmark because otherwise
+            // Windows anti-malware will get rather upset with us.
+            using var stream = System.IO.File.OpenRead(File);
+            return inspector.DetermineFileFormat(stream);
         }
     }
 }
