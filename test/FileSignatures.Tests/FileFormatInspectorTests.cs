@@ -11,7 +11,9 @@ namespace FileSignatures.Tests
         {
             var inspector = new FileFormatInspector();
 
+#pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference type.
             Assert.Throws<ArgumentNullException>(() => inspector.DetermineFileFormat(null));
+#pragma warning restore CS8625 // Cannot convert null literal to non-nullable reference type.
         }
 
         [Fact]

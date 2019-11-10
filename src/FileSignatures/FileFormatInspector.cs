@@ -33,7 +33,7 @@ namespace FileSignatures
         /// </summary>
         /// <param name="stream">A stream containing the file content.</param>
         /// <returns>An instance of a matching file format, or null if the format could not be determined.</returns>
-        public FileFormat? DetermineFileFormat(Stream? stream)
+        public FileFormat? DetermineFileFormat(Stream stream)
         {
             if (stream == null)
             {
