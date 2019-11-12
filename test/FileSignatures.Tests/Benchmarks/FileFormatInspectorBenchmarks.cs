@@ -10,6 +10,8 @@ namespace FileSignatures.Tests.Benchmarks
     public class FileFormatInspectorBenchmarks
     {
         private readonly FileFormatInspector inspector;
+        private static readonly string buildDirectoryPath = Path.GetDirectoryName(typeof(FunctionalTests).Assembly.Location);
+        private static readonly string samplesPath = Path.Combine(buildDirectoryPath, "Samples");
 
         public FileFormatInspectorBenchmarks()
         {
@@ -17,18 +19,16 @@ namespace FileSignatures.Tests.Benchmarks
         }
 
         [ParamsSource(nameof(SampleFiles))]
-        public string? File { get; set; }
+        public string? FileName { get; set; }
       
         public static IEnumerable<string> SampleFiles()
         {
-            var buildDirectoryPath = Path.GetDirectoryName(typeof(FunctionalTests).Assembly.Location);
-            var samplesPath = Path.Combine(buildDirectoryPath, "Samples");
             var samplesDirectory = new DirectoryInfo(samplesPath);
 
             return samplesDirectory
                 .GetFiles()
-                //.Where(x => x.Length > 10240)
-                .Select(x => x.FullName)
+                //.Where(x => x.Length > 102400)
+                .Select(x => x.Name)
                 .ToList();
         }
 
@@ -37,7 +37,7 @@ namespace FileSignatures.Tests.Benchmarks
         {
             // We must open the stream as part of the benchmark because otherwise
             // Windows anti-malware will get rather upset with us.
-            using var stream = System.IO.File.OpenRead(File);
+            using var stream = System.IO.File.OpenRead(Path.Combine(samplesPath, FileName));
             return inspector.DetermineFileFormat(stream);
         }
     }
