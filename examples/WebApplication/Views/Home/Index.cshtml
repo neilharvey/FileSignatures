@@ -12,8 +12,8 @@
 <form asp-action="index" method="post" enctype="multipart/form-data">
 
     <div class="form-group">
-        <label for="file">Select an image to upload:</label>
-        <input name="file" type="file" required />
+        <label for="file">Select an image to upload</label>
+        <input id="file" name="file" type="file" class="form-control-file" required />
     </div>  
 
     <input type="submit" value="Upload File" class="btn btn-primary"/>
