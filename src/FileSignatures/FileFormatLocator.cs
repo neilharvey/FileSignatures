@@ -21,10 +21,15 @@ namespace FileSignatures
         /// <param name="assembly">The assembly which contains the file format definitions.</param>
         public static IEnumerable<FileFormat> GetFormats(Assembly assembly)
         {
+            if(assembly == null)
+            {
+                throw new ArgumentNullException(nameof(assembly));
+            }
+
             return assembly.GetTypes()
                  .Where(t => typeof(FileFormat).IsAssignableFrom(t))
                  .Where(t => !t.GetTypeInfo().IsAbstract)
-                 .Where(t => t.GetConstructors().Any(c => c.GetParameters().Count() == 0))
+                 .Where(t => t.GetConstructors().Any(c => c.GetParameters().Length == 0))
                  .Select(t => Activator.CreateInstance(t))
                  .OfType<FileFormat>();
         }
