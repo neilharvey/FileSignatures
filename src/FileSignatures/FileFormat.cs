@@ -8,7 +8,7 @@ namespace FileSignatures
     /// <summary>
     /// Specifies the format of a file.
     /// </summary>
-    public abstract class FileFormat
+    public abstract class FileFormat : IEquatable<FileFormat>
     {
         /// <summary>
         /// Initializes a new instance of the FileFormat class which has the specified signature and media type.
