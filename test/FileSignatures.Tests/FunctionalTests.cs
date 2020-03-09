@@ -44,6 +44,19 @@ namespace FileSignatures.Tests
             Assert.Equal(expected, result?.MediaType);
         }
 
+
+        [Fact]
+        public void AllExtensionsIncludePeriod()
+        {
+            var formats = FileFormatLocator.GetFormats();
+
+            foreach(var format in formats)
+            {
+                // Not using Assert.StartsWith here because it does not give us a readable failure message.
+                Assert.True(format.Extension.StartsWith("."), $"The extension for format {format} does not start with a period.");
+            }
+        }
+
         private static FileFormat? InspectSample(string fileName)
         {
             var inspector = new FileFormatInspector();

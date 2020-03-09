@@ -64,6 +64,11 @@ namespace FileSignatures
                 throw new ArgumentNullException(nameof(mediaType));
             }
 
+            if(!string.IsNullOrEmpty(extension) && !extension.StartsWith("."))
+            {
+                extension = "." + extension;
+            }
+
             Signature = new ReadOnlyCollection<byte>(signature);
             HeaderLength = headerLength;
             Offset = offset;

@@ -91,5 +91,17 @@ namespace FileSignatures.Tests
             {
             }
         }
+
+        [Theory]
+        [InlineData(null, null)]
+        [InlineData("", "")]
+        [InlineData("test", ".test")]
+        [InlineData(".test", ".test")]
+        public void NonEmptyExtensionIsNormalised(string extension, string expected)
+        {
+            var format = new ConcreteFileFormat(new byte[] { 0x00 }, "example/test", extension);
+
+            Assert.Equal(expected, format.Extension);
+        }
     }
 }
