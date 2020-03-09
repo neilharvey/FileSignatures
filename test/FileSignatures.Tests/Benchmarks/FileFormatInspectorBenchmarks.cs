@@ -1,5 +1,4 @@
 ﻿using BenchmarkDotNet.Attributes;
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -10,8 +9,15 @@ namespace FileSignatures.Tests.Benchmarks
     public class FileFormatInspectorBenchmarks
     {
         private readonly FileFormatInspector inspector;
-        private static readonly string buildDirectoryPath = Path.GetDirectoryName(typeof(FunctionalTests).Assembly.Location);
-        private static readonly string samplesPath = Path.Combine(buildDirectoryPath, "Samples");
+        private static readonly string samplesPath;
+
+        static FileFormatInspectorBenchmarks()
+        {
+#nullable disable warnings
+            var buildDirectoryPath = Path.GetDirectoryName(typeof(FunctionalTests).Assembly.Location);
+            samplesPath = Path.Combine(buildDirectoryPath ?? "", "Samples");
+#nullable enable warnings
+        }
 
         public FileFormatInspectorBenchmarks()
         {
