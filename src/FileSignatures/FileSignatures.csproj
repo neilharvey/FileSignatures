@@ -13,12 +13,13 @@
     <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
     <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
     <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
-    <Version>4.0.0</Version>
+    <Version>4.0.1</Version>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <AssemblyVersion>4.0.0</AssemblyVersion>
+    <AssemblyVersion>4.0.1</AssemblyVersion>
     <LangVersion>8.0</LangVersion>
     <Nullable>enable</Nullable>
+    <FileVersion>4.0.1</FileVersion>
 
   </PropertyGroup>
 
@@ -35,19 +36,19 @@
 
   <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
     <PackageReference Include="OpenMcdf">
-      <Version>2.2.1.3</Version>
+      <Version>2.2.1.9</Version>
     </PackageReference>
   </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'net452'">
     <PackageReference Include="OpenMcdf">
-      <Version>2.2.1.3</Version>
+      <Version>2.2.1.9</Version>
     </PackageReference>
   </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'net461'">
     <PackageReference Include="OpenMcdf">
-      <Version>2.2.1.3</Version>
+      <Version>2.2.1.9</Version>
     </PackageReference>
   </ItemGroup>
 

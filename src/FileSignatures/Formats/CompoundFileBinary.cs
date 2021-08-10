@@ -42,7 +42,7 @@ namespace FileSignatures.Formats
         {
             if(file is CompoundFile cf)
             {
-                return cf.RootStorage.TryGetStream(Storage) != null;
+                return cf.RootStorage.TryGetStream(Storage, out CFStream _);
             }
             else
             {
