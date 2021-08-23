@@ -20,7 +20,8 @@
     <LangVersion>8.0</LangVersion>
     <Nullable>enable</Nullable>
     <FileVersion>4.0.1</FileVersion>
-
+    <SignAssembly>True</SignAssembly>
+    <AssemblyOriginatorKeyFile>..\..\FileSignatures.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard1.6' Or '$(TargetFramework)' == 'netstandard2.0' ">
