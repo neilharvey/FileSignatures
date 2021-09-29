@@ -54,7 +54,7 @@ namespace FileSignatures
         /// <param name="offset">The offset at which the signature is located.</param>
         protected FileFormat(byte[] signature, int headerLength, string mediaType, string extension, int offset)
         {
-            if (signature == null || signature.Length == 0)
+            if (signature == null)
             {
                 throw new ArgumentNullException(nameof(signature));
             }
