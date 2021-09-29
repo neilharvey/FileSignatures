@@ -6,12 +6,12 @@ namespace FileSignatures.Tests
 {
     public class FileFormatTests
     {
-        [Theory]
-        [InlineData(null)]
-        [InlineData(new byte[] { })]
-        public void SignatureCannotBeNullOrEmpty(byte[] badSignature)
+        [Fact]
+        public void SignatureCannotBeNull()
         {
-            Assert.Throws<ArgumentNullException>(() => new ConcreteFileFormat(badSignature, "example/bad", "bad"));
+#pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference type.
+            Assert.Throws<ArgumentNullException>(() => new ConcreteFileFormat(null, "example/bad", "bad"));
+#pragma warning restore CS8625 // Cannot convert null literal to non-nullable reference type.
         }
 
         [Theory]
