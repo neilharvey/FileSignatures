@@ -86,9 +86,9 @@ namespace FileSignatures
 
                 if(readers.Any())
                 {
-                    var file = readers[0].Read(stream);
                     foreach(var reader in readers)
                     {
+                        var file = reader.Read(stream);
                         if (!reader.IsMatch(file))
                         {
                             candidates.Remove((FileFormat)reader);
