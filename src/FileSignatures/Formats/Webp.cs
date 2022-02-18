@@ -8,7 +8,7 @@ namespace FileSignatures.Formats
     /// <see ref="https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types/Common_types"/>
     /// <see ref="https://en.wikipedia.org/wiki/List_of_file_signatures"/>
     /// <see ref="https://developers.google.com/speed/webp/docs/riff_container#webp_file_header"/>
-    public class Webp : FileFormat
+    public class Webp : Image
     {
         private static readonly byte[] RIFF = {0x52, 0x49, 0x46, 0x46};
         private static readonly byte[] WEBP = {0x57, 0x45, 0x42, 0x50};
