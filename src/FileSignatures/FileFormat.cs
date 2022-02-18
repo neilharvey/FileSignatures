@@ -1,4 +1,5 @@
-﻿using System;
+using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
@@ -108,18 +109,7 @@ namespace FileSignatures
                 return false;
             }
 
-            stream.Position = Offset;
-
-            for (int i = 0; i < Signature.Count; i++)
-            {
-                var b = stream.ReadByte();
-                if (b != Signature[i])
-                {
-                    return false;
-                }
-            }
-
-            return true;
+            return CheckContains(stream, Signature, Offset);
         }
 
         /// <summary>
@@ -183,6 +173,29 @@ namespace FileSignatures
         public override string ToString()
         {
             return MediaType;
+        }
+
+        /// <summary>
+        /// Check stream contains sequence at specific offset.
+        /// </summary>
+        /// <param name="stream">The stream to check.</param>
+        /// <param name="sequence">The subsequence which should be found.</param>
+        /// <param name="offset">Offset in the stream at which the subsequence should be located.</param>
+        /// <returns></returns>
+        protected static bool CheckContains(Stream stream, IEnumerable<byte> sequence, int offset = 0)
+        {
+            stream.Position = offset;
+
+            foreach (var el in sequence)
+            {
+                var b = stream.ReadByte();
+                if (b != el)
+                {
+                    return false;
+                }
+            }
+
+            return true;
         }
     }
 }
