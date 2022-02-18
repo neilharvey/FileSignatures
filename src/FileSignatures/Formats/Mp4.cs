@@ -10,7 +10,7 @@ namespace FileSignatures.Formats
     /// <see ref="https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types/Common_types"/>
     /// <see ref="https://en.wikipedia.org/wiki/List_of_file_signatures"/>
     /// <see ref="https://www.garykessler.net/library/file_sigs.html"/>
-    public class Mp4 : FileFormat
+    public class Mp4 : Video
     {
         /// <summary>
         /// ISO Base Media file (MPEG-4) v1
