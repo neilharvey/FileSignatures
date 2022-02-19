@@ -7,7 +7,7 @@ namespace FileSignatures.Formats.FtypBased
     {
         private static readonly byte[] FLV = { 0x4D, 0x34, 0x56, 0x20 };
 
-        public Flv() : base(FLV, "flv")
+        public Flv() : base(FLV, "m4v")
         {
         }
     }

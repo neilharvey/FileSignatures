@@ -7,7 +7,7 @@ namespace FileSignatures.Formats.FtypBased
     {
         private static readonly byte[] M4ASig = { 0x4D, 0x34, 0x41, 0x20 };
 
-        public M4A() : base(M4ASig)
+        public M4A() : base(M4ASig, "m4a")
         {
         }
     }
