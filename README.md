@@ -120,6 +120,8 @@ Usefull links:
 [Common file signatures (wikipedia)](https://en.wikipedia.org/wiki/List_of_file_signatures)
 [Common MIME types (MDN)](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types/Common_types)
 
+Some samples was taken from [filesamples.com](https://filesamples.com/)
+
 ## What is the licence?
 
 This project is licensed under the [MIT license](LICENSE).
