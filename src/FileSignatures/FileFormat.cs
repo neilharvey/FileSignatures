@@ -105,13 +105,23 @@ namespace FileSignatures
         /// <param name="stream">The stream to check.</param>
         public virtual bool IsMatch(Stream stream)
         {
-            if (stream == null || (stream.Length < HeaderLength && HeaderLength < int.MaxValue) ||
-                Offset > stream.Length)
+            if (stream == null || (stream.Length < HeaderLength && HeaderLength < int.MaxValue) || Offset > stream.Length)
             {
                 return false;
             }
 
-            return stream.CheckContains(Signature, Offset);
+            stream.Position = Offset;
+
+            for (int i = 0; i < Signature.Count; i++)
+            {
+                var b = stream.ReadByte();
+                if (b != Signature[i])
+                {
+                    return false;
+                }
+            }
+
+            return true;
         }
 
         /// <summary>
