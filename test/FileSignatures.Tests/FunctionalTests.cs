@@ -44,12 +44,12 @@ namespace FileSignatures.Tests
             Assert.Equal(expected, result?.MediaType);
         }
 
-        private static FileFormat? InspectSample(string fileName)
+        private static FileFormat InspectSample(string fileName)
         {
             var inspector = new FileFormatInspector();
             var buildDirectoryPath = Path.GetDirectoryName(typeof(FunctionalTests).GetTypeInfo().Assembly.Location);
             var sample = new FileInfo(Path.Combine(buildDirectoryPath, "Samples", fileName));
-            FileFormat? result;
+            FileFormat result;
 
             using (var stream = sample.OpenRead())
             {

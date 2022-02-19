@@ -10,7 +10,6 @@
     <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
     <LangVersion>8.0</LangVersion>
     <StartupObject>FileSignatures.Tests.Benchmarks.Program</StartupObject>
-    <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>

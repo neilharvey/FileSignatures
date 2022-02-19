@@ -11,16 +11,14 @@ namespace FileSignatures.Tests
         {
             var inspector = new FileFormatInspector();
 
-#pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference type.
             Assert.Throws<ArgumentNullException>(() => inspector.DetermineFileFormat(null));
-#pragma warning restore CS8625 // Cannot convert null literal to non-nullable reference type.
         }
 
         [Fact]
         public void EmptyStreamReturnsNull()
         {
             var inspector = new FileFormatInspector();
-            FileFormat? result;
+            FileFormat result;
 
             using (var stream = new MemoryStream())
             {
@@ -34,7 +32,7 @@ namespace FileSignatures.Tests
         public void StreamMustBeSeekable()
         {
             var nonSeekableStream = new NonSeekableStream();
-            var inspector = new FileFormatInspector(new FileFormat[] { });
+            var inspector = new FileFormatInspector(Array.Empty<FileFormat>());
 
             Assert.Throws<NotSupportedException>(() => inspector.DetermineFileFormat(nonSeekableStream));
         }
@@ -83,8 +81,8 @@ namespace FileSignatures.Tests
         [Fact]
         public void UnrecognisedReturnsNull()
         {
-            var inspector = new FileFormatInspector(new FileFormat[] { });
-            FileFormat? result;
+            var inspector = new FileFormatInspector(Array.Empty<FileFormat>());
+            FileFormat result;
 
             using (var stream = new MemoryStream(new byte[] { 0x0A }))
             {
@@ -99,7 +97,7 @@ namespace FileSignatures.Tests
         {
             var expected = new TestFileFormat(new byte[] { 0x42, 0x4D });
             var inspector = new FileFormatInspector(new FileFormat[] { expected });
-            FileFormat? result;
+            FileFormat result;
 
             using (var stream = new MemoryStream(new byte[] { 0x42, 0x4D, 0x3A, 0x00 }))
             {
@@ -115,7 +113,7 @@ namespace FileSignatures.Tests
             var expected = new TestFileFormat(new byte[] { 0x00, 0x01 });
             var incorrect = new TestFileFormat(new byte[] { 0x00, 0x02 });
             var inspector = new FileFormatInspector(new FileFormat[] { expected, incorrect });
-            FileFormat? result;
+            FileFormat result;
 
             using (var fragmentedStream = new FragmentedStream(new byte[] { 0x00, 0x01, 0x03 }))
             {
@@ -148,7 +146,7 @@ namespace FileSignatures.Tests
             var baseFormat = new BaseFormat();
             var inheritedFormat = new InheritedFormat();
             var inspector = new FileFormatInspector(new FileFormat[] { inheritedFormat, baseFormat });
-            FileFormat? result = null;
+            FileFormat result = null;
 
             using (var stream = new MemoryStream(new byte[] { 0x00 }))
             {
@@ -165,7 +163,7 @@ namespace FileSignatures.Tests
             var longHeader = new AnotherTestFileFormat(new byte[] { 0x02, 0x00, 0xFF });
 
             var inspector = new FileFormatInspector(new FileFormat[] { shortHeader, longHeader });
-            FileFormat? result = null;
+            FileFormat result = null;
 
             using (var stream = new MemoryStream(new byte[] { 0x02, 0x00, 0xFF, 0xFA }))
             {
