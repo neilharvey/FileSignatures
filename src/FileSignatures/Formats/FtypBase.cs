@@ -1,6 +1,6 @@
 using System.Linq;
 
-namespace FileSignatures.Formats.FtypBased
+namespace FileSignatures.Formats
 {
     /// <summary>
     /// Specifies the common part of all Ftyp-based multimedia files.

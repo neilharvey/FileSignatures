@@ -1,4 +1,4 @@
-namespace FileSignatures.Formats.FtypBased
+namespace FileSignatures.Formats
 {
     /// <summary>
     /// Specifies the format of a ISO Base Media file (MPEG-4) v1
