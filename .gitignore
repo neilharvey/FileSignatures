@@ -253,3 +253,5 @@ paket-files/
 
 # Benchmark Artifacts
 BenchmarkDotNet.Artifacts/
+
+.DS_Store
