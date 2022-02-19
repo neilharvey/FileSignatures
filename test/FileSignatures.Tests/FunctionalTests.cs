@@ -1,4 +1,4 @@
-using System.IO;
+﻿using System.IO;
 using System.Reflection;
 using Xunit;
 
@@ -52,14 +52,13 @@ namespace FileSignatures.Tests
         private static FileFormat? InspectSample(string fileName)
         {
             var inspector = new FileFormatInspector();
-            var buildDirectoryPath = Path.GetDirectoryName(typeof(FunctionalTests).GetTypeInfo().Assembly.Location);
+            var buildDirectoryPath = Path.GetDirectoryName(typeof(FunctionalTests).GetTypeInfo().Assembly.Location)
+                                     ?? string.Empty;
             var sample = new FileInfo(Path.Combine(buildDirectoryPath, "Samples", fileName));
-            FileFormat? result;
 
-            using (var stream = sample.OpenRead())
-            {
-                result = inspector.DetermineFileFormat(stream);
-            }
+            using var stream = sample.OpenRead();
+
+            var result = inspector.DetermineFileFormat(stream);
 
             return result;
         }

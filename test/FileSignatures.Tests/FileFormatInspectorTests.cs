@@ -20,12 +20,10 @@ namespace FileSignatures.Tests
         public void EmptyStreamReturnsNull()
         {
             var inspector = new FileFormatInspector();
-            FileFormat? result;
 
-            using (var stream = new MemoryStream())
-            {
-                result = inspector.DetermineFileFormat(stream);
-            }
+            using var stream = new MemoryStream();
+
+            var result = inspector.DetermineFileFormat(stream);
 
             Assert.Null(result);
         }
@@ -34,7 +32,7 @@ namespace FileSignatures.Tests
         public void StreamMustBeSeekable()
         {
             var nonSeekableStream = new NonSeekableStream();
-            var inspector = new FileFormatInspector(new FileFormat[] { });
+            var inspector = new FileFormatInspector(Array.Empty<FileFormat>());
 
             Assert.Throws<NotSupportedException>(() => inspector.DetermineFileFormat(nonSeekableStream));
         }
@@ -44,38 +42,28 @@ namespace FileSignatures.Tests
             public override bool CanSeek => false;
 
             #region Not relevant for tests
+
             public override bool CanRead => throw new NotImplementedException();
 
             public override bool CanWrite => throw new NotImplementedException();
 
             public override long Length => throw new NotImplementedException();
 
-            public override long Position { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-
-            public override void Flush()
+            public override long Position
             {
-                throw new NotImplementedException();
+                get => throw new NotImplementedException();
+                set => throw new NotImplementedException();
             }
 
-            public override int Read(byte[] buffer, int offset, int count)
-            {
-                throw new NotImplementedException();
-            }
+            public override void Flush() => throw new NotImplementedException();
 
-            public override long Seek(long offset, SeekOrigin origin)
-            {
-                throw new NotImplementedException();
-            }
+            public override int Read(byte[] buffer, int offset, int count) => throw new NotImplementedException();
 
-            public override void SetLength(long value)
-            {
-                throw new NotImplementedException();
-            }
+            public override long Seek(long offset, SeekOrigin origin) => throw new NotImplementedException();
 
-            public override void Write(byte[] buffer, int offset, int count)
-            {
-                throw new NotImplementedException();
-            }
+            public override void SetLength(long value) => throw new NotImplementedException();
+
+            public override void Write(byte[] buffer, int offset, int count) => throw new NotImplementedException();
 
             #endregion
         }
@@ -83,7 +71,7 @@ namespace FileSignatures.Tests
         [Fact]
         public void UnrecognisedReturnsNull()
         {
-            var inspector = new FileFormatInspector(new FileFormat[] { });
+            var inspector = new FileFormatInspector(Array.Empty<FileFormat>());
             FileFormat? result;
 
             using (var stream = new MemoryStream(new byte[] { 0x0A }))
@@ -129,15 +117,13 @@ namespace FileSignatures.Tests
         public void StreamIsResetToOriginalPosition()
         {
             var shortSignature = new TestFileFormat(new byte[] { 0x00, 0x01 });
-            var longSignaure = new TestFileFormat(new byte[] { 0x00, 0x01, 0x02 });
-            var inspector = new FileFormatInspector(new FileFormat[] { shortSignature, longSignaure });
-            var position = 0L;
+            var longSignature = new TestFileFormat(new byte[] { 0x00, 0x01, 0x02 });
+            var inspector = new FileFormatInspector(new FileFormat[] { shortSignature, longSignature });
 
-            using (var stream = new MemoryStream(new byte[] { 0x00, 0x01, 0x02, 0x03, 0x04 }))
-            {
-                inspector.DetermineFileFormat(stream);
-                position = stream.Position;
-            }
+            using var stream = new MemoryStream(new byte[] { 0x00, 0x01, 0x02, 0x03, 0x04 });
+
+            inspector.DetermineFileFormat(stream);
+            var position = stream.Position;
 
             Assert.Equal(0, position);
         }
@@ -148,29 +134,25 @@ namespace FileSignatures.Tests
             var baseFormat = new BaseFormat();
             var inheritedFormat = new InheritedFormat();
             var inspector = new FileFormatInspector(new FileFormat[] { inheritedFormat, baseFormat });
-            FileFormat? result = null;
 
-            using (var stream = new MemoryStream(new byte[] { 0x00 }))
-            {
-                result = inspector.DetermineFileFormat(stream);
-            }
+            using var stream = new MemoryStream(new byte[] { 0x00 });
+
+            var result = inspector.DetermineFileFormat(stream);
 
             Assert.Equal(inheritedFormat, result);
         }
 
         [Fact]
-        public void MutipleMatchesReturnsFormatWithLongestHeader()
+        public void MultipleMatchesReturnsFormatWithLongestHeader()
         {
             var shortHeader = new TestFileFormat(new byte[] { 0x02, 0x00 });
             var longHeader = new AnotherTestFileFormat(new byte[] { 0x02, 0x00, 0xFF });
 
             var inspector = new FileFormatInspector(new FileFormat[] { shortHeader, longHeader });
-            FileFormat? result = null;
 
-            using (var stream = new MemoryStream(new byte[] { 0x02, 0x00, 0xFF, 0xFA }))
-            {
-                result = inspector.DetermineFileFormat(stream);
-            }
+            using var stream = new MemoryStream(new byte[] { 0x02, 0x00, 0xFF, 0xFA });
+
+            var result = inspector.DetermineFileFormat(stream);
 
             Assert.NotNull(result);
             Assert.Equal(longHeader, result);
@@ -201,7 +183,7 @@ namespace FileSignatures.Tests
             {
             }
 
-            protected BaseFormat(string mediaType) : base(new byte[] { 0x00 }, mediaType, "")
+            protected BaseFormat(string mediaType) : base(new byte[] { 0x00 }, mediaType, string.Empty)
             {
             }
 

@@ -11,18 +11,18 @@ namespace FileSignatures.Tests
         public void LocatesConcreteFormatsInAssembly()
         {
             var expected = typeof(FileFormat)
-                 .GetTypeInfo()
-                 .Assembly
-                 .GetTypes()
-                 .Where(t => typeof(FileFormat).IsAssignableFrom(t))
-                 .Where(t => !t.GetTypeInfo().IsAbstract)
-                 .Where(t => t.GetConstructors().Any(c => c.GetParameters().Count() == 0))
-                 .Select(t => Activator.CreateInstance(t))
-                 .OfType<FileFormat>();
+                .GetTypeInfo()
+                .Assembly
+                .GetTypes()
+                .Where(t => typeof(FileFormat).IsAssignableFrom(t))
+                .Where(t => !t.GetTypeInfo().IsAbstract)
+                .Where(t => t.GetConstructors().Any(c => !c.GetParameters().Any()))
+                .Select(Activator.CreateInstance)
+                .OfType<FileFormat>();
 
             var result = FileFormatLocator.GetFormats();
 
-           Assert.Equal(expected, result);
+            Assert.Equal(expected, result);
         }
     }
 }
