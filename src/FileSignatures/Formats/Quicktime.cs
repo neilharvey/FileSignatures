@@ -3,12 +3,8 @@ namespace FileSignatures.Formats
     /// <summary>
     /// Specifies the format of a QuickTime movie file
     /// </summary>
-    public class Quicktime : Mpeg4
+    public class Quicktime : Isobmff
     {
-        private static readonly byte[] signature = { 0x71, 0x74, 0x20, 0x20 };
-
-        public Quicktime() : base(signature, "mov")
-        {
-        }
+        public Quicktime() : base(new byte[] { 0x71, 0x74, 0x20, 0x20 }, "video/quicktime", "mov") { }
     }
 }

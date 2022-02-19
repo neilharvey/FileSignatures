@@ -39,7 +39,7 @@ namespace FileSignatures.Tests
         [InlineData("test-v1.mp4", "video/mp4")]
         [InlineData("test.m4v", "video/mp4")]
         [InlineData("test.m4a", "video/mp4")]
-        [InlineData("test.mov", "video/mp4")]
+        [InlineData("test.mov", "video/quicktime")]
         [InlineData("test.3gp", "video/3gpp")]
         public void SamplesAreRecognised(string sample, string expected)
         {
