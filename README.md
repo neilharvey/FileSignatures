@@ -20,7 +20,7 @@ Create an instance of the FileFormatInspector class, then pass it a stream to yo
 ```cs
 var inspector = new FileFormatInspector();
 var format = inspector.DetermineFileFormat(stream);
-``` 
+```
 
 This will return a FileFormat instance which contains the signature and media type of the recognised format,
 or null if a matching format could not be determined.
@@ -40,7 +40,7 @@ var recognised = FileFormatLocator.GetFormats().OfType<Image>();
 var inspector = new FileFormatInspector(recognised);
 services.AddSingleton<IFileFormatInspector>(inspector);
 ```
-    
+
 In this example, only formats which derive from `Image` (jpg, tiff, bmp, etc.) will be detected.  Anything else will be ignored.
 
 ## How do I check for a type of file?
@@ -95,6 +95,8 @@ Currently, the following formats are built-in:
 | Word 97-2003               | application/msword                                                        | .doc
 | Xps                        | application/vnd.ms-xpsdocument                                            | .xps
 | Zip                        | application/zip                                                           | .zip
+| Mp4                        | video/mp4                                                                 | .mp4
+| [Webp](https://developers.google.com/speed/webp/docs/riff_container) | image/webp                      | .webp
 
 ## How do I add additional formats?
 
@@ -102,7 +104,7 @@ Create a new class (or many classes) which inherit from `FileFormat` to implemen
 
 The `FileFormatLocator` class can be used to load all custom formats located within an assembly:
 
-```cs 
+```cs
 var assembly = typeof(CustomFileFormat).GetTypeInfo().Assembly;
 
 // Just the formats defined in the assembly containing CustomFileFormat
@@ -113,6 +115,12 @@ var allFormats = FileFormatLocator.GetFormats(assembly, true);
 ```
 
 Using this method, you can continue to create custom formats and they will automatically be included into the recognised formats without any additional configuration.
+
+Usefull links:
+[Common file signatures (wikipedia)](https://en.wikipedia.org/wiki/List_of_file_signatures)
+[Common MIME types (MDN)](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types/Common_types)
+
+Some samples was taken from [filesamples.com](https://filesamples.com/)
 
 ## What is the licence?
 
