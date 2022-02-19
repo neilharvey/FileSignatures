@@ -3,11 +3,11 @@ namespace FileSignatures.Formats
     /// <summary>
     /// Specifies the format of a MPEG-4 video file.
     /// </summary>
-    public abstract class Mp4 : FtypBase
+    public abstract class Mp4 : Ftyp
     {
-        private static readonly byte[] MP4 = { 0x4D, 0x53, 0x4E, 0x56 };
+        private static readonly byte[] signature = { 0x4D, 0x53, 0x4E, 0x56 };
 
-        public Mp4() : this(MP4)
+        public Mp4() : this(signature)
         {
         }
 

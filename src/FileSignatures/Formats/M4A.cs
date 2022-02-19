@@ -5,9 +5,9 @@ namespace FileSignatures.Formats
     /// </summary>
     public class M4A : Mp4
     {
-        private static readonly byte[] M4ASig = { 0x4D, 0x34, 0x41, 0x20 };
+        private static readonly byte[] signature = { 0x4D, 0x34, 0x41, 0x20 };
 
-        public M4A() : base(M4ASig, "m4a")
+        public M4A() : base(signature, "m4a")
         {
         }
     }

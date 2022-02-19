@@ -5,9 +5,9 @@ namespace FileSignatures.Formats
     /// </summary>
     public class Flv : Mp4
     {
-        private static readonly byte[] FLV = { 0x4D, 0x34, 0x56, 0x20 };
+        private static readonly byte[] signature = { 0x4D, 0x34, 0x56, 0x20 };
 
-        public Flv() : base(FLV, "m4v")
+        public Flv() : base(signature, "m4v")
         {
         }
     }

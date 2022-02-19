@@ -33,7 +33,7 @@ namespace FileSignatures.Tests.Benchmarks
 
             return samplesDirectory
                 .GetFiles()
-                //.Where(x => x.Length > 102400)
+                .Where(x => x.LastWriteTime.Year == 2022)
                 .Select(x => x.Name)
                 .ToList();
         }
