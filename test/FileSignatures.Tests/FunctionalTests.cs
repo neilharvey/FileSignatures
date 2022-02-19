@@ -1,4 +1,4 @@
-﻿using FileSignatures.Formats;
+using FileSignatures.Formats;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -36,6 +36,13 @@ namespace FileSignatures.Tests
         [InlineData("test.odp", "application/vnd.oasis.opendocument.presentation")]
         [InlineData("test.vsd", "application/vnd.visio")]
         [InlineData("test.vsdx", "application/vnd.visio")]
+        [InlineData("test.webp", "image/webp")]
+        [InlineData("test.mp4", "video/mp4")]
+        [InlineData("test-v1.mp4", "video/mp4")]
+        [InlineData("test.m4v", "video/mp4")]
+        [InlineData("test.m4a", "video/mp4")]
+        [InlineData("test.mov", "video/mp4")]
+        [InlineData("test.3gp", "video/3gpp")]
         public void SamplesAreRecognised(string sample, string expected)
         {
             var result = InspectSample(sample);
