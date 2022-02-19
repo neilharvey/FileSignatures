@@ -7,7 +7,7 @@ namespace FileSignatures.Formats
     {
         private static readonly byte[] signature = { 0x69, 0x73, 0x6F, 0x6D };
 
-        public Mpeg4V1() : base(signature)
+        public Mpeg4V1() : base(signature, "mp4")
         {
         }
     }

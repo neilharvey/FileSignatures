@@ -5,13 +5,7 @@ namespace FileSignatures.Formats
     /// </summary>
     public abstract class Mpeg4 : Ftyp
     {
-        private static readonly byte[] signature = { 0x4D, 0x53, 0x4E, 0x56 };
-
-        public Mpeg4() : this(signature)
-        {
-        }
-
-        protected Mpeg4(byte[] signature, string extension = "mp4") : base(signature, "video/mp4", extension)
+        protected Mpeg4(byte[] signature, string extension) : base(signature, "video/mp4", extension)
         {
         }
     }
