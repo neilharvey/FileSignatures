@@ -73,12 +73,14 @@ Currently, the following formats are built-in:
 
 | Name                       | Media-Type                                                                | Extension
 |----------------------------|---------------------------------------------------------------------------|--------
+| 3GPP                       | video/3gpp                                                                | .3gp
 | Bitmap                     | image/bitmap                                                              | .bmp
 | Excel                      | application/vnd.openxmlformats-officedocument.spreadsheetml.sheet         | .xlsx
 | Excel 97-2003              | application/vnd.ms-excel                                                  | .xls
-| Windows Executable         | application/octet-stream                                                  | .exe
+| Exe (Windows)              | application/octet-stream                                                  | .exe
 | GIF                        | image/gif                                                                 | .gif
 | JPEG                       | image/jpeg                                                                | .jpeg
+| MP4                        | video/mp4                                                                 | .mp4
 | Open Document Presentation | application/vnd.oasis.opendocument.presentationn                          | .odp
 | Open Document Spreadhseet  | application/vnd.oasis.opendocument.spreadsheet                            | .ods
 | Open Document Text         | application/vnd.oasis.opendocument.text                                   | .odt
@@ -87,16 +89,16 @@ Currently, the following formats are built-in:
 | PNG                        | image/png                                                                 | .png
 | PowerPoint                 | application/vnd.openxmlformats-officedocument.presentationml.presentation | .pptx
 | Powerpoint 97-2003         | application/vnd.ms-powerpoint                                             | .ppt
+| QuickTime                  | video/quicktime                                                           | .mov
 | Rich Text Format           | application/rtf                                                           | .rtf
 | TIFF                       | image/tiff                                                                | .tif
 | Visio                      | application/vnd.visio                                                     | .vsdx
 | Visio 97-2003              | application/vnd.visio                                                     | .vsd
+| Webp                       | image/webp                                                                | .webp
 | Word                       | application/vnd.openxmlformats-officedocument.wordprocessingml.document   | .docx
 | Word 97-2003               | application/msword                                                        | .doc
 | Xps                        | application/vnd.ms-xpsdocument                                            | .xps
 | Zip                        | application/zip                                                           | .zip
-| Mp4                        | video/mp4                                                                 | .mp4
-| [Webp](https://developers.google.com/speed/webp/docs/riff_container) | image/webp                      | .webp
 
 ## How do I add additional formats?
 
@@ -115,10 +117,6 @@ var allFormats = FileFormatLocator.GetFormats(assembly, true);
 ```
 
 Using this method, you can continue to create custom formats and they will automatically be included into the recognised formats without any additional configuration.
-
-Usefull links:
-[Common file signatures (wikipedia)](https://en.wikipedia.org/wiki/List_of_file_signatures)
-[Common MIME types (MDN)](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types/Common_types)
 
 ## What is the licence?
 
