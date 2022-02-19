@@ -1,4 +1,4 @@
-﻿namespace FileSignatures.Formats
+namespace FileSignatures.Formats
 {
     /// <summary>
     /// Specifies the format of a Joint Photographics Experts Group (JPEG) image.
@@ -11,7 +11,7 @@
 
         /// <summary>
         /// Initialises a new Jpeg format.
-        /// <summary>
+        /// </summary>
         public Jpeg() : base(soi, mediaType, extension)
         {
         }
