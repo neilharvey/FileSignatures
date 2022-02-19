@@ -4,12 +4,8 @@ using System.Linq;
 namespace FileSignatures.Formats
 {
     /// <summary>
-    /// Specifies the format of a MP4 file (ISO 8859-1).
-    /// Common MIME types: MP4 video
+    /// Specifies the format of a MPEG-4 video file.
     /// </summary>
-    /// <see ref="https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types/Common_types"/>
-    /// <see ref="https://en.wikipedia.org/wiki/List_of_file_signatures"/>
-    /// <see ref="https://www.garykessler.net/library/file_sigs.html"/>
     public class Mp4 : Video
     {
         /// <summary>

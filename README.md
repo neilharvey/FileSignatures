@@ -96,7 +96,7 @@ Currently, the following formats are built-in:
 | Xps                        | application/vnd.ms-xpsdocument                                            | .xps
 | Zip                        | application/zip                                                           | .zip
 | Mp4                        | video/mp4                                                                 | .mp4
-| Webp                       | image/webp                                                                | .webp
+| [Webp](https://developers.google.com/speed/webp/docs/riff_container) | image/webp                      | .webp
 
 ## How do I add additional formats?
 
@@ -115,6 +115,10 @@ var allFormats = FileFormatLocator.GetFormats(assembly, true);
 ```
 
 Using this method, you can continue to create custom formats and they will automatically be included into the recognised formats without any additional configuration.
+
+Usefull links:
+[Common file signatures (wikipedia)](https://en.wikipedia.org/wiki/List_of_file_signatures)
+[Common MIME types (MDN)](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types/Common_types)
 
 ## What is the licence?
 
