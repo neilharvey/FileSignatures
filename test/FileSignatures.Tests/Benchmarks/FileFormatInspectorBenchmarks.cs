@@ -8,31 +8,32 @@ namespace FileSignatures.Tests.Benchmarks
     [MemoryDiagnoser]
     public class FileFormatInspectorBenchmarks
     {
-        private readonly FileFormatInspector _inspector;
-        private static readonly string SamplesPath;
+        private readonly FileFormatInspector inspector;
+        private static readonly string samplesPath;
 
         static FileFormatInspectorBenchmarks()
         {
 #nullable disable warnings
             var buildDirectoryPath = Path.GetDirectoryName(typeof(FunctionalTests).Assembly.Location);
-            SamplesPath = Path.Combine(buildDirectoryPath ?? string.Empty, "Samples");
+            samplesPath = Path.Combine(buildDirectoryPath ?? "", "Samples");
 #nullable enable warnings
         }
 
         public FileFormatInspectorBenchmarks()
         {
-            _inspector = new FileFormatInspector();
+            inspector = new FileFormatInspector();
         }
 
         [ParamsSource(nameof(SampleFiles))]
-        private string? FileName { get; set; }
-
+        public string? FileName { get; set; }
+      
         public static IEnumerable<string> SampleFiles()
         {
-            var samplesDirectory = new DirectoryInfo(SamplesPath);
+            var samplesDirectory = new DirectoryInfo(samplesPath);
 
             return samplesDirectory
                 .GetFiles()
+                //.Where(x => x.Length > 102400)
                 .Select(x => x.Name)
                 .ToList();
         }
@@ -42,8 +43,8 @@ namespace FileSignatures.Tests.Benchmarks
         {
             // We must open the stream as part of the benchmark because otherwise
             // Windows anti-malware will get rather upset with us.
-            using var stream = File.OpenRead(Path.Combine(SamplesPath, FileName ?? string.Empty));
-            return _inspector.DetermineFileFormat(stream);
+            using var stream = System.IO.File.OpenRead(Path.Combine(samplesPath, FileName));
+            return inspector.DetermineFileFormat(stream);
         }
     }
 }

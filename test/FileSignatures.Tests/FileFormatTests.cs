@@ -19,8 +19,7 @@ namespace FileSignatures.Tests
         [InlineData("")]
         public void MediaTypeCannotBeNullOrEmpty(string badMediaType)
         {
-            Assert.Throws<ArgumentNullException>(() =>
-                new ConcreteFileFormat(new byte[] { 0x01 }, badMediaType, "bad"));
+            Assert.Throws<ArgumentNullException>(() => new ConcreteFileFormat(new byte[] { 0x01 }, badMediaType, "bad"));
         }
 
         [Fact]
@@ -44,7 +43,7 @@ namespace FileSignatures.Tests
         [Fact]
         public void MatchesHeaderContainingSignature()
         {
-            var format = new ConcreteFileFormat(new byte[] { 0x6F, 0x3C }, "example/sim", string.Empty);
+            var format = new ConcreteFileFormat(new byte[] { 0x6F, 0x3C }, "example/sim", "");
             var header = new byte[] { 0x6F, 0x3c, 0xFF, 0xFA };
 
             using var ms = new MemoryStream(header);
@@ -56,7 +55,7 @@ namespace FileSignatures.Tests
         [Fact]
         public void MatchesSignatureAtOffsetPosition()
         {
-            var format = new OffsetFileFormat(new byte[] { 0x03, 0x04 }, "example/test", string.Empty, 2);
+            var format = new OffsetFileFormat(new byte[] { 0x03, 0x04 }, "example/test", "", 2);
             var header = new byte[] { 0x01, 0x02, 0x03, 0x04 };
 
             using var ms = new MemoryStream(header);
@@ -67,8 +66,8 @@ namespace FileSignatures.Tests
 
         private class OffsetFileFormat : FileFormat
         {
-            public OffsetFileFormat(byte[] signature, string mediaType, string extension, int offset)
-                : base(signature, mediaType, extension, offset)
+            public OffsetFileFormat(byte[] signature, string mediatType, string extension, int offset)
+                : base(signature, mediatType, extension, offset)
             {
             }
         }
@@ -78,7 +77,7 @@ namespace FileSignatures.Tests
         [InlineData(new byte[] { 0x3C, 0x6F })]
         public void DoesNotMatchDifferentHeader(byte[] header)
         {
-            var format = new ConcreteFileFormat(new byte[] { 0x6F, 0x3C }, "example/sim", string.Empty);
+            var format = new ConcreteFileFormat(new byte[] { 0x6F, 0x3C }, "example/sim", "");
 
             using var ms = new MemoryStream(header);
             var result = format.IsMatch(ms);
@@ -88,8 +87,7 @@ namespace FileSignatures.Tests
 
         private class ConcreteFileFormat : FileFormat
         {
-            public ConcreteFileFormat(byte[] signature, string mediaType, string extension)
-                : base(signature, mediaType, extension)
+            public ConcreteFileFormat(byte[] signature, string mediaType, string extension) : base(signature, mediaType, extension)
             {
             }
         }
