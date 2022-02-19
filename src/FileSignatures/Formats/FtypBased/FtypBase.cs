@@ -10,7 +10,7 @@ namespace FileSignatures.Formats.FtypBased
         private static readonly byte[] FTYP = { 0x66, 0x74, 0x79, 0x70 };
 
         protected FtypBase(byte[] signature, string mediaType, string extension)
-            : base(FTYP.Union(signature).ToArray(), mediaType, extension, 4)
+            : base(FTYP.Concat(signature).ToArray(), mediaType, extension, 4)
         {
         }
     }
