@@ -9,9 +9,7 @@ namespace FileSignatures.Tests
         [Fact]
         public void SignatureCannotBeNull()
         {
-#pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference type.
             Assert.Throws<ArgumentNullException>(() => new ConcreteFileFormat(null, "example/bad", "bad"));
-#pragma warning restore CS8625 // Cannot convert null literal to non-nullable reference type.
         }
 
         [Theory]
