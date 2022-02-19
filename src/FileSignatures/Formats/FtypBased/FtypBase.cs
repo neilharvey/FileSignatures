@@ -7,6 +7,9 @@ namespace FileSignatures.Formats.FtypBased
     /// </summary>
     public abstract class FtypBase : Video
     {
+        /// <summary>
+        /// ASCII: `ftyp`
+        /// </summary>
         private static readonly byte[] FTYP = { 0x66, 0x74, 0x79, 0x70 };
 
         protected FtypBase(byte[] signature, string mediaType, string extension)

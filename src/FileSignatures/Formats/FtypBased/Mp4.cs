@@ -5,6 +5,9 @@ namespace FileSignatures.Formats.FtypBased
     /// </summary>
     public abstract class Mp4 : FtypBase
     {
+        /// <summary>
+        /// ASCII: `MSNV`
+        /// </summary>
         private static readonly byte[] MP4 = { 0x4D, 0x53, 0x4E, 0x56 };
 
         public Mp4() : this(MP4)
