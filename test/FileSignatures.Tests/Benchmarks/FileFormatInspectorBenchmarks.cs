@@ -13,10 +13,8 @@ namespace FileSignatures.Tests.Benchmarks
 
         static FileFormatInspectorBenchmarks()
         {
-#nullable disable warnings
             var buildDirectoryPath = Path.GetDirectoryName(typeof(FunctionalTests).Assembly.Location);
-            samplesPath = Path.Combine(buildDirectoryPath ?? "", "Samples");
-#nullable enable warnings
+            samplesPath = Path.Combine(buildDirectoryPath, "Samples");
         }
 
         public FileFormatInspectorBenchmarks()
@@ -33,7 +31,7 @@ namespace FileSignatures.Tests.Benchmarks
 
             return samplesDirectory
                 .GetFiles()
-                .Where(x => x.LastWriteTime.Year == 2022)
+                //.Where(x => x.Extension == ".xls")
                 .Select(x => x.Name)
                 .ToList();
         }
@@ -43,7 +41,7 @@ namespace FileSignatures.Tests.Benchmarks
         {
             // We must open the stream as part of the benchmark because otherwise
             // Windows anti-malware will get rather upset with us.
-            using var stream = System.IO.File.OpenRead(Path.Combine(samplesPath, FileName));
+            using var stream = File.OpenRead(Path.Combine(samplesPath, FileName));
             return inspector.DetermineFileFormat(stream);
         }
     }
