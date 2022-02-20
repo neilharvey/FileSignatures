@@ -20,7 +20,7 @@ Create an instance of the FileFormatInspector class, then pass it a stream to yo
 ```cs
 var inspector = new FileFormatInspector();
 var format = inspector.DetermineFileFormat(stream);
-``` 
+```
 
 This will return a FileFormat instance which contains the signature and media type of the recognised format,
 or null if a matching format could not be determined.
@@ -40,7 +40,7 @@ var recognised = FileFormatLocator.GetFormats().OfType<Image>();
 var inspector = new FileFormatInspector(recognised);
 services.AddSingleton<IFileFormatInspector>(inspector);
 ```
-    
+
 In this example, only formats which derive from `Image` (jpg, tiff, bmp, etc.) will be detected.  Anything else will be ignored.
 
 ## How do I check for a type of file?
@@ -73,12 +73,14 @@ Currently, the following formats are built-in:
 
 | Name                       | Media-Type                                                                | Extension
 |----------------------------|---------------------------------------------------------------------------|--------
+| 3GPP                       | video/3gpp                                                                | .3gp
 | Bitmap                     | image/bitmap                                                              | .bmp
 | Excel                      | application/vnd.openxmlformats-officedocument.spreadsheetml.sheet         | .xlsx
 | Excel 97-2003              | application/vnd.ms-excel                                                  | .xls
-| Windows Executable         | application/octet-stream                                                  | .exe
+| Exe (Windows)              | application/octet-stream                                                  | .exe
 | GIF                        | image/gif                                                                 | .gif
 | JPEG                       | image/jpeg                                                                | .jpeg
+| MP4                        | video/mp4                                                                 | .mp4
 | Open Document Presentation | application/vnd.oasis.opendocument.presentationn                          | .odp
 | Open Document Spreadhseet  | application/vnd.oasis.opendocument.spreadsheet                            | .ods
 | Open Document Text         | application/vnd.oasis.opendocument.text                                   | .odt
@@ -87,10 +89,12 @@ Currently, the following formats are built-in:
 | PNG                        | image/png                                                                 | .png
 | PowerPoint                 | application/vnd.openxmlformats-officedocument.presentationml.presentation | .pptx
 | Powerpoint 97-2003         | application/vnd.ms-powerpoint                                             | .ppt
+| QuickTime                  | video/quicktime                                                           | .mov
 | Rich Text Format           | application/rtf                                                           | .rtf
 | TIFF                       | image/tiff                                                                | .tif
 | Visio                      | application/vnd.visio                                                     | .vsdx
 | Visio 97-2003              | application/vnd.visio                                                     | .vsd
+| Webp                       | image/webp                                                                | .webp
 | Word                       | application/vnd.openxmlformats-officedocument.wordprocessingml.document   | .docx
 | Word 97-2003               | application/msword                                                        | .doc
 | Xps                        | application/vnd.ms-xpsdocument                                            | .xps
@@ -102,7 +106,7 @@ Create a new class (or many classes) which inherit from `FileFormat` to implemen
 
 The `FileFormatLocator` class can be used to load all custom formats located within an assembly:
 
-```cs 
+```cs
 var assembly = typeof(CustomFileFormat).GetTypeInfo().Assembly;
 
 // Just the formats defined in the assembly containing CustomFileFormat
