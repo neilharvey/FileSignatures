@@ -42,8 +42,8 @@ namespace FileSignatures.Formats
         {
             if (file is ZipArchive archive)
             {
-                return archive.Entries.Any(e => e.FullName.StartsWith(_identifiableEntryFileName, StringComparison.OrdinalIgnoreCase));
-                //&& e.FullName.EndsWith(_identifiableEntryExtension, StringComparison.OrdinalIgnoreCase));
+                return archive.Entries.Any(e => e.FullName.StartsWith(_identifiableEntryFileName, StringComparison.OrdinalIgnoreCase)
+                && e.FullName.EndsWith(_identifiableEntryExtension, StringComparison.OrdinalIgnoreCase));
             }
             else
             {
