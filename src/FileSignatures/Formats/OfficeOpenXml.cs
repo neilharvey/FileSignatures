@@ -34,9 +34,14 @@ namespace FileSignatures.Formats
 
         public bool IsMatch(IDisposable? file)
         {
-            if(file is ZipArchive archive)
+            if (file is ZipArchive archive)
             {
-                return archive.Entries.Any(e => e.FullName.Equals(IdentifiableEntry, StringComparison.OrdinalIgnoreCase));
+                // Match archives which contain a non-standard version of the identifiable entry, e.g. document2.xml instead of document.xml.
+                var index = Math.Max(0, IdentifiableEntry.LastIndexOf('.'));     
+                var fileName = IdentifiableEntry.Substring(0, IdentifiableEntry.Length - index);
+                var extension = IdentifiableEntry.Substring(index); 
+                return archive.Entries.Any(e => e.FullName.StartsWith(fileName, StringComparison.OrdinalIgnoreCase)
+                        && e.FullName.EndsWith(extension, StringComparison.OrdinalIgnoreCase));
             }
             else
             {

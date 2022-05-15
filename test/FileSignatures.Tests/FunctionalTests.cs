@@ -16,6 +16,7 @@ namespace FileSignatures.Tests
         [InlineData("test.exif", "image/jpeg")]
         [InlineData("saved.msg", "application/vnd.ms-outlook")]
         [InlineData("dragndrop.msg", "application/vnd.ms-outlook")]
+        [InlineData("nonstandard.docx","application/vnd.openxmlformats-officedocument.wordprocessingml.document")]
         [InlineData("test.pdf", "application/pdf")]
         [InlineData("test.rtf", "application/rtf")]
         [InlineData("test.png", "image/png")]

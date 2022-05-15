@@ -1,5 +1,6 @@
 ﻿using FileSignatures.Formats;
 using System.IO;
+using System.IO.Compression;
 using Xunit;
 
 namespace FileSignatures.Tests.Formats
@@ -16,6 +17,31 @@ namespace FileSignatures.Tests.Formats
 
             Assert.NotNull(format);
             Assert.IsType<Zip>(format);
+        }
+
+        [Fact]
+        public void IdentifierWithoutExtensionDoesNotThrow()
+        {
+            var format = new TestOfficeOpenXml("test", "example/test", "test");
+
+            using var stream = new MemoryStream();
+            using(var createArchive = new ZipArchive(stream, ZipArchiveMode.Create, true))
+            {
+                createArchive.CreateEntry("test");
+            }
+
+            using var archive = new ZipArchive(stream, ZipArchiveMode.Read);
+
+            var result = format.IsMatch(archive);
+
+            Assert.True(result);
+        }
+
+        private class TestOfficeOpenXml : OfficeOpenXml
+        {
+            public TestOfficeOpenXml(string identifiableEntry, string mediaType, string extension) : base(identifiableEntry, mediaType, extension)
+            {
+            }
         }
     }
 }
