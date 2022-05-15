@@ -1,18 +1,12 @@
 version: '{build}'
 
-before_build:
-  - dotnet restore
+configuration: Release
 
-build_script:
-  - dotnet build src\FileSignatures -c Release
+build:
+  project: FileSignatures.sln
 
 after_build:
   - dotnet pack src\FileSignatures -c Release -o ..\..\artifacts
-
-test_script:
-  # Workaround until appveyor/ci#1404 is resolved
-  - cd test\FileSignatures.Tests
-  - dotnet test
 
 artifacts:
   - path: '.\artifacts\*.nupkg'
