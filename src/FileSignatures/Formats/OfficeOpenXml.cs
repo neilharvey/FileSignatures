@@ -10,9 +10,6 @@ namespace FileSignatures.Formats
     /// </summary>
     public abstract class OfficeOpenXml : Zip, IFileFormatReader
     {
-        private readonly string _identifiableEntryFileName;
-        private readonly string _identifiableEntryExtension;
-
         /// <summary>
         /// Initializes a new instance of the OfficeOpenXmlFormat class which matches an archive containing a unique entry.
         /// </summary>
@@ -27,9 +24,6 @@ namespace FileSignatures.Formats
             }
 
             IdentifiableEntry = identifiableEntry;
-            var index = IdentifiableEntry.LastIndexOf('.');            
-            _identifiableEntryFileName = IdentifiableEntry.Substring(0, IdentifiableEntry.Length - index);
-            _identifiableEntryExtension = IdentifiableEntry.Substring(index);
         }
 
         /// <summary>
@@ -42,8 +36,12 @@ namespace FileSignatures.Formats
         {
             if (file is ZipArchive archive)
             {
-                return archive.Entries.Any(e => e.FullName.StartsWith(_identifiableEntryFileName, StringComparison.OrdinalIgnoreCase)
-                && e.FullName.EndsWith(_identifiableEntryExtension, StringComparison.OrdinalIgnoreCase));
+                // Match archives which contain a non-standard version of the identifiable entry, e.g. document2.xml instead of document.xml.
+                var index = Math.Max(0, IdentifiableEntry.LastIndexOf('.'));     
+                var fileName = IdentifiableEntry.Substring(0, IdentifiableEntry.Length - index);
+                var extension = IdentifiableEntry.Substring(index); 
+                return archive.Entries.Any(e => e.FullName.StartsWith(fileName, StringComparison.OrdinalIgnoreCase)
+                        && e.FullName.EndsWith(extension, StringComparison.OrdinalIgnoreCase));
             }
             else
             {
