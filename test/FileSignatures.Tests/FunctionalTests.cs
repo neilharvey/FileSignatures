@@ -43,6 +43,9 @@ namespace FileSignatures.Tests
         [InlineData("test.mov", "video/quicktime")]
         [InlineData("test.3gp", "video/3gpp")]
         [InlineData("test.vcf", "text/vcard")]
+        [InlineData("test.mp3", "audio/mpeg")]
+        [InlineData("test.ogg", "audio/ogg")]
+        [InlineData("test.amr", "audio/amr")]
         public void SamplesAreRecognised(string sample, string expected)
         {
             var result = InspectSample(sample);
