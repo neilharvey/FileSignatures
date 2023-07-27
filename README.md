@@ -74,7 +74,7 @@ Currently, the following formats are built-in:
 | Name                       | Media-Type                                                                | Extension
 |----------------------------|---------------------------------------------------------------------------|--------
 | 3GPP                       | video/3gpp                                                                | .3gp
-| Bitmap                     | image/bitmap                                                              | .bmp
+| Bitmap                     | image/bmp                                                                 | .bmp
 | Excel                      | application/vnd.openxmlformats-officedocument.spreadsheetml.sheet         | .xlsx
 | Excel 97-2003              | application/vnd.ms-excel                                                  | .xls
 | Exe (Windows)              | application/octet-stream                                                  | .exe
