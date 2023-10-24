@@ -79,7 +79,7 @@ Currently, the following formats are built-in:
 | Excel 97-2003              | application/vnd.ms-excel                                                  | .xls
 | Exe (Windows)              | application/octet-stream                                                  | .exe
 | GIF                        | image/gif                                                                 | .gif
-| JPEG                       | image/jpeg                                                                | .jpeg
+| JPEG                       | image/jpeg                                                                | .jpg
 | MP4                        | video/mp4                                                                 | .mp4
 | Open Document Presentation | application/vnd.oasis.opendocument.presentationn                          | .odp
 | Open Document Spreadhseet  | application/vnd.oasis.opendocument.spreadsheet                            | .ods
