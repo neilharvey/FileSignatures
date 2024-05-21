@@ -18,6 +18,8 @@ namespace FileSignatures.Tests
         [InlineData("dragndrop.msg", "application/vnd.ms-outlook")]
         [InlineData("nonstandard.docx","application/vnd.openxmlformats-officedocument.wordprocessingml.document")]
         [InlineData("test.pdf", "application/pdf")]
+        [InlineData("test_header_somewhere_in_1024_first_bytes.pdf", "application/pdf")]
+        [InlineData("test_header_adobe.pdf", "application/pdf")]
         [InlineData("test.rtf", "application/rtf")]
         [InlineData("test.png", "image/png")]
         [InlineData("test.ppt", "application/vnd.ms-powerpoint")]
