@@ -13,13 +13,13 @@
     <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
     <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
     <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
-    <Version>4.4.1</Version>
+    <Version>4.5.0</Version>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <AssemblyVersion>4.4.1</AssemblyVersion>
+    <AssemblyVersion>4.5.0</AssemblyVersion>
     <LangVersion>Latest</LangVersion>
     <Nullable>enable</Nullable>
-    <FileVersion>4.4.1</FileVersion>
+    <FileVersion>4.5.0</FileVersion>
     <SignAssembly>True</SignAssembly>
     <AssemblyOriginatorKeyFile>..\..\FileSignatures.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
@@ -43,7 +43,7 @@
 
   <ItemGroup Condition="'$(TargetFramework)' == 'net452'">
     <PackageReference Include="OpenMcdf">
-      <Version>2.2.1.9</Version>
+      <Version>2.3.1</Version>
     </PackageReference>
   </ItemGroup>
 
