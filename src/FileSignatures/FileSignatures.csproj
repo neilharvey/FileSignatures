@@ -13,13 +13,13 @@
     <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
     <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
     <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
-    <Version>5.0.1</Version>
+    <Version>5.0.2</Version>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <AssemblyVersion>5.0.1</AssemblyVersion>
+    <AssemblyVersion>5.0.2</AssemblyVersion>
     <LangVersion>Latest</LangVersion>
     <Nullable>enable</Nullable>
-    <FileVersion>5.0.1</FileVersion>
+    <FileVersion>5.0.2</FileVersion>
     <SignAssembly>True</SignAssembly>
     <AssemblyOriginatorKeyFile>..\..\FileSignatures.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
