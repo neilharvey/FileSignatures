@@ -5,7 +5,7 @@
     /// </summary>
     public class Executable : FileFormat
     {
-        public Executable() : base(new byte[] { 0x4D, 0x5A }, "application/octet-stream", "exe")
+        public Executable() : base(new byte[] { 0x4D, 0x5A }, "application/vnd.microsoft.portable-executable", "exe")
         {
         }
     }
