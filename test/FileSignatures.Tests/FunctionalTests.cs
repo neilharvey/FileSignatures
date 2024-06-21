@@ -10,7 +10,7 @@ namespace FileSignatures.Tests
         [InlineData("test.bmp", "image/bmp")]
         [InlineData("test.doc", "application/msword")]
         [InlineData("test.docx", "application/vnd.openxmlformats-officedocument.wordprocessingml.document")]
-        [InlineData("test.exe", "application/octet-stream")]
+        [InlineData("test.exe", "application/vnd.microsoft.portable-executable")]
         [InlineData("test.gif", "image/gif")]
         [InlineData("test.jfif", "image/jpeg")]
         [InlineData("test.exif", "image/jpeg")]
