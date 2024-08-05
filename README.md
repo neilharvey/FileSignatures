@@ -1,6 +1,5 @@
 # FileSignatures
 
-[![build status](https://ci.appveyor.com/api/projects/status/github/neilharvey/filesignatures?svg=true)](https://ci.appveyor.com/project/neilharvey/filesignatures)
 [![nuget package](https://badge.fury.io/nu/FileSignatures.svg)](https://www.nuget.org/packages/FileSignatures)
 
 A small library for detecting the type of a file based on header signature (also known as magic number) rather than file extension.  It is designed with extensibility in mind, so that recognised formats can be added easily.
