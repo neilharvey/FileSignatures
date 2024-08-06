@@ -48,6 +48,7 @@ namespace FileSignatures.Tests
         [InlineData("test.mp3", "audio/mpeg")]
         [InlineData("test.ogg", "audio/ogg")]
         [InlineData("test.amr", "audio/amr")]
+        [InlineData("test.ico", "image/vnd.microsoft.icon")]
         public void SamplesAreRecognised(string sample, string expected)
         {
             var result = InspectSample(sample);
