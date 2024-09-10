@@ -35,6 +35,11 @@ namespace FileSignatures.Formats
         public string IdentifiableEntry { get; }
 
         /// <summary>
+        /// If this file exists in the zip file anywhere, it indicates that the office document supports macros
+        /// </summary>
+        public const string MacroIdentifiableEntry = "vbaProject.bin";
+
+        /// <summary>
         /// Should this match office files with macros, or ones without macros
         /// </summary>
         public bool MacroEnabled { get; }
@@ -59,8 +64,6 @@ namespace FileSignatures.Formats
                 return false;
             }
         }
-
-        public const string MacroIdentifiableEntry = "vbaProject.bin";
 
         public IDisposable? Read(Stream stream)
         {
