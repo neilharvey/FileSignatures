@@ -50,18 +50,17 @@ namespace FileSignatures.Formats
                 var matchesIdentifiableEntry = archive.Entries.Any(e => e.FullName.StartsWith(fileName, StringComparison.OrdinalIgnoreCase)
                         && e.FullName.EndsWith(extension, StringComparison.OrdinalIgnoreCase));
 
-                return matchesIdentifiableEntry && MacroEnabled == HasMacros(archive);
-            }
+                var hasMacros = archive.Entries.Any(e => e.FullName.EndsWith(MacroIdentifiableEntry, StringComparison.OrdinalIgnoreCase));
 
-            return false;
+                return matchesIdentifiableEntry && MacroEnabled == hasMacros;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         public const string MacroIdentifiableEntry = "vbaProject.bin";
-
-        private bool HasMacros(ZipArchive archive)
-        {
-            return archive.Entries.Any(e => e.FullName.EndsWith(MacroIdentifiableEntry, StringComparison.OrdinalIgnoreCase));
-        }
 
         public IDisposable? Read(Stream stream)
         {
