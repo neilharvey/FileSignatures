@@ -14,9 +14,10 @@ namespace FileSignatures.Formats
         /// Initializes a new instance of the OfficeOpenXmlFormat class which matches an archive containing a unique entry.
         /// </summary>
         /// <param name="identifiableEntry">The entry in the archive which is used to identify the format.</param>
+        /// <param name="macroEnabled">Should this match office files with macros, or ones without macros</param>
         /// <param name="mediaType">The media type of the format.</param>
         /// <param name="extension">The appropriate extension for the format.</param>
-        protected OfficeOpenXml(string identifiableEntry, string mediaType, string extension) : base(int.MaxValue, mediaType, extension)
+        protected OfficeOpenXml(string identifiableEntry, bool macroEnabled, string mediaType, string extension) : base(int.MaxValue, mediaType, extension)
         {
             if (string.IsNullOrEmpty(identifiableEntry))
             {
@@ -24,6 +25,7 @@ namespace FileSignatures.Formats
             }
 
             IdentifiableEntry = identifiableEntry;
+            MacroEnabled = macroEnabled;
         }
 
         /// <summary>
@@ -31,6 +33,11 @@ namespace FileSignatures.Formats
         /// </summary>
         /// <remarks>
         public string IdentifiableEntry { get; }
+
+        /// <summary>
+        /// Should this match office files with macros, or ones without macros
+        /// </summary>
+        public bool MacroEnabled { get; }
 
         public bool IsMatch(IDisposable? file)
         {
@@ -40,13 +47,20 @@ namespace FileSignatures.Formats
                 var index = Math.Max(0, IdentifiableEntry.LastIndexOf('.'));     
                 var fileName = IdentifiableEntry.Substring(0, IdentifiableEntry.Length - index);
                 var extension = IdentifiableEntry.Substring(index); 
-                return archive.Entries.Any(e => e.FullName.StartsWith(fileName, StringComparison.OrdinalIgnoreCase)
+                var matchesIdentifiableEntry = archive.Entries.Any(e => e.FullName.StartsWith(fileName, StringComparison.OrdinalIgnoreCase)
                         && e.FullName.EndsWith(extension, StringComparison.OrdinalIgnoreCase));
+
+                return matchesIdentifiableEntry && MacroEnabled == HasMacros(archive);
             }
-            else
-            {
-                return false;
-            }
+
+            return false;
+        }
+
+        public const string MacroIdentifiableEntry = "vbaProject.bin";
+
+        private bool HasMacros(ZipArchive archive)
+        {
+            return archive.Entries.Any(e => e.FullName.EndsWith(MacroIdentifiableEntry, StringComparison.OrdinalIgnoreCase));
         }
 
         public IDisposable? Read(Stream stream)
