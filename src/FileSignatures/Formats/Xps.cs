@@ -5,7 +5,7 @@
     /// </summary>
     public class Xps : OfficeOpenXml
     {
-        public Xps() : base("FixedDocSeq.fdseq", "application/vnd.ms-xpsdocument", "xps")
+        public Xps() : base("FixedDocSeq.fdseq", macroEnabled: false, "application/vnd.ms-xpsdocument", "xps")
         {
         }
     }
