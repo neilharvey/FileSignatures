@@ -52,6 +52,7 @@ namespace FileSignatures.Tests
         [InlineData("test.ogg", "audio/ogg")]
         [InlineData("test.amr", "audio/amr")]
         [InlineData("test.ico", "image/vnd.microsoft.icon")]
+        //[InlineData("malicious.pdf", "application/vnd.microsoft.portable-executable")]
         public void SamplesAreRecognised(string sample, string expected)
         {
             var result = InspectSample(sample);
@@ -63,14 +64,11 @@ namespace FileSignatures.Tests
         private static FileFormat InspectSample(string fileName)
         {
             var inspector = new FileFormatInspector();
-            var buildDirectoryPath = Path.GetDirectoryName(typeof(FunctionalTests).GetTypeInfo().Assembly.Location);
+            var buildDirectoryPath = Path.GetDirectoryName(typeof(FunctionalTests).GetTypeInfo().Assembly.Location)!;
             var sample = new FileInfo(Path.Combine(buildDirectoryPath, "Samples", fileName));
-            FileFormat result;
 
-            using (var stream = sample.OpenRead())
-            {
-                result = inspector.DetermineFileFormat(stream);
-            }
+            using var stream = sample.OpenRead();
+            var result = inspector.DetermineFileFormat(stream);
 
             return result;
         }
