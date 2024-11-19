@@ -11,19 +11,16 @@ public class AdobePdf : Pdf
     ])
     {
     }
-
-    protected override bool CompareFileByteToSignatureAt(byte fileByte, int signatureIndex)
+    
+    protected override bool IsSignatureByte(byte value, int signatureIndex)
     {
-        return base.CompareFileByteToSignatureAt(fileByte, signatureIndex) || IsVersionNumber(fileByte, Signature[signatureIndex]);
+        return IsVersionNumber(value, Signature[signatureIndex]) 
+               || base.IsSignatureByte(value, signatureIndex);
     }
 
-    private static bool IsVersionNumber(byte fileByte, byte signatureByte)
+    private static bool IsVersionNumber(byte value, byte signatureByte)
     {
-        return signatureByte == VersionNumberPlaceholder && IsNumber(fileByte);
-    }
-
-    private static bool IsNumber(byte @byte)
-    {
-        return @byte is >= 0x30 and <= 0x39;
+        var isNumber = value is >= 0x30 and <= 0x39;
+        return signatureByte == VersionNumberPlaceholder && isNumber;
     }
 }

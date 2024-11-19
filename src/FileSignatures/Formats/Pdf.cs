@@ -19,64 +19,34 @@ namespace FileSignatures.Formats
 
         public override bool IsMatch(Stream stream)
         {
-            if (stream == null || stream.Length < HeaderLength)
+            if (stream == null || (stream.Length < HeaderLength && HeaderLength < int.MaxValue) || Offset > stream.Length)
             {
                 return false;
             }
 
-            stream.Position = 0;
-            var signatureValidationIndex = 0;
-            int fileByte;
+            stream.Position = Offset;
 
-            while (stream.Position < MaxFileHeaderSize && (fileByte = stream.ReadByte()) != -1)
+            var signatureIndex = 0;
+            while (stream.Position < MaxFileHeaderSize && stream.Position < stream.Length)
             {
-                if (CompareFileByteToSignatureAt((byte)fileByte, signatureValidationIndex))
+                var b = (byte)stream.ReadByte();
+                if (IsSignatureByte(b, signatureIndex))
                 {
-                    signatureValidationIndex++;
+                    signatureIndex++;
                 }
                 else
                 {
-                    signatureValidationIndex = 0;
+                    signatureIndex = 0;
                 }
-
-                if (signatureValidationIndex == Signature.Count)
-                    return true;
+                
+                if (signatureIndex == Signature.Count)
+                    return true; 
             }
-
+            
             return false;
         }
 
-        protected virtual bool CompareFileByteToSignatureAt(byte fileByte, int signatureIndex)
-        {
-            return fileByte == Signature[signatureIndex];
-        }
-    }
-
-    public class AdobePdf : Pdf
-    {
-        private const byte VersionNumberPlaceholder = 0x00;
-
-        public AdobePdf() : base([
-            0x25, 0x21, 0x50, 0x53, 0x2D, 0x41, 0x64, 0x6F, 0x62, 0x65, 0x2D, VersionNumberPlaceholder, 0x2E,
-            VersionNumberPlaceholder, 0x20, 0x50, 0x44,
-            0x46, 0x2D, VersionNumberPlaceholder, 0x2E, VersionNumberPlaceholder
-        ])
-        {
-        }
-
-        protected override bool CompareFileByteToSignatureAt(byte fileByte, int signatureIndex)
-        {
-            return base.CompareFileByteToSignatureAt(fileByte, signatureIndex) || IsVersionNumber(fileByte, Signature[signatureIndex]);
-        }
-
-        private static bool IsVersionNumber(byte fileByte, byte signatureByte)
-        {
-            return signatureByte == VersionNumberPlaceholder && IsNumber(fileByte);
-        }
-
-        private static bool IsNumber(byte @byte)
-        {
-            return @byte is >= 0x30 and <= 0x39;
-        }
+        protected virtual bool IsSignatureByte(byte value, int signatureIndex)
+           => value == Signature[signatureIndex];
     }
 }

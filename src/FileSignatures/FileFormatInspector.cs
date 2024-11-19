@@ -57,12 +57,12 @@ namespace FileSignatures
                 RemoveBaseFormats(matches);
             }
 
-            if (matches.Count > 0)
+            if (matches.Count > 1)
             {
                 return matches.OrderByDescending(m => m.HeaderLength).First();
             }
 
-            return null;
+            return matches.Count == 1 ? matches[0] : null;
         }
 
         private List<FileFormat> FindMatchingFormats(Stream stream)
