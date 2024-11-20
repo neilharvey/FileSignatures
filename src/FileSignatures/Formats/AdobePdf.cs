@@ -1,3 +1,5 @@
+using System.IO;
+
 namespace FileSignatures.Formats;
 
 public class AdobePdf : Pdf
@@ -11,14 +13,35 @@ public class AdobePdf : Pdf
     ])
     {
     }
-    
-    protected override bool IsSignatureByte(byte value, int signatureIndex)
+
+    public override bool IsMatch(Stream stream)
     {
-        return IsVersionNumber(value, Signature[signatureIndex]) 
-               || base.IsSignatureByte(value, signatureIndex);
+        if (stream == null || (stream.Length < HeaderLength && HeaderLength < int.MaxValue) || Offset > stream.Length)
+        {
+            return false;
+        }
+
+        stream.Position = Offset;
+
+        for (var i = 0; i < Signature.Count; i++)
+        {
+            var b = stream.ReadByte();
+            if (!IsSignatureByte(b, i))
+            {
+                return false;
+            }
+        }
+
+        return true;
     }
 
-    private static bool IsVersionNumber(byte value, byte signatureByte)
+    protected bool IsSignatureByte(int value, int signatureIndex)
+    {
+        return IsVersionNumber(value, Signature[signatureIndex])
+               || value == Signature[signatureIndex];
+    }
+
+    private static bool IsVersionNumber(int value, byte signatureByte)
     {
         var isNumber = value is >= 0x30 and <= 0x39;
         return signatureByte == VersionNumberPlaceholder && isNumber;

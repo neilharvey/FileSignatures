@@ -19,8 +19,7 @@ namespace FileSignatures.Tests
         [InlineData("dragndrop.msg", "application/vnd.ms-outlook")]
         [InlineData("nonstandard.docx","application/vnd.openxmlformats-officedocument.wordprocessingml.document")]
         [InlineData("test.pdf", "application/pdf")]
-        [InlineData("test_header_somewhere_in_1024_first_bytes.pdf", "application/pdf")]
-        [InlineData("test_header_adobe.pdf", "application/pdf")]
+        [InlineData("adobe.pdf", "application/pdf")]
         [InlineData("test.rtf", "application/rtf")]
         [InlineData("test.png", "image/png")]
         [InlineData("test.ppt", "application/vnd.ms-powerpoint")]
@@ -52,7 +51,7 @@ namespace FileSignatures.Tests
         [InlineData("test.ogg", "audio/ogg")]
         [InlineData("test.amr", "audio/amr")]
         [InlineData("test.ico", "image/vnd.microsoft.icon")]
-        //[InlineData("malicious.pdf", "application/vnd.microsoft.portable-executable")]
+        [InlineData("malicious.pdf", "application/vnd.microsoft.portable-executable")]
         public void SamplesAreRecognised(string sample, string expected)
         {
             var result = InspectSample(sample);
