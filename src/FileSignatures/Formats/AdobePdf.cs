@@ -35,7 +35,7 @@ public class AdobePdf : Pdf
         return true;
     }
 
-    protected bool IsSignatureByte(int value, int signatureIndex)
+    private bool IsSignatureByte(int value, int signatureIndex)
     {
         return IsVersionNumber(value, Signature[signatureIndex])
                || value == Signature[signatureIndex];
