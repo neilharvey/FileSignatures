@@ -48,6 +48,18 @@ namespace FileSignatures
         /// <summary>
         /// Initializes a new instance of the FileFormat class which has the specified signature and media type.
         /// </summary>
+        /// <param name="signature">The header signature of the format in byte string</param>
+        /// <param name="headerLength">The number of bytes required to determine the format.</param>
+        /// <param name="mediaType">The media type of the format.</param>
+        /// <param name="extension">The appropriate file extension for the format.</param>
+        protected FileFormat(string signature, int headerLength, string mediaType, string extension)
+            : this (signature.Select(Convert.ToByte).ToArray(), headerLength, mediaType, extension, 0)
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the FileFormat class which has the specified signature and media type.
+        /// </summary>
         /// <param name="signature">The header signature of the format.</param>
         /// <param name="headerLength">The number of bytes required to determine the format.</param>
         /// <param name="mediaType">The media type of the format.</param>
