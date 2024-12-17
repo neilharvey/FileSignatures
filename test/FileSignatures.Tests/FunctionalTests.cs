@@ -33,7 +33,7 @@ namespace FileSignatures.Tests
         [InlineData("test.xlsm", "application/vnd.ms-excel.sheet.macroEnabled.12")]
         [InlineData("test.xps", "application/vnd.ms-xpsdocument")]
         [InlineData("test.zip", "application/zip")]
-        [InlineData("test.rar", "application/x-rar-compressed")]
+        [InlineData("test.rar", "application/vnd.rar")]
         [InlineData("test.dcm", "application/dicom")]
         [InlineData("test.odt", "application/vnd.oasis.opendocument.text")]
         [InlineData("test.ods", "application/vnd.oasis.opendocument.spreadsheet")]
@@ -49,12 +49,12 @@ namespace FileSignatures.Tests
         [InlineData("test.3gp", "video/3gpp")]
         [InlineData("test.vcf", "text/vcard")]
         [InlineData("test.mp3", "audio/mpeg")]
-        [InlineData("test.flac", "audio/x-flac")]
+        [InlineData("test.flac", "audio/flac")]
         [InlineData("test.ogg", "audio/ogg")]
         [InlineData("test.amr", "audio/amr")]
         [InlineData("test.ico", "image/vnd.microsoft.icon")]
         [InlineData("malicious.pdf", "application/vnd.microsoft.portable-executable")]
-        [InlineData("test.txt.gz", "application/x-gzip")]
+        [InlineData("test.txt.gz", "application/gzip")]
         [InlineData("archive.7z", "application/x-7z-compressed")]
         public void SamplesAreRecognised(string sample, string expected)
         {
