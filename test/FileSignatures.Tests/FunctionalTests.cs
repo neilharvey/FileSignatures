@@ -56,6 +56,7 @@ namespace FileSignatures.Tests
         [InlineData("malicious.pdf", "application/vnd.microsoft.portable-executable")]
         [InlineData("test.txt.gz", "application/gzip")]
         [InlineData("archive.7z", "application/x-7z-compressed")]
+        [InlineData("test.swf", "application/vnd.adobe.flash.movie")]
         public void SamplesAreRecognised(string sample, string expected)
         {
             var result = InspectSample(sample);
