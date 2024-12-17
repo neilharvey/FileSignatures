@@ -33,6 +33,7 @@ namespace FileSignatures.Tests
         [InlineData("test.xlsm", "application/vnd.ms-excel.sheet.macroEnabled.12")]
         [InlineData("test.xps", "application/vnd.ms-xpsdocument")]
         [InlineData("test.zip", "application/zip")]
+        [InlineData("test.rar", "application/x-rar-compressed")]
         [InlineData("test.dcm", "application/dicom")]
         [InlineData("test.odt", "application/vnd.oasis.opendocument.text")]
         [InlineData("test.ods", "application/vnd.oasis.opendocument.spreadsheet")]
