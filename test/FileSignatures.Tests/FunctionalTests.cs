@@ -48,6 +48,7 @@ namespace FileSignatures.Tests
         [InlineData("test.3gp", "video/3gpp")]
         [InlineData("test.vcf", "text/vcard")]
         [InlineData("test.mp3", "audio/mpeg")]
+        [InlineData("test.flac", "audio/x-flac")]
         [InlineData("test.ogg", "audio/ogg")]
         [InlineData("test.amr", "audio/amr")]
         [InlineData("test.ico", "image/vnd.microsoft.icon")]
