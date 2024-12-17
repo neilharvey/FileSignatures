@@ -52,6 +52,7 @@ namespace FileSignatures.Tests
         [InlineData("test.amr", "audio/amr")]
         [InlineData("test.ico", "image/vnd.microsoft.icon")]
         [InlineData("malicious.pdf", "application/vnd.microsoft.portable-executable")]
+        [InlineData("archive.7z", "application/x-7z-compressed")]
         public void SamplesAreRecognised(string sample, string expected)
         {
             var result = InspectSample(sample);
