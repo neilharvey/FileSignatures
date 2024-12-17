@@ -45,6 +45,7 @@ namespace FileSignatures.Tests
         [InlineData("test-v1.mp4", "video/mp4")]
         [InlineData("test.m4v", "video/mp4")]
         [InlineData("test.m4a", "audio/mp4")]
+        [InlineData("indiana.mid", "audio/mime")]
         [InlineData("test.mov", "video/quicktime")]
         [InlineData("test.3gp", "video/3gpp")]
         [InlineData("test.vcf", "text/vcard")]
