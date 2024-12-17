@@ -34,6 +34,7 @@ namespace FileSignatures.Tests
         [InlineData("test.xps", "application/vnd.ms-xpsdocument")]
         [InlineData("test.zip", "application/zip")]
         [InlineData("test.rar", "application/vnd.rar")]
+        [InlineData("test.tar", "application/x-tar")]
         [InlineData("test.dcm", "application/dicom")]
         [InlineData("test.odt", "application/vnd.oasis.opendocument.text")]
         [InlineData("test.ods", "application/vnd.oasis.opendocument.spreadsheet")]
