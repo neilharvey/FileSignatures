@@ -57,6 +57,7 @@ namespace FileSignatures.Tests
         [InlineData("test.txt.gz", "application/gzip")]
         [InlineData("archive.7z", "application/x-7z-compressed")]
         [InlineData("test.swf", "application/vnd.adobe.flash.movie")]
+        [InlineData("pikachu.wmf", "image/wmf")]
         public void SamplesAreRecognised(string sample, string expected)
         {
             var result = InspectSample(sample);
