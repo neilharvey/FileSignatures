@@ -60,6 +60,7 @@ namespace FileSignatures.Tests
         [InlineData("archive.7z", "application/x-7z-compressed")]
         [InlineData("test.swf", "application/vnd.adobe.flash.movie")]
         [InlineData("pikachu.wmf", "image/wmf")]
+        [InlineData("test.psd", "image/psd")]
         public void SamplesAreRecognised(string sample, string expected)
         {
             var result = InspectSample(sample);
