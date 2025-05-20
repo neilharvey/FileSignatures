@@ -8,7 +8,7 @@ namespace FileSignatures.Formats;
 /// </remarks>
 public class Midi: FileFormat
 {
-    public Midi() : base([(byte)'M',(byte)'T',(byte)'h',(byte)'d'], "audio/midi", "mid")
+    public Midi() : base([0x4D, 0x54, 0x68, 0x64], "audio/midi", "mid")
     {
     }
 }
