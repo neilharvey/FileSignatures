@@ -62,6 +62,7 @@ namespace FileSignatures.Tests
         [InlineData("test.swf", "application/vnd.adobe.flash.movie")]
         [InlineData("pikachu.wmf", "image/wmf")]
         [InlineData("test.psd", "image/vnd.adobe.photoshop")]
+        [InlineData("test.xlsb", "vnd.ms-excel.sheet.binary.macroEnabled.12")]
         public void SamplesAreRecognised(string sample, string expected)
         {
             var result = InspectSample(sample);
