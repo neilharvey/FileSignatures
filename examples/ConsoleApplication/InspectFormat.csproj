@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="FileSignatures" Version="5.1.0" />
+    <PackageReference Include="FileSignatures" Version="5.2.0-rc1" />
   </ItemGroup>
 
 </Project>
