@@ -5,7 +5,7 @@
     /// </summary>
     public class Dicom : FileFormat
     {
-        public Dicom() : base(new byte[] { 0x44, 0x49, 0x43, 0x4D }, "application/dicom", "dcm", 128)
+        public Dicom() : base([0x44, 0x49, 0x43, 0x4D], "application/dicom", "dcm", offset: 128)
         {
         }
     }

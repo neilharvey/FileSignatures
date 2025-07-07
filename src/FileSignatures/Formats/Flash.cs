@@ -5,7 +5,7 @@ namespace FileSignatures.Formats;
 /// </summary>
 public class Flash : FileFormat
 {
-    public Flash() : base([0x46, 0x4C, 0x56], 3, "video/x-flv", "flv")
+    public Flash() : base([0x46, 0x4C, 0x56], "video/x-flv", "flv")
     {
     }
 }

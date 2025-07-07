@@ -8,7 +8,7 @@ namespace FileSignatures.Formats
     /// </remarks>
     public class Webp : Image
     {
-        public Webp() : base([0x57, 0x45, 0x42, 0x50], "image/webp", "webp", 8)
+        public Webp() : base([0x57, 0x45, 0x42, 0x50], "image/webp", "webp", offset: 8)
         {
         }
     }

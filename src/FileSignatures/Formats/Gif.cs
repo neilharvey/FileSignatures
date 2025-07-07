@@ -5,7 +5,7 @@
     /// </summary>
     public class Gif : Image
     {
-        public Gif() : base(new byte[] { 0x47, 0x49, 0x46, 0x38 }, "image/gif", "gif")
+        public Gif() : base([0x47, 0x49, 0x46, 0x38], "image/gif", "gif")
         {
         }
     }

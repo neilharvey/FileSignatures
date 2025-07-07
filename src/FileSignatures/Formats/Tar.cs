@@ -9,7 +9,7 @@ namespace FileSignatures.Formats;
 /// </remarks>
 public class Tar : FileFormat
 {
-    public Tar() : base([0x75, 0x73, 0x74, 0x61, 0x72], "application/x-tar", "tar", 257)
+    public Tar() : base([0x75, 0x73, 0x74, 0x61, 0x72], "application/x-tar", "tar", offset: 257)
     {
     }
 }

@@ -13,7 +13,7 @@ public class Swf : FileFormat
 {
     private static readonly byte[] ValidLeadingBytes = [0x46, 0x43, 0x5A];
     
-    public Swf() : base([0x57, 0x53], 3, "application/vnd.adobe.flash.movie", "swf", 1)
+    public Swf() : base([0x57, 0x53], headerLength: 3, "application/vnd.adobe.flash.movie", "swf", offset: 1)
     {
     }
 

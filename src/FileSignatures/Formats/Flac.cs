@@ -5,7 +5,7 @@ namespace FileSignatures.Formats;
 /// </summary>
 public class Flac : FileFormat
 {
-    public Flac() : base([0x66, 0x4C, 0x61, 0x43], 4, "audio/flac", "flac")
+    public Flac() : base([0x66, 0x4C, 0x61, 0x43], "audio/flac", "flac")
     {
     }
 }
