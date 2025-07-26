@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
@@ -127,7 +127,7 @@ namespace FileSignatures
         /// Determines whether the object is equal to this FileFormat.
         /// </summary>
         /// <param name="obj">The object to compare.</param>
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
             return Equals(obj as FileFormat);
         }
