@@ -4,6 +4,10 @@ using System.Linq;
 using System.Reflection;
 using FileSignatures.Formats;
 
+#if NET5_0_OR_GREATER
+using System.Diagnostics.CodeAnalysis;
+#endif
+
 namespace FileSignatures
 {
     public static class FileFormatLocator
@@ -13,13 +17,16 @@ namespace FileSignatures
         /// </summary>
         public static IEnumerable<FileFormat> GetFormats()
         {
-            return GetFormats(typeof(FileFormatLocator).GetTypeInfo().Assembly);
+            return GetBuiltInFormats();
         }
 
         /// <summary>
         /// Returns all the concrete <see cref="FileFormat"/> types found in the specified assembly.
         /// </summary>
         /// <param name="assembly">The assembly which contains the file format definitions.</param>
+#if NET5_0_OR_GREATER
+        [RequiresUnreferencedCode("This method uses reflection to scan for FileFormat types. For AOT compatibility, consider using GetFormats() without parameters for built-in formats, or manually register your custom formats.")]
+#endif
         public static IEnumerable<FileFormat> GetFormats(Assembly assembly)
         {
             if(assembly == null)
@@ -33,13 +40,8 @@ namespace FileSignatures
                 return GetBuiltInFormats();
             }
 
-            // For external assemblies, fall back to reflection (with trimming warnings)
-            return assembly.GetTypes()
-                 .Where(t => typeof(FileFormat).IsAssignableFrom(t))
-                 .Where(t => !t.GetTypeInfo().IsAbstract)
-                 .Where(t => t.GetConstructors().Any(c => c.GetParameters().Length == 0))
-                 .Select(t => Activator.CreateInstance(t))
-                 .OfType<FileFormat>();
+            // For external assemblies, use reflection (with appropriate attributes for trimming analysis)
+            return GetFormatsUsingReflection(assembly);
         }
 
         /// <summary>
@@ -47,6 +49,9 @@ namespace FileSignatures
         /// </summary>
         /// <param name="assembly">The assembly which contains the file format definitions.</param>
         /// <param name="includeDefaults">Whether to include the default format definitions with the results from the external assembly.</param>
+#if NET5_0_OR_GREATER
+        [RequiresUnreferencedCode("This method uses reflection to scan for FileFormat types. For AOT compatibility, consider using GetFormats() without parameters for built-in formats, or manually register your custom formats.")]
+#endif
         public static IEnumerable<FileFormat> GetFormats(Assembly assembly, bool includeDefaults)
         {
             var formatsInAssembly = GetFormats(assembly);
@@ -60,6 +65,23 @@ namespace FileSignatures
                 var formatsThisAssembly = GetFormats();
                 return formatsInAssembly.Union(formatsThisAssembly);
             }
+        }
+
+        /// <summary>
+        /// Uses reflection to discover FileFormat types in an assembly.
+        /// This method is marked with appropriate attributes for trimming analysis.
+        /// </summary>
+#if NET5_0_OR_GREATER
+        [RequiresUnreferencedCode("This method uses reflection to scan for FileFormat types which may be trimmed.")]
+#endif
+        private static IEnumerable<FileFormat> GetFormatsUsingReflection(Assembly assembly)
+        {
+            return assembly.GetTypes()
+                 .Where(t => typeof(FileFormat).IsAssignableFrom(t))
+                 .Where(t => !t.GetTypeInfo().IsAbstract)
+                 .Where(t => t.GetConstructors().Any(c => c.GetParameters().Length == 0))
+                 .Select(t => Activator.CreateInstance(t))
+                 .OfType<FileFormat>();
         }
 
         /// <summary>
