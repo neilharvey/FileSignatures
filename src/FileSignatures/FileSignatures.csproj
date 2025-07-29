@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Description>A small library for detecting the type of a file based on header signature (also known as magic number) rather than file extension.</Description>
     <Authors>Neil Harvey</Authors>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFrameworks>netstandard2.0;netstandard2.1;net8.0;net9.0</TargetFrameworks>
     <AssemblyName>FileSignatures</AssemblyName>
     <PackageId>FileSignatures</PackageId>
     <PackageTags>File Format;Mime Type;Media Type;Header;Signature;Detection</PackageTags>
@@ -22,6 +22,7 @@
     <FileVersion>5.2.0</FileVersion>
     <SignAssembly>True</SignAssembly>
     <AssemblyOriginatorKeyFile>..\..\FileSignatures.snk</AssemblyOriginatorKeyFile>
+    <IsAotCompatible Condition="$([MSBuild]::IsTargetFrameworkCompatible('$(TargetFramework)', 'net7.0'))">true</IsAotCompatible>
   </PropertyGroup>
 
   <ItemGroup>
