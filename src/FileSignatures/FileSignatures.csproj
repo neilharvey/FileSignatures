@@ -13,13 +13,13 @@
     <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
     <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
     <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
-    <Version>5.2.0</Version>
+    <Version>5.3.0</Version>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <AssemblyVersion>5.2.0</AssemblyVersion>
+    <AssemblyVersion>5.3.0</AssemblyVersion>
     <LangVersion>Latest</LangVersion>
     <Nullable>enable</Nullable>
-    <FileVersion>5.2.0</FileVersion>
+    <FileVersion>5.3.0</FileVersion>
     <SignAssembly>True</SignAssembly>
     <AssemblyOriginatorKeyFile>..\..\FileSignatures.snk</AssemblyOriginatorKeyFile>
     <IsAotCompatible Condition="$([MSBuild]::IsTargetFrameworkCompatible('$(TargetFramework)', 'net7.0'))">true</IsAotCompatible>
