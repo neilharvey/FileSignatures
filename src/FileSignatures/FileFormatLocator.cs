@@ -147,6 +147,7 @@ namespace FileSignatures
                 new Word(),
                 new WordLegacy(),
                 new WordWithMacros(),
+                new WordTemplate(),
                 new Xps(),
                 new Zip()
             };

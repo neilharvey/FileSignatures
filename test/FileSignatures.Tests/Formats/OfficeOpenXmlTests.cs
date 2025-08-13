@@ -34,7 +34,7 @@ namespace FileSignatures.Tests.Formats
 
             var result = format.IsMatch(archive);
 
-            Assert.True(result);
+            Assert.True(result); 
         }
 
         private class TestOfficeOpenXml : OfficeOpenXml

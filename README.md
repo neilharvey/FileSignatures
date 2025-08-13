@@ -95,6 +95,7 @@ Currently, the following formats are built-in:
 | Visio 97-2003              | application/vnd.visio                                                     | .vsd
 | Webp                       | image/webp                                                                | .webp
 | Word                       | application/vnd.openxmlformats-officedocument.wordprocessingml.document   | .docx
+| Word template              | application/vnd.openxmlformats-officedocument.wordprocessingml.template    | .dotx
 | Word 97-2003               | application/msword                                                        | .doc
 | Xps                        | application/vnd.ms-xpsdocument                                            | .xps
 | Zip                        | application/zip                                                           | .zip
