@@ -5,8 +5,8 @@
     /// </summary>
     public class PowerPoint : OfficeOpenXml
     {
-        public PowerPoint() : base("ppt/presentation.xml", macroEnabled: false, "application/vnd.openxmlformats-officedocument.presentationml.presentation", "pptx")
-        {
-        }
+        public PowerPoint() : base("ppt/presentation.xml", "application/vnd.openxmlformats-officedocument.presentationml.presentation", "pptx") { }
+
+        protected PowerPoint(string identifiableEntry, string mediaType, string extension, string contentTypeOverride) : base(identifiableEntry, mediaType, extension, contentTypeOverride) { }
     }
 }

@@ -8,7 +8,7 @@
 /// </remarks>
 public class ExcelBinary : OfficeOpenXml
 {
-    public ExcelBinary() : base("xl/workbook.bin", macroEnabled: false, "vnd.ms-excel.sheet.binary.macroEnabled.12", "xlsb")
+    public ExcelBinary() : base("xl/workbook.bin", "vnd.ms-excel.sheet.binary.macroEnabled.12", "xlsb")
     {
     }
 }

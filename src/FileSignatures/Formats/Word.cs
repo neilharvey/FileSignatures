@@ -5,8 +5,8 @@
     /// </summary>
     public class Word : OfficeOpenXml
     {
-        public Word() : base("word/document.xml", macroEnabled: false, "application/vnd.openxmlformats-officedocument.wordprocessingml.document", "docx")
-        {
-        }
+        public Word() : base("word/document.xml", "application/vnd.openxmlformats-officedocument.wordprocessingml.document", "docx") { }
+
+        protected Word(string identifiableEntry, string mediaType, string extension, string contentTypeOverride) : base(identifiableEntry, mediaType, extension, contentTypeOverride) { }
     }
 }

@@ -22,7 +22,7 @@ namespace FileSignatures.Tests.Formats
         [Fact]
         public void IdentifierWithoutExtensionDoesNotThrow()
         {
-            var format = new TestOfficeOpenXml("test", macroEnabled: false, "example/test", "test");
+            var format = new TestOfficeOpenXml("test", "example/test", "test");
 
             using var stream = new MemoryStream();
             using(var createArchive = new ZipArchive(stream, ZipArchiveMode.Create, true))
@@ -39,7 +39,7 @@ namespace FileSignatures.Tests.Formats
 
         private class TestOfficeOpenXml : OfficeOpenXml
         {
-            public TestOfficeOpenXml(string identifiableEntry, bool macroEnabled, string mediaType, string extension) : base(identifiableEntry, macroEnabled, mediaType, extension)
+            public TestOfficeOpenXml(string identifiableEntry, string mediaType, string extension) : base(identifiableEntry, mediaType, extension)
             {
             }
         }
