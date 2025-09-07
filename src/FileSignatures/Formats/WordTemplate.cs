@@ -11,7 +11,7 @@ namespace FileSignatures.Formats
     ///// <summary>
     ///// Specifies the format of a Word template file (dotx).
     ///// </summary>
-    public class WordTemplate : OfficeOpenXml, IFileFormatReader
+    public class WordTemplate : OfficeOpenXml
     {
         public WordTemplate() : base(
             "word/document.xml", 
