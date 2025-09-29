@@ -1,10 +1,10 @@
-﻿using FileSignatures;
-using FileSignatures.Formats;
-using System;
+﻿using System;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
 using System.Xml.Linq;
+
+namespace FileSignatures.Formats;
 
 public abstract class OfficeOpenXml : Zip, IFileFormatReader
 {
