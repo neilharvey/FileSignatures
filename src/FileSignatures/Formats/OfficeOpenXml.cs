@@ -6,6 +6,9 @@ using System.Xml.Linq;
 
 namespace FileSignatures.Formats;
 
+/// <summary>
+/// Specifies the format of an Office Open XML file.
+/// </summary>
 public abstract class OfficeOpenXml : Zip, IFileFormatReader
 {
     /// <summary>
