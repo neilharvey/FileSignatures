@@ -8,7 +8,7 @@ namespace FileSignatures.Formats;
 /// </remarks>
 public class Mkv : FileFormat
 {
-    public Mkv() : base([0x1A, 0x45, 0xD5, 0xA3], "video/x-matroska", "mkv")
+    public Mkv() : base([0x1A, 0x45, 0xDF, 0xA3], "video/x-matroska", "mkv")
     {
     }
 }
