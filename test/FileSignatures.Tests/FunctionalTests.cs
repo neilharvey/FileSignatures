@@ -65,6 +65,16 @@ namespace FileSignatures.Tests
         [InlineData("test.wmf", "image/wmf")]
         [InlineData("test.psd", "image/vnd.adobe.photoshop")]
         [InlineData("test.xlsb", "vnd.ms-excel.sheet.binary.macroEnabled.12")]
+        [InlineData("test.mkv", "video/x-matroska")]
+        [InlineData("test.avi", "video/x-msvideo")]
+        [InlineData("test.wmv", "video/x-ms-wmv")]
+        [InlineData("test.dwg", "image/vnd.dwg")]
+        [InlineData("test.aiff", "audio/aiff")]
+        [InlineData("test.cab", "application/vnd.ms-cab-compressed")]
+        [InlineData("test.mdb", "application/x-msaccess")]
+        [InlineData("test.accdb", "application/x-msaccess")]
+        [InlineData("test.pst", "application/vnd.ms-outlook-pst")]
+        [InlineData("test.chm", "application/vnd.ms-htmlhelp")]
         public void SamplesAreRecognised(string sample, string expected)
         {
             var result = InspectSample(sample);
