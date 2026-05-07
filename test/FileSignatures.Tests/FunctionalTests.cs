@@ -68,6 +68,7 @@ namespace FileSignatures.Tests
         [InlineData("test.mkv", "video/x-matroska")]
         [InlineData("test.avi", "video/x-msvideo")]
         [InlineData("test.wmv", "video/x-ms-wmv")]
+        [InlineData("test.wasm", "application/wasm")]
         [InlineData("test.dwg", "image/vnd.dwg")]
         [InlineData("test.aiff", "audio/aiff")]
         [InlineData("test.cab", "application/vnd.ms-cab-compressed")]
