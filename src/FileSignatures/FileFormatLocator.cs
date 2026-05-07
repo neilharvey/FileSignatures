@@ -109,6 +109,7 @@ namespace FileSignatures
                 new ExcelLegacy(),
                 new ExcelWithMacros(),
                 new Executable(),
+                new ElfExecutable(),
                 new Flac(),
                 new Flash(),
                 new Gif(),

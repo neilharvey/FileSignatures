@@ -12,6 +12,7 @@ namespace FileSignatures.Tests
         [InlineData("test.docx", "application/vnd.openxmlformats-officedocument.wordprocessingml.document")]
         [InlineData("test.docm", "application/vnd.ms-word.document.macroEnabled.12")]
         [InlineData("test.exe", "application/vnd.microsoft.portable-executable")]
+        [InlineData("test_elf", "application/x-elf")]
         [InlineData("test.gif", "image/gif")]
         [InlineData("test.jfif", "image/jpeg")]
         [InlineData("test.exif", "image/jpeg")]
