@@ -1,13 +1,23 @@
 using System;
 using System.IO;
 using System.Text;
-using FileSignatures;
 
+namespace FileSignatures.Formats;
+
+/// <summary>
+/// Extensible Binary Meta Language (EBML) format.
+/// </summary>
 public abstract class Ebml : FileFormat, IFileFormatReader
 {
     private const long EbmlHeaderId = 0x1A45DFA3;
     private const long DocTypeId = 0x4282;
 
+    /// <summary>
+    /// Initialises a new EBML container format.
+    /// </summary>
+    /// <param name="docType">The doctype in the EBML header to match.</param>
+    /// <param name="mediaType">The media type of the format.</param>
+    /// <param name="extension">The appropriate file extension for the format.</param>
     protected Ebml(string docType, string mediaType, string extension) : base([0x1A, 0x45, 0xDF, 0xA3], headerLength: 4, mediaType, extension)
     {
         DocType = docType;
@@ -43,7 +53,7 @@ public abstract class Ebml : FileFormat, IFileFormatReader
 
     public bool IsMatch(IDisposable? file)
     {
-        if(file is not EbmlHeader header)
+        if (file is not EbmlHeader header)
         {
             return false;
         }
@@ -106,7 +116,6 @@ public abstract class Ebml : FileFormat, IFileFormatReader
 
         return null;
     }
-
 
     private static ulong ReadVInt(
         Stream stream,
