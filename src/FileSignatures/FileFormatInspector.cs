@@ -86,7 +86,10 @@ namespace FileSignatures
 
                 if(readers.Any())
                 {
+                    // Optimisation: Since all candidates share the same base signature, 
+                    // we only read the content once and reuse it for all candidates.
                     using var file = readers[0].Read(stream);
+
                     foreach(var reader in readers)
                     {
                         if (!reader.IsMatch(file))

@@ -4,11 +4,11 @@ namespace FileSignatures.Formats;
 /// Specifies the format of a Matroska video file.
 /// </summary>
 /// <remarks>
-/// See https://www.iana.org/assignments/media-types/video/x-matroska
+/// See https://www.iana.org/assignments/media-types/video/matroska
 /// </remarks>
-public class Mkv : FileFormat
+public class Mkv : Ebml
 {
-    public Mkv() : base([0x1A, 0x45, 0xDF, 0xA3], "video/x-matroska", "mkv")
+    public Mkv() : base("matroska", "video/matroska", "mkv")
     {
     }
 }

@@ -154,6 +154,7 @@ namespace FileSignatures
                 new Visio(),
                 new VisioLegacy(),
                 new Wasm(),
+                new WebM(),
                 new Webp(),
                 new Wmf(),
                 new Wmv(),
