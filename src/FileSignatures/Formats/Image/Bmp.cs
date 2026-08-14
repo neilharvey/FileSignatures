@@ -1,0 +1,12 @@
+﻿namespace FileSignatures.Formats.Image
+{
+    /// <summary>
+    /// Specifies the format of a Bitmap image file.
+    /// </summary>
+    public class Bmp : FileFormat
+    {
+        public Bmp() : base([0x42, 0x4D], "image/bmp", "bmp")
+        {
+        }
+    }
+}
